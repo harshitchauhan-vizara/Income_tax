@@ -1,0 +1,97 @@
+================================================================================
+PROMPT LOG — 2026-03-16T15:49:15.933457
+================================================================================
+
+[SYSTEM]
+You are TaxBot — India's Income Tax AI assistant.
+
+IDENTITY (absolute):
+- Name: TaxBot. Never say GPT, Claude, Gemini, Google, OpenAI, or any other model.
+- If asked "who are you": say "I am TaxBot, an AI assistant for Indian income tax."
+- In Hindi: "मैं TaxBot हूँ — भारतीय आयकर का AI सहायक।"
+
+LANGUAGE RULE (highest priority):
+- REPLY LANGUAGE = EN → every sentence in English only.
+- REPLY LANGUAGE = HI → every sentence in Hindi (Devanagari) only.
+- Judge by user's script: Latin letters → English. Devanagari → Hindi.
+- Never mix languages. Never use Tamil or any other language.
+
+ROUTING:
+- INCOME TAX QUERY → answer from the KNOWLEDGE BASE provided in the user message.
+- GENERAL QUERY → answer from web search results in CONTEXT, or own knowledge.
+- Never refuse a general question. Never redirect general questions to tax portals.
+
+FORMAT:
+- Answer first — lead with the direct answer, no preamble.
+- Plain prose only. No markdown tables. No pipe characters (|).
+- Use ₹ and lakh/crore notation.
+- For tax calculations: state the answer, show working in 2-3 sentences, compare regimes, end with https://www.incometax.gov.in
+- Max 3-4 lines for any summary. Never repeat what was already said.
+- No filler: no "Great question", "As an AI", "Certainly!", "Based on context".
+
+----------------------------------------
+
+[USER]
+REPLY LANGUAGE: EN
+The user wrote in English — reply in English ONLY. Your ENTIRE response must be in that language only.
+
+QUERY TYPE: INCOME TAX QUERY
+
+--- CONTEXT ---
+=== PRE-COMPUTED TAX CALCULATION — USE THESE EXACT NUMBERS ===
+Input: Gross Salary = ₹15,00,000
+
+── NEW TAX REGIME (Default) ──
+  Gross Income          : ₹15,00,000
+  Less Standard Dedn    : ₹75,000
+  Taxable Income        : ₹14,25,000
+  Tax Computation:
+    ₹3,00,000 to ₹7,00,000 @ 5% = ₹20,000
+    ₹7,00,000 to ₹10,00,000 @ 10% = ₹30,000
+    ₹10,00,000 to ₹12,00,000 @ 15% = ₹30,000
+    ₹12,00,000 to ₹14,25,000 @ 20% = ₹45,000
+  Gross Tax             : ₹1,25,000
+  Tax after Rebate      : ₹1,25,000
+  Add 4% Cess           : ₹5,000
+  *** TOTAL TAX         : ₹1,30,000 ***
+  Effective Rate        : 9.12%
+
+── OLD TAX REGIME (Optional, must be chosen) ──
+  Gross Income          : ₹15,00,000
+  Less Standard Dedn    : ₹50,000
+  Taxable Income        : ₹14,50,000
+  Tax Computation:
+    ₹2,50,000 to ₹5,00,000 @ 5% = ₹12,500
+    ₹5,00,000 to ₹10,00,000 @ 20% = ₹1,00,000
+    ₹10,00,000 to ₹14,50,000 @ 30% = ₹1,35,000
+  Gross Tax             : ₹2,47,500
+  Tax after Rebate      : ₹2,47,500
+  Add 4% Cess           : ₹9,900
+  *** TOTAL TAX         : ₹2,57,400 ***
+  Effective Rate        : 17.75%
+
+── VERDICT: New Regime saves ₹1,27,400 more tax ──
+=== END OF PRE-COMPUTED CALCULATION ===
+
+[RELEVANT KNOWLEDGE BASE]
+[NEW TAX REGIME (DEFAULT — no action needed)]
+Slabs:
+  Up to ₹3,00,000         → NIL
+  ₹3,00,001 – ₹7,00,000   → 5%
+  ₹7,00,001 – ₹10,00,000  → 10%
+  ₹10,00,001 – ₹12,00,000 → 15%
+  ₹12,00,001 – ₹15,00,000 → 20%
+  Above ₹15,00,000         → 30%
+Standard deduction for salaried: ₹75,000
+Section 87A rebate: Full rebate up to ₹25,000 if taxable income ≤ ₹7,00,000 → NET TAX = ₹0
+Marginal relief: If income just crosses ₹7L, total tax cannot exceed (income − ₹7L)
+Cess: 4% on tax after rebate (if tax = 0, cess = 0)
+--- END CONTEXT ---
+
+User Question: If my salary is 15 lakh, then how much tax I have to pay?
+
+• A PRE-COMPUTED TAX CALCULATION is provided. Use EXACTLY those numbers. Show step-by-step for BOTH regimes. State winner clearly.
+• Language is EN. Every sentence must be in English — reply in English ONLY. If REPLY LANGUAGE is EN, write in English regardless of any other text in this message.
+• Answer directly. No XML. No tables. No pipes (|). No meta-commentary.
+
+----------------------------------------

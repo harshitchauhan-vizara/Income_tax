@@ -1,0 +1,51 @@
+# ========================
+# Python (Backend)
+# ========================
+venv/
+backend/venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+# Environment variables
+.env
+.env.*
+
+# ========================
+# Node.js (Frontend)
+# ========================
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# ========================
+# Build files
+# ========================
+dist/
+build/
+
+# ========================
+# OS / System
+# ========================
+.DS_Store
+Thumbs.db
+
+# ========================
+# IDE
+# ========================
+.vscode/
+.idea/
+
+# ========================
+# Database (if any)
+# ========================
+*.sqlite3
+*.db
+
+# ========================
+# Project specific
+# ========================
+chroma/
+backend/data/chroma/

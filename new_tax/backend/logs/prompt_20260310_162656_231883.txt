@@ -1,0 +1,688 @@
+================================================================================
+PROMPT LOG - 2026-03-10T16:26:56.231883
+================================================================================
+
+[SYSTEM]
+You are "Chennai Police Chatbot", the official AI-powered public assistance assistant for Chennai Police.
+
+CORE IDENTITY:
+- You are a professional, calm, and authoritative digital public service officer.
+- You represent integrity, clarity, responsibility, and public safety.
+- Be as succint as possible with answer less than 100 words
+
+COMMUNICATION STYLE:
+- Speak clearly and respectfully.
+- Use simple, easy-to-understand language.
+- Avoid slang, jokes, or casual tone.
+- Do not speculate or guess.
+- Do not provide legal advice beyond public information.
+
+LANGUAGE HANDLING:
+- Respond in the same language as the user (English, Hindi, or Tamil).
+- If user mixes languages, respond in the dominant language.
+- Maintain formal tone in all languages.
+
+BEHAVIOR RULES:
+1. Always prioritize public safety.
+2. Provide step-by-step guidance where applicable.
+3. Encourage official reporting channels when necessary.
+4. If emergency is clearly implied (crime in progress, immediate danger, injury, threat), immediately include exactly:
+   "If this is an emergency, please call 100 immediately."
+
+KNOWLEDGE RULE:
+- Answer strictly from provided context.
+- Do not invent policies, phone numbers, or procedures.
+- If information is not available in context, say exactly:
+  "I do not have that information at the moment. Please contact the nearest police station or official helpline."
+
+EMPATHY GUIDELINE:
+- Acknowledge concerns politely when appropriate.
+
+FORMAT GUIDELINE:
+- Use short paragraphs.
+- Use bullet points for procedures.
+- Keep responses structured and easy to read.
+- Keep answers concise and specific to the user question.
+- Do not add unrelated notes.
+- For FAQ/procedural queries, return only the relevant steps from context.
+- Avoid filler phrasing such as: "Based on context", "It seems", or "Analysis".
+
+BOUNDARIES:
+- You are not a lawyer, judge, emergency substitute, or direct complaint registration authority.
+- You are a digital public information assistant and guide to official procedures.
+
+----------------------------------------
+
+[USER]
+Context:
+[Source: system_seed]
+No knowledge files are loaded yet. Upload data to backend/data/knowledge as .txt or .md files for RAG responses.
+
+[FAQ Reference - QnA.md]
+# FAQs – Tamil Nadu Police Citizen Portal
+
+## 1. What exactly is the TN Police Citizen Portal?
+Think of the portal as your virtual police station. It's an online platform created by the Tamil Nadu Police under the CCTNS initiative that lets you handle a lot of common police-related tasks right from your computer or phone. Instead of traveling to a station and waiting in line, you can use the site to file minor complaints, download documents, and track cases.
+
+## 2. What kind of services can I actually access here?
+You can do quite a bit! The most popular features include registering online complaints, downloading copies of FIRs, reporting lost documents like IDs or vehicle papers, and downloading road accident documents for insurance. You can also track the status of stolen vehicles, search for missing persons, and apply for police verification certificates.
+
+## 3. How do I sign up or register to use the portal?
+It's pretty straightforward. When you want to use a specific service, like registering a complaint, the system will usually ask you to provide basic details like your name, mobile number, and email. You'll authenticate yourself using an OTP sent to your phone, which helps keep the platform secure and ensures genuine requests.
+
+## 4. Is there a mobile app I can use instead of the website?
+Yes, there is! If you prefer using your phone, you can download the official "TN Police Citizen Services" app from the Google Play Store. It has the same core features as the website, so you can easily file complaints, check your FIR status, or report a lost document while you're on the go.
+
+## 5. Can I use the portal in Tamil instead of English?
+Absolutely. The portal is fully bilingual, meaning you can easily switch the language between Tamil and English. Just look for the language toggle option at the top of the webpage to choose whichever one you're most comfortable navigating.
+
+## 6. Are all the services on this website completely free?
+Most of them are totally free! You won't pay a dime to register a complaint, check an FIR status, or search for a missing person. However, a few specific services do have a nominal fee. For instance, generating a Lost Document Report costs Rs. 50, and paying your traffic challans obviously involves paying the fine amount.
+
+## 7. What kind of complaints can I file online?
+The online complaint system is meant for non-emergency situations and minor issues. You can use it to report things like public nuisances, minor disputes, lost property, or non-cognizable offenses. Basically, if it's not a violent crime and no one is in immediate danger, you can start the process here.
+
+## 8. Can I report emergencies or serious crimes through the website?
+No, please don't use the portal for that. If you are facing an emergency, witnessing a serious crime like an assault or robbery, or if someone's life is in danger, you should immediately call 100 or 112, or rush to the nearest police station. The portal is not monitored for real-time dispatch.
+
+## 9. How do I go about registering a complaint online?
+Just click on "Register Online Complaints" on the homepage. You'll be asked to fill out a simple form with your personal details, the date and time the incident happened, and a brief description of what occurred. Once you submit it, the system will give you a reference number so you can track its progress later.
+
+## 10. Can I upload photos or evidence when I submit my complaint?
+Yes, you can. The complaint form usually includes an option to upload supporting documents. If you have photos of minor property damage, a written letter, or any other digital files that help explain your situation, attaching them can really help the police understand the context of your complaint.
+
+## 11. How do I figure out which police station to select?
+You should choose the police station that covers the specific area where the incident actually took place. If you're not entirely sure, try to select the district and the closest known station to the location. The police department will review it, and they can route it to the correct jurisdiction if needed.
+
+## 12. Will I get an alert or SMS when my complaint is submitted?
+Yes, once you successfully submit your complaint, you will receive an automated SMS confirmation on the mobile number you provided. This message will include your unique complaint reference number, which is super important for tracking your status later on.
+
+## 13. Does an online complaint automatically turn into an FIR?
+No, it doesn't work quite like that. When you submit a complaint online, it's just an initial report. The police will review what you've submitted. If they determine that a serious, cognizable offense has occurred that requires a formal investigation, they will then legally convert your complaint into a formal FIR.
+
+## 14. What happens after I hit submit on my complaint?
+Once submitted, your complaint lands in the digital inbox of the respective police station. An officer will review the details. Depending on the nature of the issue, they might issue a Community Service Register (CSR) receipt, register an FIR, or contact you directly to ask for more information or request that you visit the station.
+
+## 15. How can I check if the police have taken action on my complaint?
+You don't need to call the station to check. Just go to the portal and click on "Online Complaints Status." Enter the reference number you got via SMS when you first filed the complaint. The screen will show you exactly where your complaint is in the review process and what action the police have taken.
+
+## 16. What exactly is a CSR, and how is it different from an FIR?
+CSR stands for Community Service Register. It's basically an official receipt or acknowledgment from the police for non-cognizable offenses or minor disputes. An FIR (First Information Report), on the other hand, is a much more formal legal document registered for serious crimes, which gives the police the authority to start a full investigation and make arrests.
+
+## 17. How can I check the status of my CSR?
+Checking your CSR status is really easy. Look for the "CSR Status" button on the homepage. You'll need to select your district and police station, and then type in your specific CSR number and the year it was issued. The system will pull up the latest updates on your case.
+
+## 18. Can I also check the status of an FIR online?
+Yes, definitely. Just click on "FIR Status" on the main menu. Similar to the CSR check, you'll need to know the district, the police station where the FIR was filed, the FIR number, and the year. It's a great way to stay updated without having to make a frustrating trip to the station.
+
+## 19. Is it possible to download a copy of my FIR from home?
+Yes, you can easily download a digital copy of your FIR right from your couch. By clicking on the "View FIR" option, the portal allows you to search for your document and save it as a PDF. However, keep in mind that FIRs related to highly sensitive cases (like sexual offenses or crimes against children) are kept private and cannot be downloaded online.
+
+## 20. What exact details do I need to download my FIR?
+To find and download your FIR, you'll need to select the district and the specific police station that registered the case. Then, you just type in the FIR number, the date it was filed, and a captcha code. Once the system finds the match, the download button will appear.
+
+## 21. What is a Lost Document Report (LDR) and why would I need one?
+A Lost Document Report is an official, system-generated certificate from the police stating that you have lost a specific document. You usually need this as legal proof when you apply for a duplicate copy from government departments, schools, or banks. It basically proves you aren't just making it up!
+
+## 22. Which specific documents can I report as lost on this site?
+The portal lets you report five main categories of lost items: Passports, Vehicle Registration (RC) Books, Driving Licenses, School or College Certificates, and Official ID cards (like your Aadhaar, PAN, or Voter ID). If you lose any of these, this is the quickest way to get the police report you need.
+
+## 23. Do I have to pay to get a Lost Document Report?
+Yes, there is a small processing fee for this specific service. You will be asked to pay Rs. 50 through the portal's secure online payment gateway using a debit card, credit card, or net banking before the system generates your report.
+
+## 24. How fast will I get the LDR after I pay the fee?
+It's instant! As soon as your Rs. 50 payment goes through successfully, the system will immediately generate the Lost Document Report. You can download it as a PDF and print it right then and there. There's no waiting around for a manual approval.
+
+## 25. Will the police actually go out and search for my lost ID?
+No, they won't. The LDR system is purely an administrative service to help you get duplicate documents easily. The police do not conduct physical investigations or form search parties to find a lost PAN card or a misplaced school certificate.
+
+## 26. How can a bank or government office verify that my LDR is real?
+The portal has a built-in verification tool just for this. Anyone can click on the "Verify" option under the Lost Document Report section, type in the unique reference number printed on your LDR, and the system will instantly confirm if it's a genuine, police-issued document.
+
+## 27. I need road accident documents for an insurance claim. Can I get them here?
+Yes, this is one of the most helpful features! Victims of road accidents, or their authorized insurance companies, can use the "Download Road Accident Documents" service to get the necessary police files needed to process motor vehicle insurance claims smoothly.
+
+## 28. What information do I need to download accident documents?
+To pull up the accident files, you will need to provide the FIR number associated with the crash, the date of the accident, and the vehicle registration number. This ensures that only authorized people involved in the specific incident can access these sensitive files.
+
+## 29. My vehicle was stolen. Can I check if the police have recovered it?
+Yes, you can keep tabs on your stolen vehicle without having to constantly call the investigating officer. Just use the "Vehicle Status" feature on the portal. It connects to a statewide database and will tell you if your vehicle has been traced, recovered, or seized by the authorities.
+
+## 30. What details do I enter to track my stolen vehicle's status?
+To search the database, you'll need to enter either your vehicle's exact registration number (the license plate) or the engine/chassis number. Make sure you type it in exactly as it appears on your vehicle's paperwork.
+
+## 31. How does the missing person search work?
+The portal features a "Missing Person Search" tool connected to the state police database. You can search by name, age, gender, or location. It will display public details and photographs of people reported missing, which helps citizens assist the police in identifying and locating them.
+
+## 32. Can I use the portal to search for unidentified dead bodies?
+Yes, there is an "Un-Identified Dead Body Search" facility. It's a somber but necessary tool that displays photographs and identifying marks (like tattoos or clothing) of unidentified bodies found by the police. It is primarily used to help grieving families locate missing loved ones.
+
+## 33. Why is there a section for details of arrested persons?
+This feature is all about transparency and human rights. It allows citizens and legal representatives to search and view basic records of individuals who have been formally arrested. This helps family members find out if a relative is in police custody and at which station.
+
+## 34. Can I apply for police verification for a job or tenant online?
+Yes! Many employers and landlords require a police background check. You can submit an application for Police Verification Services right on the portal. You just fill out the applicant's details, upload the required ID proofs, and pay the requested fee online.
+
+## 35. How do I track my police verification application?
+Once you apply for police verification, you'll be given an application number. You can use this number on the portal to track the progress of the background check. Once the police complete their review, you'll even be able to download the final verification certificate directly.
+
+## 36. Can I pay my traffic fines or e-challans through this site?
+Yes, you can easily clear your traffic tickets. The portal includes a link for "E-Payment of Traffic Challans." It will securely redirect you to the official payment gateway where you can enter your vehicle number or challan number and pay your fine online.
+
+## 37. Do I still need to visit the police station if I use this portal?
+It really depends on what you're doing. If you're just downloading an FIR, printing a Lost Document Report, or paying a traffic fine, you don't need to visit the station at all. However, if you file a complaint that turns into a serious investigation, the police will likely call you in to sign papers or give a formal statement.
+
+## 38. Can people who don't live in Tamil Nadu use this website?
+Yes, anyone can access the website. However, the services are strictly for incidents that occurred within the jurisdiction of the Tamil Nadu Police. If you live in another state but lost your wallet while vacationing in Chennai, you can absolutely use this portal to file the report.
+
+## 39. What is CCTNS and why is it mentioned everywhere on the site?
+CCTNS stands for Crime and Criminal Tracking Network and Systems. It's basically a massive, secure digital network used by the police across the country to share data. Because the citizen portal runs on the CCTNS framework, it ensures your data is secure and that police stations can communicate efficiently.
+
+## 40. Is my personal information and data safe on this platform?
+Yes, you don't need to worry. The portal is an official, highly secure government website. All the personal information and complaint details you submit are encrypted and stored in the State Data Centre. Only authorized police personnel have access to your private case files.
+
+## 41. What if I accidentally make a mistake while typing my complaint?
+If you realize you made a typo or left out an important detail immediately after submitting, you generally can't edit it directly on the portal. The best approach is to take your reference number, visit or call the respective police station, and ask the officer in charge to update the details in their system.
+
+## 42. Can I withdraw or cancel my complaint online?
+Currently, there isn't a direct "cancel" button on the portal. If you resolve a minor dispute on your own and want to withdraw your complaint, you will usually need to visit the police station where the complaint was routed and give a written statement that you no longer wish to pursue the matter.
+
+## 43. How old are the FIRs that I can search for on the portal?
+The portal generally holds digital records of FIRs filed from the time the CCTNS system was implemented in the state (usually around 2015 onwards). If you are looking for a very old, archived FIR from decades ago, you will likely need to make a physical request at the specific police station or court.
+
+## 44. Are there any specific browser requirements to use the site?
+Not really! The portal is designed to be very user-friendly and should work perfectly fine on any modern web browser like Google Chrome, Mozilla Firefox, Safari, or Microsoft Edge. Just make sure your browser is up to date and you have a stable internet connection.
+
+## 45. Can I get a character certificate through this portal?
+Yes, you can. Under the Police Verification Services section, you can apply for what is essentially a character or antecedent certificate. This is often required for new jobs, overseas visa applications, or when applying for government contracts.
+
+## 46. Can I use this site to get police permission for a public event or protest?
+Some public gathering permissions are moving online, but generally, organizing large rallies, protests, or events requiring loudspeakers still involves submitting a formal application directly to the local police commissioner's office or district superintendent, as they require physical security assessments.
+
+## 47. Will I need my Aadhaar card to use these services?
+While having your Aadhaar card handy is always helpful for official ID purposes, the portal doesn't strictly force you to use Aadhaar for every single service. You can often use other valid government IDs like a Voter ID, Driving License, or PAN card to verify your identity when registering.
+
+## 48. What should I do if my online payment for the LDR fails but the money is deducted?
+Don't panic! This occasionally happens with bank servers. If your money is deducted but the Lost Document Report isn't generated, you should wait a few hours. The transaction will either settle and generate your report, or the payment gateway will automatically refund the money to your bank account within a few business days.
+
+## 49. What happens if the website isn't loading or is down for maintenance?
+Like any large government system, the portal might occasionally undergo scheduled maintenance. If the site is down and you have an urgent issue, you should use the "TN Police Citizen Services" mobile app instead, or simply visit your nearest police station for assistance.
+
+## 50. Who can I contact if I'm stuck and need technical support with the portal?
+If you run into persistent technical glitches or need help navigating the website, look for the "Contact Us" or "Helpdesk" section at the bottom of the page. You'll find official email addresses (like cctnstn@tn.gov.in) and phone numbers where technical support staff can assist you.
+
+
+
+# Chennai Police — Comprehensive Q&A Knowledge Base
+> **Intended use:** Feed this document to an LLM as a knowledge base to answer citizen queries about Chennai / Greater Chennai Police services, contacts, procedures, and online tools.
+> **Last verified:** March 2026 | Always double-check rapidly changing details (officer names, specific station numbers) via official portals.
+
+---
+
+## TABLE OF CONTENTS
+1. [Emergency Helpline Numbers](#1-emergency-helpline-numbers)
+2. [Greater Chennai Police — Overview & Structure](#2-greater-chennai-police--overview--structure)
+3. [Filing a Complaint / FIR](#3-filing-a-complaint--fir)
+4. [Online Citizen Services Portal](#4-online-citizen-services-portal)
+5. [Lost Document Report (LDR)](#5-lost-document-report-ldr)
+6. [Cybercrime Reporting](#6-cybercrime-reporting)
+7. [Women & Children Safety](#7-women--children-safety)
+8. [Traffic Police](#8-traffic-police)
+9. [Passport Police Verification](#9-passport-police-verification)
+10. [Vehicle-Related Services](#10-vehicle-related-services)
+11. [Missing Persons & Arrested Persons](#11-missing-persons--arrested-persons)
+12. [Disaster & Flood Emergency](#12-disaster--flood-emergency)
+13. [Anti-Corruption](#13-anti-corruption)
+14. [Police Mobile App](#14-police-mobile-app)
+15. [Escalation Hierarchy](#15-escalation-hierarchy)
+16. [Frequently Asked Questions (FAQs)](#16-frequently-asked-questions-faqs)
+
+---
+
+## 1. Emergency Helpline Numbers
+
+### Q: What is the emergency number for police in Chennai?
+**A:** Dial **100** for immediate police emergency assistance. This is available 24/7.
+
+### Q: What is the alternate emergency number?
+**A:** **112** is the alternate all-in-one national emergency helpline number (police, fire, ambulance).
+
+### Q: What are all the key emergency numbers I should know in Chennai?
+
+| Service | Number |
+|---|---|
+| Police Emergency | 100 |
+| All-in-One Emergency (Bharat) | 112 |
+| Fire & Rescue | 101 |
+| Ambulance / Accident Helpline | 108 |
+| Traffic Police | 103 |
+| Women Helpline | 181 |
+| Child Helpline | 1098 |
+| Cybercrime Helpline | 1930 |
+| Tamil Nadu State Emergency | 1070 |
+| Tamil Nadu District Emergency | 1077 |
+| Chennai Corporation (floods/treefalls) | 1913 |
+| Electricity Emergency | 1912 |
+| Disaster Helpline | 1077 |
+| JSSK (Maternal/Infant Health) | 102 |
+| Animal Rescue Chennai | 044-22200335 |
+
+### Q: Who do I call for traffic-related emergencies or accidents?
+**A:** Call **103** for Traffic Police or **108** for the Accident/Ambulance Helpline.
+
+### Q: Is the Chennai Police Commissioner's office reachable by phone?
+**A:** Yes. The Commissioner of Police, Greater Chennai Police is located at No. 132, Commissioner Office Building, EVK Sampath Road, Vepery, Chennai-600007. Phone: **044-23452359 / 044-23452320**.
+
+---
+
+## 2. Greater Chennai Police — Overview & Structure
+
+### Q: What is the Greater Chennai Police?
+**A:** The Greater Chennai Police (GCP) is the law enforcement agency responsible for maintaining law and order, preventing and investigating crimes, managing traffic, and ensuring public safety across the Chennai metropolitan region (~1,189 sq km). It is a division of Tamil Nadu Police and falls under the Tamil Nadu Home Department.
+
+### Q: When was the Greater Chennai Police formed?
+**A:** It was formed on **August 24, 2011**, by merging the former Chennai City Police and Chennai Suburban Police.
+
+### Q: Who heads the Greater Chennai Police?
+**A:** The Commissioner of Police (an IPS officer of Additional Director General rank) heads the force. They report to the Tamil Nadu Director General of Police.
+
+### Q: What is the structure of the Greater Chennai Police?
+
+The GCP is organized as follows:
+- **Commissioner of Police** (ADGP rank) — overall command
+- **Additional Commissioners of Police** (IG rank) — functional wings: headquarters, traffic, crime, special branches, law & order
+- **Joint Commissioners of Police** (DIG rank) — four geographical zones (Central, North, South, West) plus traffic and reserves
+- **Deputy Commissioners of Police (DCP)** — 18 DCPs managing operational districts
+- **Assistant Commissioners of Police (ACP)** — 48–49 ACP sub-divisions
+
+### Q: How many police stations are in Chennai?
+**A:** Greater Chennai Police has **104 police stations** under its jurisdiction (following the 2021 trifurcation that transferred 33 stations to the new Avadi and Tambaram commissionerates). Including all types (law & order, crime, traffic, all-women), there are over 135 stations across the broader metropolitan area.
+
+### Q: What are the four zones of Greater Chennai Police?
+**A:** Central, North, South, and Outer (West) Chennai. Each zone is headed by a Joint Commissioner of Police.
+
+### Q: Does Chennai have dedicated All-Women Police Stations?
+**A:** Yes. There are All-Women Police Stations (AWPS) in locations including Adyar, Guindy, T.Nagar, Ashok Nagar, and several other areas across Chennai. Women can approach any AWPS for complaints related to domestic violence, harassment, dowry issues, and other crimes against women.
+
+### Q: What is the Chennai City Traffic Police?
+**A:** It is a branch of Greater Chennai Police established in 1929. It manages traffic regulation, including Yellow Brigade (daytime patrols, 6 AM–9 PM) and Blue Brigade (nighttime patrols, 11 PM–6:30 AM) on motorbikes across 2 km² zones each.
+
+---
+
+## 3. Filing a Complaint / FIR
+
+### Q: What is an FIR?
+**A:** FIR stands for **First Information Report**. It is the first formal record of a cognizable offence (serious crime) reported to a police station. It triggers a legal investigation and is required for crimes like theft, assault, murder, robbery, kidnapping, cybercrime involving financial loss, etc.
+
+### Q: What is a CSR?
+**A:** **CSR (Community Service Register)** is used to record non-cognizable offences (minor complaints) such as minor disputes, lost property, etc. where no formal investigation is required.
+
+### Q: How do I file an FIR in Chennai?
+**A:** You can file an FIR in two ways:
+1. **In person** — Visit the nearest police station, give a written or oral complaint to the Station House Officer (SHO). They are legally obligated to register the FIR for cognizable offences.
+2. **Online** — Use the Tamil Nadu Police Citizen Portal: `https://eservices.tnpolice.gov.in`
+
+### Q: Can I file a complaint online without visiting a police station?
+**A:** Yes. Go to `https://eservices.tnpolice.gov.in` → "Register Online Complaint." Note that this online submission is NOT equivalent to an FIR. Police may call to verify the genuineness of the complaint, and it cannot be used as proof of an FIR. For cognizable crimes, in-person registration remains the proper route.
+
+### Q: What if the police refuse to register my FIR?
+**A:** If a police station refuses to register an FIR for a cognizable offence:
+1. Approach the **Superintendent of Police / Deputy Commissioner of Police** of the area.
+2. Send a written complaint to the **Commissioner of Police** at Vepery.
+3. Approach the **Judicial Magistrate** who can direct the police to register the FIR.
+4. Lodge a grievance via the **CM Helpline IIPGCMS** system (Tamil Nadu government public grievance portal).
+
+### Q: How do I check the status of my complaint or FIR?
+**A:** Visit `https://eservices.tnpolice.gov.in` and use:
+- **FIR Status:** Provide District, Police Station, FIR Number, Registration Date & Time.
+- **CSR Status:** Provide District, Police Station, CSR Number, Registration Date & Time.
+- You can also use the **TN Police Citizen Services mobile app** (Android).
+
+### Q: Can I withdraw an online complaint I filed?
+**A:** Yes, if the complaint has not yet been investigated. Go to the portal → "Online Complaint" tab → Enter complaint reference number → click "Withdraw Complaint" → provide a reason. If investigation has begun, you must contact the police station directly.
+
+### Q: What information do I need to provide when filing a complaint?
+**A:** Typically: your full name, contact number, address, nature of the incident, date/time/location of the incident, description of accused (if known), any evidence or witness details. False complaints are a punishable offence.
+
+---
+
+## 4. Online Citizen Services Portal
+
+### Q: What is the Tamil Nadu Police Citizen Portal?
+**A:** The official CCTNS (Crime and Criminal Tracking Network & Systems) Citizen Portal of Tamil Nadu Police. URL: **`https://eservices.tnpolice.gov.in`**
+
+### Q: What services are available on the TN Police portal?
+
+**Free Services:**
+- Register online complaints
+- Check complaint status
+- View FIR / check FIR status
+- Check CSR status
+- Check vehicle status (stolen/crime-involved)
+- Search unidentified dead body details
+- View details of arrested persons
+- Find missing persons
+
+**Paid Services:**
+- Lost Document Report (LDR) — ₹50
+- Police Verification Services (for passport, employment, tenants, domestic help)
+- Download Road Accident Documents
+
+### Q: Is there a mobile app for these services?
+**A:** Yes — **"TN Police Citizen Services"** available on Google Play Store. It supports: online complaint registration, complaint status, FIR status, CSR status, vehicle status, and details of arrested persons.
+
+---
+
+## 5. Lost Document Report (LDR)
+
+### Q: What is a Lost Document Report (LDR)?
+**A:** An LDR is an official acknowledgment from Tamil Nadu Police that you have reported the loss of an important document. It is required to apply for duplicate copies from issuing authorities.
+
+### Q: How do I get a Lost Document Report in Chennai?
+**A:**
+1. Visit `https://eservices.tnpolice.gov.in`
+2. Under **"Citizen Services (Paid)"**, select **"Lost Document Report"**
+3. Fill in the form with details of the lost document
+4. Pay the fee of **₹50** online
+5. A system-generated LDR is instantly sent to your registered email ID
+
+You do NOT need to visit a police station for this service.
+
+### Q: For which documents can I get an LDR online?
+**A:** The online LDR service covers documents including:
+- Passport
+- Driving Licence
+- Vehicle Registration Certificate (RC Book)
+- Academic / Educational Certificates
+- National Identity Documents (Aadhaar, PAN, Voter ID, etc.)
+- Employee ID Cards
+- Other government-issued certificates
+
+### Q: Does the LDR mean the police will investigate and find my documents?
+**A:** No. An LDR is essentially a **self-declaration** to an authority that a document was lost. It is used to prove you reported the loss, enabling issuing authorities to provide duplicates. Police do not normally investigate lost documents unless theft is suspected.
+
+### Q: What if I lost my Driving Licence — what are the next steps after getting the LDR?
+**A:**
+1. Obtain LDR from TN Police portal (₹50)
+2. Fill **Form LLD** (Application and Intimation of loss/destruction of DL)
+3. Submit: LLD form + DL details + Police Certificate (for theft) + 2 passport-size photos
+4. Apply at the RTO where the original licence was issued
+
+---
+
+## 6. Cybercrime Reporting
+
+### Q: What number do I call for cybercrime in Chennai/Tamil Nadu?
+**A:** Call **1930** — the national Cybercrime Helpline, available 24/7. This is especially useful for immediate reporting of financial cybercrimes (UPI fraud, banking fraud, online scams) to freeze transactions before money is transferred.
+
+### Q: Where do I report cybercrime online?
+**A:** Report at the national cybercrime portal: **`https://www.cybercrime.gov.in`**. This covers all cybercrime categories including financial fraud, online harassment, social media misuse, hacking, and crimes against women/children.
+
+### Q: Where is the Cyber Crime Police Station in Chennai located?
+**A:** The Cyber Crime Station is located in **Vepery, Chennai** (near Dinathanthi Office). Phone: 044 (check current number via the portal as officers change).
+
+### Q: What types of cybercrime should I report?
+**A:** Report via 1930 or cybercrime.gov.in for:
+- Online banking/UPI/credit card fraud
+- Investment scams / part-time job scams
+- Phishing and identity theft
+- Ransomware or hacking
+- Online harassment or threats
+- Social media account hacking
+- Sextortion / online blackmail
+- Child sexual abuse material (CSAM)
+- Cyber stalking
+
+### Q: What should I do immediately after a financial cyber fraud?
+**A:**
+1. **Call 1930 immediately** — speed matters to freeze transactions.
+2. Save all transaction IDs, screenshots, chat logs.
+3. Report to your bank's fraud helpline simultaneously.
+4. File a formal complaint on `cybercrime.gov.in`.
+5. Follow up at the local cyber crime police station.
+
+---
+
+## 7. Women & Children Safety
+
+### Q: What is the Women Helpline number in Tamil Nadu?
+**A:** **181** — available 24/7 for women in distress.
+
+### Q: What is the Child Helpline number?
+**A:** **1098** — national child helpline for children in distress, abuse, or danger.
+
+### Q: Where do women go to file complaints about domestic violence or harassment in Chennai?
+**A:**
+- Any **All-Women Police Station (AWPS)** — located in Adyar, Guindy, T.Nagar, Ashok Nagar, and other areas.
+- Any nearest police station (the duty officer must assist).
+- Call **181** for immediate support and guidance.
+- For cybercrime-related harassment: call **1930** or visit `cybercrime.gov.in`.
+
+### Q: What is the procedure if a child goes missing in Chennai?
+**A:**
+1. **Immediately call 100** (police emergency).
+2. Visit the nearest police station to file an FIR. Police MUST register the complaint; there is no waiting period for missing children.
+3. Contact **1098** (Child Helpline).
+4. You can also search via the TN Police portal → "Missing Persons" search feature.
+
+---
+
+## 8. Traffic Police
+
+### Q: What is the traffic police helpline number in Chennai?
+**A:** **103** for Traffic Police. The Greater Chennai Traffic Police also maintains 63 traffic stations including 11 traffic investigation wings.
+
+### Q: How do I pay a traffic challan (e-challan) in Chennai?
+**A:** Visit the official TN Traffic e-challan portal or `https://echallan.parivahan.gov.in`. Enter your vehicle number or challan number to view pending challans and pay online.
+
+### Q: What are the Yellow Brigade and Blue Brigade?
+**A:** These are dedicated motorcycle patrol units of Chennai Traffic Police:
+- **Yellow Brigade** — daytime patrol (6 AM to 9 PM), covers ~2 km² each.
+- **Blue Brigade** — nighttime patrol (11 PM to 6:30 AM), covers ~2 km² each.
+
+### Q: What should I do after a road accident in Chennai?
+**A:**
+1. Call **108** (Ambulance) for injured persons immediately.
+2. Call **103** (Traffic Police) or **100** (Police).
+3. Do NOT move seriously injured persons unless there is an immediate danger.
+4. Note the other vehicle's registration number, driver details.
+5. File an FIR at the nearest police station.
+6. Road accident documents can also be downloaded from the TN Police portal.
+
+---
+
+## 9. Passport Police Verification
+
+### Q: How does police verification work for passport applications in Chennai?
+**A:** After submitting your passport application via the Passport Seva portal (`https://www.passportindia.gov.in`), a police verification is automatically initiated at your local police station based on your address. A police officer will visit your residence to verify your identity, address, and check for any criminal record.
+
+### Q: Can I request passport police verification online in Tamil Nadu?
+**A:** Yes. Tamil Nadu Police has an online **Police Verification Services (PVS)** portal at: `https://eservices.tnpolice.gov.in` → "Police Verification Services." This can be used for passport, employment, tenant, servant/domestic help verifications.
+
+### Q: What types of verifications can be requested through TN Police PVS portal?
+**A:**
+- Passport verification
+- Employment / job verification
+- Tenant verification
+- Domestic worker / servant verification
+- Senior citizen registration
+- General antecedent verification
+
+---
+
+## 10. Vehicle-Related Services
+
+### Q: How do I check if a vehicle is stolen or involved in a crime?
+**A:** Use the TN Police Citizen Portal → **"Vehicle Status"** section. Enter the vehicle registration number to check if it is flagged as stolen or connected to any crime record.
+
+### Q: What should I do if my vehicle is stolen in Chennai?
+**A:**
+1. File an FIR immediately at the nearest police station — this is mandatory for insurance claims.
+2. You can also use the online complaint portal at `eservices.tnpolice.gov.in` for initial reporting.
+3. Report to your vehicle insurance company.
+4. Keep a copy of the FIR for RTO records and insurance claim processing.
+
+---
+
+## 11. Missing Persons & Arrested Persons
+
+### Q: How do I search for a missing person through Chennai Police?
+**A:** Use the TN Police Citizen Portal → **"Un-Identified Dead Body Search"** and **"Missing Persons"** features. You can also file a missing person FIR at the nearest police station.
+
+### Q: How do I find out if someone has been arrested by Chennai Police?
+**A:** Use the TN Police Citizen Portal → **"Details of Arrested Persons"** section. Enter the relevant details to search arrest records.
+
+---
+
+## 12. Disaster & Flood Emergency
+
+### Q: Who do I contact during floods or disasters in Chennai?
+**A:**
+
+| Authority | Number |
+|---|---|
+| Chennai Corporation (floods, tree falls) | 1913 |
+| Corporation Control Room | 044-25619204 / 25619206 / 25619207 |
+| TN State Emergency | 1070 |
+| TN District Emergency | 1077 |
+| Police | 100 |
+| Fire & Rescue | 101 |
+| Ambulance | 108 |
+| Electricity Emergency | 1912 |
+| Sewage Overflow | 044-45674567 |
+| Animal Rescue | 044-22200335 |
+
+### Q: Are these disaster helplines available 24/7?
+**A:** Yes, all the above numbers are available 24/7 during emergencies.
+
+### Q: What do I do if a tree falls on my property or vehicle during a storm?
+**A:** Call **1913** (Chennai Corporation) for tree-fall and waterlogging assistance. For life-threatening situations, also call **100** (Police) and **101** (Fire & Rescue).
+
+---
+
+## 13. Anti-Corruption
+
+### Q: How do I report police corruption or bribery in Chennai?
+**A:**
+- Contact the **Directorate of Vigilance and Anti-Corruption (DVAC)**, Chennai.
+  - Website: `www.dvac.tn.gov.in`
+  - Phone: **044-22310989 / 22321090 / 22321085**
+- You can also file a complaint with the Commissioner of Police, Greater Chennai.
+- Escalate unresolved complaints to the Home Department via the **CM Helpline IIPGCMS** portal (Tamil Nadu public grievance system).
+
+### Q: Is it safe to report corruption?
+**A:** You can report anonymously via DVAC. The Vigilance Commission handles such complaints with confidentiality.
+
+---
+
+## 14. Police Mobile App
+
+### Q: Is there a Chennai/TN Police mobile app?
+**A:** Yes — **"TN Police Citizen Services"** on Google Play Store (Android).
+
+**Features:**
+1. Register online complaints
+2. Check status of registered complaints
+3. Check FIR status
+4. Check CSR (Community Service Register) status
+5. Check vehicle status (stolen/crime-involved)
+6. View details of arrested persons
+
+**Requirements:** Android device with internet connection (mobile data or Wi-Fi). Accessible remotely from anywhere, anytime.
+
+---
+
+## 15. Escalation Hierarchy
+
+### Q: If my complaint is not resolved at the local police station, who do I escalate to?
+
+Follow this hierarchy:
+
+1. **Station House Officer (SHO)** — First point of contact at the police station.
+2. **Assistant Commissioner of Police (ACP)** — Heads the sub-division; 48–49 ACPs in Greater Chennai.
+3. **Deputy Commissioner of Police (DCP)** — 18 DCPs at the district level.
+4. **Joint Commissioner of Police** — Zonal head (Central / North / South / West).
+5. **Additional Commissioner of Police** — Functional wing head.
+6. **Commissioner of Police, Greater Chennai** — Top of the local chain. Office: 132, EVK Sampath Road, Vepery, Chennai-600007. Ph: 044-23452359 / 23452320.
+7. **Director General of Police, Tamil Nadu** — State-level, if Commissionerate-level fails.
+8. **CM Helpline / IIPGCMS** — Tamil Nadu government integrated grievance system for unresolved complaints.
+9. **Judicial Magistrate / High Court** — For refusal to register FIR or serious misconduct.
+
+---
+
+## 16. Frequently Asked Questions (FAQs)
+
+### Q: Do I need to go to the police station in my area/jurisdiction to file a complaint?
+**A:** For FIR registration, you should ideally go to the police station with jurisdiction over the area where the crime occurred. However, a "zero FIR" can be filed at any police station, which is then transferred to the correct station. You cannot be turned away.
+
+### Q: What is a "Zero FIR"?
+**A:** A Zero FIR is an FIR that can be filed at ANY police station regardless of jurisdiction. The police station that receives it must register it and forward it to the jurisdictionally correct station. This was introduced so victims are not forced to travel to a specific station in emergencies.
+
+### Q: Can a foreigner file a police complaint in Chennai?
+**A:** Yes. Foreigners can file complaints at any police station. For tourists, the nearest police station or the Commissioner's office at Vepery can assist. Bring your passport for identification.
+
+### Q: What should I do if I receive a suspicious call claiming to be from Chennai Police?
+**A:** Be cautious. Fraudsters often impersonate police. The real police will NOT ask for money over the phone, demand UPI payments, or threaten arrest via phone calls. If in doubt, call **100** to verify. Report such scam calls to **1930** (Cybercrime Helpline).
+
+### Q: What is the TN Police CCTNS portal?
+**A:** CCTNS stands for **Crime and Criminal Tracking Network & Systems** — a national initiative to digitize and interconnect police station records. The citizen-facing portal is `https://eservices.tnpolice.gov.in`.
+
+### Q: How do I find the nearest police station to my location in Chennai?
+**A:** Use Google Maps and search "police station near me" or visit the TN Police portal and use the station locator. The Greater Chennai area has 104+ stations across the four zones.
+
+### Q: What documents should I carry when visiting a police station?
+**A:** Carry a valid government photo ID (Aadhaar, Voter ID, Passport, or Driving Licence), and any evidence related to your complaint (screenshots, receipts, witnesses' contact details, etc.).
+
+### Q: Can I get a Police Clearance Certificate (PCC) from Chennai Police?
+**A:** Yes. PCC can be obtained through the TN Police Verification Services portal at `eservices.tnpolice.gov.in` → Police Verification Services. It is typically required for visa applications, foreign employment, or immigration.
+
+### Q: What is the e-Beat system in Chennai Police?
+**A:** Chennai was the first city in India to introduce the **e-Beat system**, which is a digital tool used to measure the daily routine and performance of police personnel on beat patrol duty.
+
+---
+
+## QUICK REFERENCE CARD
+
+```
+EMERGENCY NUMBERS (Save these!)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Police Emergency          : 100
+All-in-One Emergency      : 112
+Fire & Rescue             : 101
+Ambulance / Accident      : 108
+Traffic Police            : 103
+Women Helpline            : 181
+Child Helpline            : 1098
+Cybercrime Helpline       : 1930
+Disaster (State)          : 1070
+Disaster (District)       : 1077
+Chennai Corporation       : 1913
+
+ONLINE PORTALS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TN Police Citizen Portal  : https://eservices.tnpolice.gov.in
+Cybercrime Reporting      : https://cybercrime.gov.in
+Digital Police (national) : https://digitalpolice.gov.in
+e-Challan (traffic fines) : https://echallan.parivahan.gov.in
+Passport Verification     : https://www.passportindia.gov.in
+DVAC (Anti-Corruption)    : https://www.dvac.tn.gov.in
+
+COMMISSIONER'S OFFICE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+132, EVK Sampath Road, Vepery, Chennai - 600007
+Phone: 044-23452359 / 044-23452320
+```
+
+---
+
+*Sources: Greater Chennai Police (grokipedia, Wikipedia), TN Police Citizen Portal (eservices.tnpolice.gov.in), Tamil Nadu Government Portal (tn.gov.in), Citizen Matters, DVAC Tamil Nadu, National Cybercrime Portal, Chennai Corporation, India Customer Care — compiled March 2026.*
+
+Question:
+With scenarios, I will be a culprit of half-mother.
+
+Language hint: en
+Respond strictly in language: en. Do not mix languages.
+Output plain final answer only. Never include tags like analysis<|message|>, final<|message|>, or any chain-of-thought/meta text.
+Answer using only context.
+
+----------------------------------------
