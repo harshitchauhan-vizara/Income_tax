@@ -9,7 +9,7 @@ const getDefaultWsUrl = () => {
   if (typeof window === "undefined") return "ws://localhost:8111/ws";
   const protocol = window.location.protocol === "https:" ? "wss" : "ws";
   const host = window.location.hostname || "localhost";
-  return `${protocol}://${host}:8111/ws`;
+  return `${protocol}://${host}:/ws`;
 };
 
 const WS_URL = import.meta.env.VITE_WS_URL || getDefaultWsUrl();
