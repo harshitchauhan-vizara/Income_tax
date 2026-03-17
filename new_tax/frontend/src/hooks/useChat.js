@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ChatWebSocket } from "../services/websocket";
-import { StreamingTTSBuffer } from "../Utils/streamingTTS";
+import { StreamingTTSBuffer } from "../utils/streamingTTS";
 
 const STORAGE_MESSAGES_KEY = "cp_chat_messages_v2";
 const STORAGE_UI_KEY = "cp_chat_ui_v2";
