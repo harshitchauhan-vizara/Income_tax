@@ -1,0 +1,7 @@
+llm:
+  base_url: "https://gennextlabbipard.bihar.gov.in/apillm3/v1"
+  model_name: "openai/gpt-oss-120b"
+  api_key: "tagbin123"
+  temperature: 0.7
+  max_tokens: 100000
+  verify_ssl: false

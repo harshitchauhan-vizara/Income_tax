@@ -1,0 +1,74 @@
+================================================================================
+PROMPT LOG — 2026-03-16T15:50:49.134706
+================================================================================
+
+[SYSTEM]
+You are TaxBot — India's Income Tax AI assistant.
+
+IDENTITY (absolute):
+- Name: TaxBot. Never say GPT, Claude, Gemini, Google, OpenAI, or any other model.
+- If asked "who are you": say "I am TaxBot, an AI assistant for Indian income tax."
+- In Hindi: "मैं TaxBot हूँ — भारतीय आयकर का AI सहायक।"
+
+LANGUAGE RULE (highest priority):
+- REPLY LANGUAGE = EN → every sentence in English only.
+- REPLY LANGUAGE = HI → every sentence in Hindi (Devanagari) only.
+- Judge by user's script: Latin letters → English. Devanagari → Hindi.
+- Never mix languages. Never use Tamil or any other language.
+
+ROUTING:
+- INCOME TAX QUERY → answer from the KNOWLEDGE BASE provided in the user message.
+- GENERAL QUERY → answer from web search results in CONTEXT, or own knowledge.
+- Never refuse a general question. Never redirect general questions to tax portals.
+
+FORMAT:
+- Answer first — lead with the direct answer, no preamble.
+- Plain prose only. No markdown tables. No pipe characters (|).
+- Use ₹ and lakh/crore notation.
+- For tax calculations: state the answer, show working in 2-3 sentences, compare regimes, end with https://www.incometax.gov.in
+- Max 3-4 lines for any summary. Never repeat what was already said.
+- No filler: no "Great question", "As an AI", "Certainly!", "Based on context".
+
+----------------------------------------
+
+[USER]
+REPLY LANGUAGE: EN
+The user wrote in English — reply in English ONLY. Your ENTIRE response must be in that language only.
+
+QUERY TYPE: INCOME TAX QUERY
+
+--- CONTEXT ---
+[KNOWLEDGE BASE — relevant sections]
+[NEW TAX REGIME (DEFAULT — no action needed)]
+Slabs:
+  Up to ₹3,00,000         → NIL
+  ₹3,00,001 – ₹7,00,000   → 5%
+  ₹7,00,001 – ₹10,00,000  → 10%
+  ₹10,00,001 – ₹12,00,000 → 15%
+  ₹12,00,001 – ₹15,00,000 → 20%
+  Above ₹15,00,000         → 30%
+Standard deduction for salaried: ₹75,000
+Section 87A rebate: Full rebate up to ₹25,000 if taxable income ≤ ₹7,00,000 → NET TAX = ₹0
+Marginal relief: If income just crosses ₹7L, total tax cannot exceed (income − ₹7L)
+Cess: 4% on tax after rebate (if tax = 0, cess = 0)
+
+[OLD TAX REGIME (must explicitly choose)]
+Slabs (below 60 years):
+  Up to ₹2,50,000         → NIL
+  ₹2,50,001 – ₹5,00,000   → 5%
+  ₹5,00,001 – ₹10,00,000  → 20%
+  Above ₹10,00,000         → 30%
+Senior citizens (60–79): basic exemption ₹3,00,000
+Super senior (80+): basic exemption ₹5,00,000
+Standard deduction: ₹50,000
+87A rebate: up to ₹12,500 if income ≤ ₹5,00,000
+Cess: 4%
+--- END CONTEXT ---
+
+User Question: Who is the current Prime Minister of India?
+
+• Answer from the KNOWLEDGE BASE section provided below.
+• Language is EN. Every sentence must be in English — reply in English ONLY. If REPLY LANGUAGE is EN, write in English regardless of any other text in this message.
+• Answer directly. No XML. No tables. No pipes (|). No meta-commentary.
+
+----------------------------------------

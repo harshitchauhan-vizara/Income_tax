@@ -1,0 +1,665 @@
+================================================================================
+PROMPT LOG - 2026-03-13T12:14:52.960798
+================================================================================
+
+[SYSTEM]
+You are "Income Tax Act 2025 Assistant", an official AI-powered public guidance assistant for the Income Tax Act, 2025 (India).
+
+CORE IDENTITY:
+- You are a professional, clear, and reliable digital tax guidance assistant.
+- You represent accuracy, transparency, and taxpayer support.
+- Be as succinct as possible with answers less than 100 words.
+
+COMMUNICATION STYLE:
+- Speak clearly and respectfully.
+- Use simple, easy-to-understand language.
+- Avoid slang, jokes, or casual tone.
+- Do not speculate or guess.
+- Do not provide personalised legal or financial advice beyond publicly available information.
+
+LANGUAGE HANDLING:
+- Respond in the same language as the user (English, Hindi, or Tamil).
+- If user mixes languages, respond in the dominant language.
+- Maintain formal tone in all languages.
+
+BEHAVIOR RULES:
+1. Always provide accurate, factual tax information strictly from the provided context.
+2. Provide step-by-step guidance where applicable.
+3. Encourage users to consult official Income Tax Department portals or a qualified tax professional for personalised advice.
+4. Never invent tax rates, section numbers, deadlines, or procedures not present in the context.
+
+KNOWLEDGE RULE:
+- Answer strictly from the provided context.
+- Do not invent sections, rules, rates, exemptions, or procedures.
+- If information is not available in context, say exactly:
+  "I do not have that information at the moment. Please visit the official Income Tax portal at https://www.incometax.gov.in or consult a qualified tax professional."
+
+EMPATHY GUIDELINE:
+- Acknowledge the user's concern politely when appropriate.
+- Recognize that tax matters can be stressful and respond with patience.
+
+FORMAT GUIDELINE:
+- Use short paragraphs.
+- Use bullet points for procedures and step-by-step processes.
+- Keep responses structured and easy to read.
+- Keep answers concise and specific to the user question.
+- Do not add unrelated notes.
+- For FAQ/procedural queries, return only the relevant steps from context.
+- Avoid filler phrasing such as: "Based on context", "It seems", or "Analysis".
+
+BOUNDARIES:
+- You are not a chartered accountant, tax lawyer, or financial advisor.
+- You do not file returns or access any individual's tax records.
+- You are a digital public information assistant providing guidance on the Income Tax Act, 2025.
+- For personalised tax computation or legal disputes, always refer users to a qualified CA or the official Income Tax Department.
+
+----------------------------------------
+
+[USER]
+Context:
+[Source: system_seed]
+No knowledge files are loaded yet. Upload data to backend/data/knowledge as .txt or .md files for RAG responses.
+
+[FAQ Reference - QnA.md]
+# Income Tax Act, 2025 — Comprehensive Q&A Knowledge Base
+> **Intended use:** Feed this document to an LLM as a knowledge base to answer citizen queries about the Income Tax Act, 2025 — its provisions, key changes from the 1961 Act, compliance requirements, filing procedures, tax rates, deductions, and exemptions.
+> **Last verified:** March 2026 | Always cross-check with the official Income Tax portal: https://www.incometax.gov.in
+
+---
+
+## TABLE OF CONTENTS
+1. [Overview of the Income Tax Act, 2025](#1-overview-of-the-income-tax-act-2025)
+2. [Key Changes from the Income Tax Act, 1961](#2-key-changes-from-the-income-tax-act-1961)
+3. [Structure of the New Act](#3-structure-of-the-new-act)
+4. [Tax Rates and Slabs](#4-tax-rates-and-slabs)
+5. [Tax Regimes — Old vs New](#5-tax-regimes--old-vs-new)
+6. [Important Sections and Provisions](#6-important-sections-and-provisions)
+7. [Deductions and Exemptions](#7-deductions-and-exemptions)
+8. [Digital Compliance and E-Filing](#8-digital-compliance-and-e-filing)
+9. [Transition from 1961 Act to 2025 Act](#9-transition-from-1961-act-to-2025-act)
+10. [Compliance Requirements and Deadlines](#10-compliance-requirements-and-deadlines)
+11. [TDS and TCS Provisions](#11-tds-and-tcs-provisions)
+12. [Business and Professional Income](#12-business-and-professional-income)
+13. [Capital Gains](#13-capital-gains)
+14. [Penalties and Prosecution](#14-penalties-and-prosecution)
+15. [Grievance and Appeals](#15-grievance-and-appeals)
+16. [Frequently Asked Questions (FAQs)](#16-frequently-asked-questions-faqs)
+
+---
+
+## 1. Overview of the Income Tax Act, 2025
+
+### Q: What is the Income Tax Act, 2025?
+**A:** The Income Tax Act, 2025 is India's new direct tax legislation that replaces the Income Tax Act, 1961. It comes into effect on **April 1, 2026**, and aims to simplify India's direct tax framework by making it clearer, more concise, and easier for taxpayers to understand and comply with.
+
+### Q: Why was a new Income Tax Act needed?
+**A:** The 1961 Act had grown to an unwieldy size over six decades, with thousands of amendments, provisos, explanations, and cross-references making it difficult for ordinary taxpayers to understand. The 2025 Act reorganises and simplifies the law without fundamentally altering existing tax policy, making compliance more accessible.
+
+### Q: When does the Income Tax Act, 2025 come into force?
+**A:** The Act comes into force on **April 1, 2026** (Assessment Year 2026-27 onwards).
+
+### Q: Does the new Act change tax rates?
+**A:** No. The Income Tax Act, 2025 largely retains existing tax rates and regimes. The focus is on structural simplification, digital compliance, and clarity — not on changing how much tax you pay.
+
+### Q: How many sections does the Income Tax Act, 2025 have?
+**A:** The Act has **536 sections**, compared to the 1961 Act which had grown to over 800 sections (including numerous sub-sections and provisos). The reduction is achieved through consolidation, removal of redundant provisions, and cleaner drafting.
+
+### Q: What is the official portal for Income Tax in India?
+**A:** **https://www.incometax.gov.in** — the official Income Tax Department portal for e-filing returns, checking refund status, paying taxes, and accessing all tax-related services.
+
+---
+
+## 2. Key Changes from the Income Tax Act, 1961
+
+### Q: What are the major structural changes in the 2025 Act compared to the 1961 Act?
+**A:** The key structural changes include:
+- **Reduced length:** From 800+ sections to 536 sections through consolidation.
+- **Cleaner language:** Removal of provisos, explanations, and complex cross-references where possible.
+- **Logical reorganisation:** Related provisions grouped together for ease of reference.
+- **Defined terms centralised:** Definitions consolidated in a dedicated chapter.
+- **Tables and formulas:** Use of tables and mathematical formulas for clarity instead of long prose.
+- **Digital-first approach:** Enhanced provisions for digital filing, electronic assessment, and faceless proceedings.
+
+### Q: Are there any changes in tax policy under the 2025 Act?
+**A:** No significant tax policy changes. The existing tax rates, slabs, deductions, and regimes (old and new) are carried forward. The 2025 Act is primarily a simplification and modernisation exercise.
+
+### Q: What happens to all the case laws and circulars under the 1961 Act?
+**A:** Existing case laws, CBDT circulars, and judicial interpretations under the 1961 Act will continue to apply where provisions are substantively similar. The government has clarified that transitional provisions will ensure continuity.
+
+### Q: Has the definition of "previous year" or "assessment year" changed?
+**A:** The 2025 Act introduces the concept of **"tax year"** to replace the separate concepts of "previous year" and "assessment year," simplifying the time-reference framework used in taxation.
+
+### Q: What is the "tax year" concept in the 2025 Act?
+**A:** Under the 2025 Act, a **tax year** is the 12-month period (April 1 to March 31) in which income is earned and on which tax is assessed. This merges the older concepts of "previous year" (year of earning) and "assessment year" (year of filing) into a single unified concept, reducing confusion.
+
+---
+
+## 3. Structure of the New Act
+
+### Q: How is the Income Tax Act, 2025 organised?
+**A:** The Act is organised into logical parts/chapters covering:
+- **General provisions and definitions**
+- **Basis of charge and residential status**
+- **Heads of income** (salary, house property, business/profession, capital gains, other sources)
+- **Deductions from gross total income**
+- **Assessment procedures**
+- **Appeals and dispute resolution**
+- **Tax collection (TDS/TCS)**
+- **Penalties and prosecution**
+- **Miscellaneous provisions**
+
+### Q: How does the 2025 Act handle definitions?
+**A:** All key definitions are centralised in a dedicated definitions chapter, avoiding repetition across multiple sections — a common criticism of the 1961 Act where the same term could be defined differently in different sections.
+
+### Q: Are there schedules in the new Act?
+**A:** Yes. The 2025 Act uses schedules and tables extensively to present tax rates, exemption lists, and procedural requirements clearly, rather than embedding them in lengthy prose sections.
+
+---
+
+## 4. Tax Rates and Slabs
+
+### Q: What are the income tax slabs under the new tax regime for individuals (FY 2026-27)?
+**A:** The new (default) tax regime slabs for individuals are:
+
+| Income Slab | Tax Rate |
+|---|---|
+| Up to ₹3,00,000 | Nil |
+| ₹3,00,001 – ₹7,00,000 | 5% |
+| ₹7,00,001 – ₹10,00,000 | 10% |
+| ₹10,00,001 – ₹12,00,000 | 15% |
+| ₹12,00,001 – ₹15,00,000 | 20% |
+| Above ₹15,00,000 | 30% |
+
+*Note: A rebate under Section 87A makes income up to ₹7,00,000 effectively tax-free under the new regime.*
+
+### Q: What are the income tax slabs under the old tax regime?
+**A:** The old tax regime slabs for individuals (below 60 years) are:
+
+| Income Slab | Tax Rate |
+|---|---|
+| Up to ₹2,50,000 | Nil |
+| ₹2,50,001 – ₹5,00,000 | 5% |
+| ₹5,00,001 – ₹10,00,000 | 20% |
+| Above ₹10,00,000 | 30% |
+
+*Senior citizens (60–79 years) and super senior citizens (80+ years) have higher basic exemption limits.*
+
+### Q: What is the surcharge on income tax?
+**A:** Surcharge is levied on individuals with income above ₹50 lakh:
+
+| Income | Surcharge Rate |
+|---|---|
+| ₹50 lakh – ₹1 crore | 10% |
+| ₹1 crore – ₹2 crore | 15% |
+| ₹2 crore – ₹5 crore | 25% |
+| Above ₹5 crore | 37% (old regime) / 25% (new regime) |
+
+### Q: What is the Health and Education Cess?
+**A:** A **4% Health and Education Cess** is levied on the total tax (including surcharge) for all taxpayers.
+
+### Q: What is the corporate tax rate under the 2025 Act?
+**A:** Corporate tax rates are retained:
+- **Domestic companies:** 22% (under the concessional regime, Section 115BAA equivalent) + applicable surcharge + 4% cess.
+- **New manufacturing companies:** 15% (under Section 115BAB equivalent) + surcharge + cess.
+- **Other domestic companies:** 30% + surcharge + cess.
+
+---
+
+## 5. Tax Regimes — Old vs New
+
+### Q: What are the two tax regimes available to individuals?
+**A:** Individuals can choose between:
+1. **New Tax Regime (Default):** Lower tax rates, no major deductions/exemptions (like 80C, HRA, etc.). This is the default regime from AY 2024-25 onwards and continues under the 2025 Act.
+2. **Old Tax Regime (Optional):** Higher tax rates but allows deductions under Chapter VI-A (80C, 80D, etc.), HRA exemption, LTA, home loan interest deduction, and other exemptions.
+
+### Q: Which regime is better — old or new?
+**A:** It depends on your deductions. Generally:
+- If your total deductions exceed approximately ₹3.75 lakh, the **old regime** may be beneficial.
+- If your deductions are minimal, the **new regime** is likely better due to lower rates.
+- Always calculate tax under both regimes before choosing. Consult a CA for personalised advice.
+
+### Q: Can salaried employees switch between regimes?
+**A:** Yes. Salaried individuals can switch between regimes every year when filing their income tax return. However, individuals with business/professional income can switch only once from old to new regime (and once back, permanently).
+
+### Q: What is the default regime under the 2025 Act?
+**A:** The **New Tax Regime** is the default. Taxpayers who wish to opt for the old regime must explicitly declare this choice when filing their return (or to their employer for TDS purposes).
+
+---
+
+## 6. Important Sections and Provisions
+
+### Q: What is the equivalent of Section 80C under the 2025 Act?
+**A:** The 2025 Act retains the deduction for investments under what was Section 80C of the 1961 Act (renumbered in the new Act). The **₹1,50,000 limit** for eligible investments (PPF, ELSS, life insurance premiums, NSC, home loan principal, tuition fees, etc.) remains applicable under the old tax regime.
+
+### Q: What is Section 87A (rebate)?
+**A:** Section 87A provides a **tax rebate of up to ₹25,000** for individuals whose total income does not exceed **₹7,00,000** under the new tax regime, effectively making such income tax-free. Under the old regime, the rebate applies for income up to ₹5,00,000.
+
+### Q: What is the standard deduction for salaried employees?
+**A:** Salaried individuals are entitled to a **standard deduction of ₹75,000** under the new tax regime (enhanced from ₹50,000 in Budget 2024). Under the old regime, the standard deduction remains ₹50,000.
+
+### Q: What are the provisions for House Rent Allowance (HRA)?
+**A:** HRA exemption is available only under the **old tax regime**. The exempt amount is the least of:
+1. Actual HRA received
+2. 50% of salary (metro cities: Delhi, Mumbai, Kolkata, Chennai) or 40% (other cities)
+3. Actual rent paid minus 10% of salary
+
+### Q: What is Leave Travel Allowance (LTA)?
+**A:** LTA exemption covers actual travel costs (airfare/train fare) for domestic travel within India, for the employee and family. Available only under the **old tax regime** and can be claimed for 2 journeys in a block of 4 calendar years.
+
+### Q: What is the section for home loan interest deduction?
+**A:** Under the old tax regime, deduction of up to **₹2,00,000 per year** is available on interest paid on a home loan for a self-occupied property. For let-out property, actual interest paid is deductible (with set-off limits). This benefit is not available under the new tax regime.
+
+### Q: What is the presumptive taxation scheme?
+**A:** The presumptive scheme allows small businesses and professionals to declare income at a fixed percentage of turnover/receipts, without maintaining detailed books of accounts:
+- **Business (turnover up to ₹3 crore):** 8% of turnover (6% if receipts are digital).
+- **Professionals (receipts up to ₹75 lakh):** 50% of gross receipts (if 95%+ receipts are digital, limit is ₹75 lakh).
+
+---
+
+## 7. Deductions and Exemptions
+
+### Q: What deductions are available under the new tax regime?
+**A:** Under the new tax regime, most deductions are not available. The key ones that ARE available include:
+- Standard deduction (₹75,000 for salaried/pensioners)
+- Employer's contribution to NPS (Section 80CCD(2)) — up to 14% of salary for government employees, 10% for others
+- Deduction for family pension (one-third of pension or ₹25,000, whichever is lower)
+- Agniveer Corpus Fund contributions
+
+### Q: What deductions are available under the old tax regime?
+**A:** Key deductions under the old regime include:
+
+| Section | Deduction | Limit |
+|---|---|---|
+| 80C | Investments (PPF, ELSS, LIC, NSC, etc.) | ₹1,50,000 |
+| 80CCD(1B) | Additional NPS contribution | ₹50,000 |
+| 80D | Health insurance premiums | ₹25,000 (₹50,000 for senior citizens) |
+| 80E | Interest on education loan | Actual interest (8 years) |
+| 80EEA | Additional home loan interest (first-time buyers) | ₹1,50,000 |
+| 80G | Donations to specified funds | 50%–100% of donation |
+| 80GG | Rent paid (no HRA received) | Least of: ₹5,000/month, 25% of income, or actual rent minus 10% of income |
+| 80TTA | Interest on savings account | ₹10,000 |
+| 80TTB | Interest income for senior citizens | ₹50,000 |
+
+### Q: What is Section 80D (health insurance deduction)?
+**A:** Section 80D allows deduction for health insurance premiums paid:
+- **Self, spouse, children:** Up to ₹25,000 (₹50,000 if any member is a senior citizen)
+- **Parents:** Up to ₹25,000 (₹50,000 if parents are senior citizens)
+- **Maximum combined deduction:** Up to ₹1,00,000 (if both you and your parents are senior citizens)
+- Preventive health check-up: Up to ₹5,000 within the above limits
+
+### Q: What is Section 80E (education loan deduction)?
+**A:** Section 80E provides deduction on **interest paid on an education loan** taken for higher education for self, spouse, or children. The deduction is available for a maximum of **8 consecutive assessment years** from the year of starting repayment. There is no upper limit on the interest amount.
+
+### Q: What is Section 80G (donations deduction)?
+**A:** Section 80G allows deductions for donations to specified charitable funds and institutions:
+- **100% deduction:** PM National Relief Fund, PM CARES Fund, National Defence Fund, etc.
+- **50% deduction:** Jawaharlal Nehru Memorial Fund, Prime Minister's Drought Relief Fund, etc.
+- Donations above ₹2,000 must be made by non-cash modes to be eligible.
+
+### Q: Are agricultural income tax provisions retained in the 2025 Act?
+**A:** Yes. Agricultural income remains **exempt from income tax** under the 2025 Act, consistent with the 1961 Act. However, it is included for rate purposes (partial integration) when computing tax on non-agricultural income.
+
+---
+
+## 8. Digital Compliance and E-Filing
+
+### Q: What is the e-filing portal for Income Tax in India?
+**A:** **https://www.incometax.gov.in** — the official portal for filing income tax returns, paying taxes, viewing Form 26AS, checking AIS/TIS, and managing all tax-related services online.
+
+### Q: What is Form 26AS?
+**A:** Form 26AS is a consolidated annual tax statement showing:
+- Tax deducted at source (TDS)
+- Tax collected at source (TCS)
+- Advance tax and self-assessment tax paid
+- Refunds received
+- High-value financial transactions
+
+It is available on the e-filing portal and is a key document for filing accurate returns.
+
+### Q: What is the Annual Information Statement (AIS)?
+**A:** AIS is a comprehensive statement (introduced in 2021, continued under 2025 Act) that shows all financial information reported about a taxpayer, including:
+- Interest income, dividend income
+- Securities transactions
+- Mutual fund transactions
+- Foreign remittances
+- GST turnover data
+
+It is more detailed than Form 26AS and helps taxpayers reconcile income before filing.
+
+### Q: What is faceless assessment?
+**A:** Faceless assessment is a digital system where income tax assessments are conducted electronically without any physical interface between the taxpayer and the assessing officer. The 2025 Act strengthens this framework. Cases are randomly allocated, and communications happen only through the e-filing portal.
+
+### Q: What is the due date for filing income tax returns?
+**A:** Standard due dates (subject to annual CBDT notifications):
+- **Individuals (non-audit cases):** July 31 of the relevant tax year
+- **Business/profession requiring audit:** October 31
+- **Transfer pricing cases:** November 30
+- Belated returns can be filed up to December 31 (with penalty)
+
+### Q: What ITR forms are used under the 2025 Act?
+**A:** The ITR forms are expected to be aligned with the new Act's structure. Common forms:
+- **ITR-1 (Sahaj):** Salaried individuals, one house property, income up to ₹50 lakh
+- **ITR-2:** Individuals/HUFs with capital gains or multiple properties
+- **ITR-3:** Individuals with business/professional income
+- **ITR-4 (Sugam):** Presumptive taxation scheme users
+- **ITR-5, 6, 7:** For firms, companies, trusts, etc.
+
+### Q: What is Advance Tax and who must pay it?
+**A:** Advance tax is tax paid in instalments during the tax year (not at the end). It applies if your total tax liability exceeds ₹10,000 in a year.
+
+**Instalments:**
+| Due Date | Cumulative % of Tax |
+|---|---|
+| June 15 | 15% |
+| September 15 | 45% |
+| December 15 | 75% |
+| March 15 | 100% |
+
+*Senior citizens with no business income are exempt from advance tax.*
+
+### Q: What is Self-Assessment Tax?
+**A:** Self-Assessment Tax is the balance tax paid by the taxpayer after adjusting TDS, TCS, and advance tax before filing the return. It must be paid before filing the ITR.
+
+---
+
+## 9. Transition from 1961 Act to 2025 Act
+
+### Q: Do I need to do anything differently because of the 2025 Act?
+**A:** For most taxpayers, the transition will be seamless. The tax rates, deductions, and filing procedures remain largely the same. The new Act is effective from April 1, 2026. Returns for FY 2025-26 (AY 2026-27) will be filed under the 2025 Act framework.
+
+### Q: What happens to pending assessments and appeals under the 1961 Act?
+**A:** Transitional provisions in the 2025 Act ensure that:
+- Pending assessments initiated under the 1961 Act will be completed under the 1961 Act provisions.
+- Appeals and proceedings already underway will continue under the earlier law.
+- Rights and liabilities already accrued under the 1961 Act are preserved.
+
+### Q: Will old CBDT circulars and notifications still apply?
+**A:** Yes. CBDT circulars, instructions, and notifications issued under the 1961 Act will continue to apply where the corresponding provisions of the 2025 Act are substantively the same.
+
+### Q: Are there any new provisions introduced in the 2025 Act that were not in the 1961 Act?
+**A:** The 2025 Act primarily consolidates and restructures existing law. New provisions are minimal and focused on:
+- Strengthening digital/faceless compliance infrastructure
+- Cleaner codification of rules previously in subordinate legislation
+- Addressing interpretational gaps identified through litigation
+
+### Q: What is the significance of April 1, 2026?
+**A:** April 1, 2026 is the effective date of the Income Tax Act, 2025. From this date, all new assessments, filings, and proceedings will be governed by the 2025 Act instead of the 1961 Act.
+
+---
+
+## 10. Compliance Requirements and Deadlines
+
+### Q: Who is required to file an Income Tax Return (ITR)?
+**A:** You are required to file an ITR if:
+- Your total income exceeds the basic exemption limit (₹2.5 lakh under old regime; ₹3 lakh under new regime)
+- You have deposited ₹1 crore or more in bank current accounts
+- You have spent ₹2 lakh or more on foreign travel
+- You have paid ₹1 lakh or more in electricity bills
+- You have foreign assets or income from abroad
+- You wish to claim a refund of TDS
+
+### Q: What is the penalty for not filing ITR?
+**A:**
+- **Late filing fee (Section 234F):** ₹5,000 if income exceeds ₹5 lakh; ₹1,000 if income is below ₹5 lakh.
+- **Penalty for concealment of income:** 100%–300% of tax evaded.
+- **Prosecution:** Non-filing with tax evasion can attract imprisonment.
+
+### Q: What is the penalty for late payment of tax?
+**A:**
+- **Interest under Section 234A:** 1% per month on unpaid tax from due date of filing.
+- **Interest under Section 234B:** 1% per month if advance tax paid is less than 90% of assessed tax.
+- **Interest under Section 234C:** 1% per month for shortfall in advance tax instalments.
+
+### Q: What records should a taxpayer maintain?
+**A:** Taxpayers with business/professional income must maintain books of accounts. Key documents to preserve:
+- Salary slips and Form 16 (salaried)
+- Bank statements
+- Investment proofs (for deductions)
+- Rent receipts (for HRA)
+- TDS certificates (Form 16/16A)
+- Capital gain statements from broker/mutual fund
+
+---
+
+## 11. TDS and TCS Provisions
+
+### Q: What is TDS (Tax Deducted at Source)?
+**A:** TDS is tax deducted by the payer at the time of making certain payments, and deposited with the government on behalf of the recipient. It applies to salaries, interest, rent, professional fees, contractor payments, and many other transactions.
+
+### Q: What are key TDS rates under the 2025 Act?
+
+| Payment Type | TDS Rate |
+|---|---|
+| Salary | As per applicable slab |
+| Interest on securities | 10% |
+| Interest (banks/FD) | 10% |
+| Rent (above ₹50,000/month) | 2% |
+| Professional/technical fees | 10% |
+| Commission/brokerage | 5% |
+| Contractor payments | 1% (individual) / 2% (others) |
+
+*Lower TDS or nil TDS can be requested via Form 15G/15H (for eligible individuals/senior citizens) or Form 13 (others).*
+
+### Q: What is Form 15G and 15H?
+**A:**
+- **Form 15G:** Declaration by individuals (below 60 years) that their total income is below the taxable limit, requesting nil TDS on interest income.
+- **Form 15H:** Same declaration for **senior citizens (60+ years)**.
+Both must be submitted to the bank or payer at the beginning of each financial year.
+
+### Q: What is TCS (Tax Collected at Source)?
+**A:** TCS is tax collected by the **seller** from the buyer at the time of sale of specified goods or services, and deposited with the government. Key TCS provisions:
+- Foreign remittances (LRS) above ₹7 lakh: 20% TCS (5% for education/medical)
+- Sale of overseas tour packages: 20% TCS
+- Sale of motor vehicles above ₹10 lakh: 1% TCS
+- Sale of goods above ₹50 lakh by a seller: 0.1% TCS
+
+---
+
+## 12. Business and Professional Income
+
+### Q: What is the presumptive taxation scheme for businesses?
+**A:** Eligible businesses with turnover up to **₹3 crore** can declare income at **8% of turnover** (or **6% for digital receipts**) without maintaining detailed books. The taxpayer cannot claim deductions separately — profit is deemed to be already computed.
+
+### Q: What is the presumptive scheme for professionals?
+**A:** Professionals (doctors, lawyers, architects, engineers, etc.) with gross receipts up to **₹75 lakh** can declare income at **50% of gross receipts** without maintaining books. If 95% or more of receipts are through digital/banking channels, the limit is ₹75 lakh.
+
+### Q: What expenses are deductible for business income?
+**A:** Business expenses that are wholly and exclusively for business purposes are deductible, including:
+- Rent, salaries, utilities
+- Depreciation on business assets
+- Interest on business loans
+- Professional fees
+- Advertising and marketing costs
+- Cost of goods sold
+
+Expenses that are personal, capital in nature, or not for business are not deductible.
+
+### Q: What is depreciation under the Income Tax Act, 2025?
+**A:** Depreciation is allowed on business assets at prescribed rates on the **Written Down Value (WDV)** method. Key rates:
+- Buildings: 5%–10%
+- Plant and machinery: 15%
+- Computers and software: 40%
+- Motor vehicles: 15%–30%
+- Furniture and fittings: 10%
+
+---
+
+## 13. Capital Gains
+
+### Q: What are Short-Term Capital Gains (STCG)?
+**A:** STCG arise when a capital asset is sold within the short-term holding period:
+- **Listed equity shares/equity MFs:** Held for ≤12 months → STCG taxed at **20%** (changed from 15% in Budget 2024)
+- **Other assets (property, gold, debt MFs):** Held for ≤24 months or ≤36 months depending on asset type → STCG taxed at applicable slab rate
+
+### Q: What are Long-Term Capital Gains (LTCG)?
+**A:** LTCG arise when a capital asset is sold after the long-term holding period:
+- **Listed equity/equity MFs:** Held for >12 months → LTCG above ₹1,25,000 taxed at **12.5%** (changed from 10%, Budget 2024)
+- **Property:** Held for >24 months → LTCG taxed at **12.5%** without indexation (changed in Budget 2024)
+- **Gold/debt MFs:** Held for >24 months → LTCG taxed at 12.5% without indexation
+
+### Q: What is the indexation benefit?
+**A:** Indexation allows taxpayers to adjust the purchase price of an asset for inflation (using the Cost Inflation Index) to reduce taxable LTCG. **Note:** For property sold after July 23, 2024, indexation benefit has been removed; LTCG is taxed at 12.5% on the actual gain. (Grandfathering rules may apply — consult a CA for specific cases.)
+
+### Q: What exemptions are available on capital gains from property sale?
+**A:** Key exemptions:
+- **Section 54:** LTCG from sale of residential property reinvested in buying/constructing another residential property — exempt up to ₹10 crore.
+- **Section 54EC:** LTCG from property reinvested in specified bonds (NHAI, REC) within 6 months — exempt up to ₹50 lakh.
+- **Section 54F:** LTCG from sale of any asset (other than residential house) reinvested in residential property — full exemption if full net consideration invested.
+
+---
+
+## 14. Penalties and Prosecution
+
+### Q: What are the main penalties under the Income Tax Act, 2025?
+**A:** Key penalties include:
+
+| Offence | Penalty |
+|---|---|
+| Failure to file ITR (Section 234F) | ₹1,000–₹5,000 |
+| Concealment of income | 100%–300% of tax evaded |
+| Failure to maintain books | ₹25,000 or 0.5% of turnover |
+| Failure to get accounts audited | 0.5% of turnover or ₹1,50,000 |
+| Failure to deduct/deposit TDS | Equal to TDS amount |
+| Under-reporting of income | 50% of tax on under-reported income |
+| Misreporting of income | 200% of tax on misreported income |
+
+### Q: What offences attract prosecution and imprisonment?
+**A:** Prosecution provisions are retained and strengthened:
+- **Wilful tax evasion:** 3 months to 7 years imprisonment
+- **False statement in return:** Up to 7 years imprisonment
+- **Failure to pay TDS to government:** Up to 7 years imprisonment
+- **Abetment of false return:** Up to 7 years imprisonment
+
+---
+
+## 15. Grievance and Appeals
+
+### Q: What is the appeal process under the Income Tax Act, 2025?
+**A:** The appeal hierarchy is:
+1. **Commissioner of Income Tax (Appeals) [CIT(A)]** — First appeal against assessment orders
+2. **Income Tax Appellate Tribunal (ITAT)** — Second appeal (on questions of law and fact)
+3. **High Court** — Appeal on substantial questions of law
+4. **Supreme Court** — Final appeal
+
+### Q: How do I file a grievance with the Income Tax Department?
+**A:** File grievances through:
+- **e-Nivaran** portal: https://www.incometax.gov.in → "Grievances" section
+- **CPGRAMS:** https://pgportal.gov.in — Central government public grievance portal
+- **Aaykar Sampark Kendra:** Call **1800-103-0025** (toll-free) or **1800-419-0025**
+
+### Q: What is the Faceless Appeal scheme?
+**A:** Under the Faceless Appeal scheme (continued and strengthened in the 2025 Act), appeals before CIT(A) are decided electronically without personal hearings, with random allocation of cases to officers — promoting transparency and reducing corruption.
+
+### Q: What is the Dispute Resolution Panel (DRP)?
+**A:** The DRP is a panel of three Principal Commissioners/Commissioners of Income Tax that handles objections from foreign companies and those with transfer pricing disputes. It provides a faster resolution mechanism before the ITAT.
+
+### Q: What is the Vivad se Vishwas scheme?
+**A:** Vivad se Vishwas is a government dispute resolution scheme allowing taxpayers to settle pending income tax disputes by paying the disputed tax amount (with reduced/nil penalty and interest). The 2025 Act framework supports such schemes — check the Income Tax portal for the current scheme status.
+
+---
+
+## 16. Frequently Asked Questions (FAQs)
+
+### Q: I am a salaried employee. What do I need to do differently under the 2025 Act?
+**A:** For most salaried employees, there is no major change in compliance. Continue providing investment declarations to your employer, choose your preferred tax regime (old or new), and file your ITR by July 31. The new Act simplifies the legal language but does not change your filing obligations or tax rates.
+
+### Q: Do senior citizens get any special tax benefits under the 2025 Act?
+**A:**
+- **Senior citizens (60–79 years):** Basic exemption of ₹3,00,000 under old regime
+- **Super senior citizens (80+ years):** Basic exemption of ₹5,00,000 under old regime
+- **Section 80TTB:** ₹50,000 deduction on interest income (FD, savings, post office)
+- **Exemption from advance tax** if they have no business income
+- **Section 194P:** Banks deduct TDS directly and file ITR on their behalf (optional for senior citizens 75+)
+
+### Q: What is PAN and is it still required under the 2025 Act?
+**A:** Yes. **Permanent Account Number (PAN)** remains mandatory for all tax-related transactions. PAN is required for:
+- Filing ITR
+- Opening bank accounts
+- Property transactions above ₹10 lakh
+- Investments above specified limits
+- Foreign remittances
+
+*Aadhaar-PAN linking is mandatory. Failure to link attracts higher TDS deduction.*
+
+### Q: What is Form 16 and why is it important?
+**A:** Form 16 is a **TDS certificate** issued by an employer to an employee, showing:
+- Total salary paid during the year
+- Tax deducted at source (TDS) from salary
+- Deductions/exemptions claimed
+
+It is essential for filing ITR and is typically issued by May 31 for the previous tax year.
+
+### Q: What is Form 16A?
+**A:** Form 16A is a TDS certificate for **non-salary payments** (interest, rent, professional fees, etc.). Issued by the deductor (bank, company, etc.) to the deductee.
+
+### Q: How do I check my income tax refund status?
+**A:**
+1. Visit https://www.incometax.gov.in
+2. Log in with PAN and password
+3. Go to "My Account" → "Refund/Demand Status"
+Alternatively, visit https://tin.tin.nsdl.com/oltas/refundstatuslogin.html or call the helpline at 1800-103-0025.
+
+### Q: What is a Defective Return notice?
+**A:** A notice under Section 139(9) is issued when a return is found to be defective (incomplete or incorrect information). The taxpayer must rectify the defect within **15 days** of receiving the notice (or extended period as allowed). Failure to rectify may result in the return being treated as invalid.
+
+### Q: What is Black Money and how does the 2025 Act address it?
+**A:** Undisclosed foreign income and assets are dealt with under the **Black Money (Undisclosed Foreign Income and Assets) and Imposition of Tax Act, 2015**, which is a separate law. The Income Tax Act, 2025 complements it through strengthened reporting requirements (Schedule FA for foreign assets in ITR), enhanced penalties for non-disclosure, and information sharing under tax treaties.
+
+### Q: What is the Income Tax Department's helpline?
+**A:**
+- **Toll-free:** 1800-103-0025 / 1800-419-0025
+- **Direct:** 080-46122000
+- **Email:** webmanager@incometax.gov.in
+- **Portal:** https://www.incometax.gov.in
+
+### Q: Where can I find the official text of the Income Tax Act, 2025?
+**A:** The official text is available at:
+- **Income Tax portal:** https://www.incometax.gov.in
+- **India Code portal:** https://www.indiacode.nic.in
+- **CBDT:** Through official gazette notifications
+
+---
+
+## QUICK REFERENCE CARD
+
+```
+KEY CONTACTS & PORTALS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Income Tax e-Filing Portal : https://www.incometax.gov.in
+Cybercrime / Tax Fraud     : https://www.cybercrime.gov.in
+India Code (Act text)      : https://www.indiacode.nic.in
+Helpline (Toll-Free)       : 1800-103-0025 / 1800-419-0025
+Helpline (Direct)          : 080-46122000
+
+KEY DATES (FY 2026-27)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Act Effective Date         : April 1, 2026
+ITR Filing (Individuals)   : July 31
+ITR Filing (Audit cases)   : October 31
+Advance Tax (Q1)           : June 15 (15%)
+Advance Tax (Q2)           : September 15 (45%)
+Advance Tax (Q3)           : December 15 (75%)
+Advance Tax (Q4)           : March 15 (100%)
+
+KEY FACTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Total Sections             : 536
+Replaces                   : Income Tax Act, 1961
+Focus                      : Simplification + Digital Compliance
+Tax Rates                  : Unchanged (carried forward from 1961 Act)
+Default Regime             : New Tax Regime
+```
+
+---
+
+*Sources: Income Tax Act, 2025 (India); CBDT official notifications; Union Budget 2024-25; Income Tax Department portal (incometax.gov.in); Ministry of Finance press releases — compiled March 2026. Always verify current rates and deadlines at https://www.incometax.gov.in.*
+
+Question:
+Tell me more about Neon, Techs, Slimy, Skin.
+
+Language hint: en
+Respond strictly in language: en. Do not mix languages.
+Output plain final answer only. Never include tags like analysis<|message|>, final<|message|>, or any chain-of-thought/meta text.
+Answer using only context.
+
+----------------------------------------
