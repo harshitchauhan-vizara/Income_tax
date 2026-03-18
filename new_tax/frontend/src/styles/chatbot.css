@@ -389,8 +389,8 @@ body { background:var(--bg-root); color:var(--tx-primary); transition:background
 /* ── 1. AVATAR SYSTEM ── */
 .vap-avatar-system {
   position: relative;
-  width: 180px;
-  height: 180px;
+  width: 320px;
+  height: 150px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -401,23 +401,23 @@ body { background:var(--bg-root); color:var(--tx-primary); transition:background
 /* Halos — soft blue rings on light background */
 .vap-halo { position:absolute; border-radius:50%; pointer-events:none; }
 .vap-halo-1 {
-  width: 270px; height: 270px; top:50%; left:50%;
+  width: 420px; height: 220px; top:50%; left:50%;
   transform: translate(-50%,-50%);
-  background: radial-gradient(circle,rgba(108,155,210,0.13) 0%,transparent 68%);
+  background: radial-gradient(ellipse,rgba(108,155,210,0.13) 0%,transparent 68%);
   animation: haloBreath 4s ease-in-out infinite;
   transition: background var(--t3);
 }
 .vap-halo-2 {
-  width: 230px; height: 230px; top:50%; left:50%;
+  width: 370px; height: 190px; top:50%; left:50%;
   transform: translate(-50%,-50%);
-  background: radial-gradient(circle,transparent 33%,rgba(108,155,210,0.16) 44%,rgba(108,155,210,0.28) 52%,rgba(108,155,210,0.14) 60%,transparent 72%);
+  background: radial-gradient(ellipse,transparent 33%,rgba(108,155,210,0.16) 44%,rgba(108,155,210,0.28) 52%,rgba(108,155,210,0.14) 60%,transparent 72%);
   animation: haloBreath 4s ease-in-out infinite .6s;
   transition: background var(--t3);
 }
 .vap-halo-3 {
-  width: 196px; height: 196px; top:50%; left:50%;
+  width: 330px; height: 168px; top:50%; left:50%;
   transform: translate(-50%,-50%);
-  background: radial-gradient(circle,transparent 40%,rgba(108,155,210,0.12) 46%,rgba(108,155,210,0.36) 51%,rgba(108,155,210,0.16) 56%,transparent 64%);
+  background: radial-gradient(ellipse,transparent 40%,rgba(108,155,210,0.12) 46%,rgba(108,155,210,0.36) 51%,rgba(108,155,210,0.16) 56%,transparent 64%);
   animation: haloBreath 4s ease-in-out infinite 1.2s;
   transition: background var(--t3);
 }
@@ -443,8 +443,8 @@ body { background:var(--bg-root); color:var(--tx-primary); transition:background
 .vap-pulse-ring {
   position: absolute; top:50%; left:50%;
   transform: translate(-50%,-50%);
-  width: 170px; height: 170px;
-  border-radius: 50%;
+  width: 300px; height: 140px;
+  border-radius: 40px;
   border: 1.5px solid rgba(108,155,210,0.40);
   opacity: 0; pointer-events: none;
   animation: ringExpand 3.6s ease-out infinite;
@@ -462,8 +462,8 @@ body { background:var(--bg-root); color:var(--tx-primary); transition:background
 .vap-avatar-frame {
   position: relative;
   z-index: 4;
-  width: 150px; height: 150px;
-  border-radius: 50%;
+  width: 300px; height: 140px;
+  border-radius: 40px;
   background: var(--neu-bg);
   box-shadow: var(--sh-neu-out-lg);
   display: flex;
@@ -480,7 +480,7 @@ body { background:var(--bg-root); color:var(--tx-primary); transition:background
 
 /* Avatar inner circle — pressed inset */
 .vap-avatar-img-wrap {
-  width: 112px; height: 112px;
+  width: 100px; height: 100px;
   border-radius: 50%;
   background: var(--neu-bg);
   box-shadow: var(--sh-neu-in);
@@ -489,7 +489,7 @@ body { background:var(--bg-root); color:var(--tx-primary); transition:background
 }
 
 /* Arc rings */
-.vap-arc-ring { position:absolute; inset:-8px; border-radius:50%; border:1.5px solid transparent; pointer-events:none; }
+.vap-arc-ring { position:absolute; inset:-8px; border-radius:44px; border:1.5px solid transparent; pointer-events:none; }
 .vap-arc-ring-1 {
   border-top-color: rgba(108,155,210,0.70);
   border-right-color: rgba(108,155,210,0.12);
@@ -499,6 +499,7 @@ body { background:var(--bg-root); color:var(--tx-primary); transition:background
 }
 .vap-arc-ring-2 {
   inset: -16px;
+  border-radius: 52px;
   border-top-color: transparent;
   border-right-color: rgba(108,155,210,0.40);
   border-bottom-color: rgba(108,155,210,0.08);
@@ -517,7 +518,7 @@ body { background:var(--bg-root); color:var(--tx-primary); transition:background
 .vap-avatar-placeholder svg { width:50%; height:50%; }
 
 /* Shimmer */
-.vap-avatar-shimmer { position:absolute; inset:0; border-radius:50%; background:linear-gradient(135deg,rgba(255,255,255,0.12) 0%,transparent 50%,rgba(255,255,255,0.04) 100%); pointer-events:none; opacity:0; transition:opacity var(--t2); }
+.vap-avatar-shimmer { position:absolute; inset:0; border-radius:40px; background:linear-gradient(135deg,rgba(255,255,255,0.12) 0%,transparent 50%,rgba(255,255,255,0.04) 100%); pointer-events:none; opacity:0; transition:opacity var(--t2); }
 .vap-avatar-system.vap-active .vap-avatar-shimmer { opacity:1; animation:shimmerSweep 3s ease-in-out infinite; }
 @keyframes shimmerSweep { 0%,100%{background-position:-200% 0} 50%{background-position:200% 0} }
 
@@ -749,13 +750,13 @@ body { background:var(--bg-root); color:var(--tx-primary); transition:background
 /* ══ RESPONSIVE ══ */
 @media (max-width:900px) {
   .vap-stack { padding:20px 16px 20px; gap:14px; }
-  .vap-avatar-system { width:140px; height:140px; }
-  .vap-avatar-frame  { width:120px; height:120px; }
-  .vap-avatar-img-wrap { width:90px; height:90px; }
-  .vap-halo-1 { width:210px; height:210px; }
-  .vap-halo-2 { width:178px; height:178px; }
-  .vap-halo-3 { width:152px; height:152px; }
-  .vap-pulse-ring { width:130px; height:130px; }
+  .vap-avatar-system { width:260px; height:120px; }
+  .vap-avatar-frame  { width:240px; height:110px; border-radius:32px; }
+  .vap-avatar-img-wrap { width:80px; height:80px; }
+  .vap-halo-1 { width:340px; height:175px; }
+  .vap-halo-2 { width:300px; height:155px; }
+  .vap-halo-3 { width:268px; height:138px; }
+  .vap-pulse-ring { width:240px; height:110px; border-radius:32px; }
   .vap-cards-row { grid-template-columns:1fr; }
 }
 @media (max-width:600px) {
