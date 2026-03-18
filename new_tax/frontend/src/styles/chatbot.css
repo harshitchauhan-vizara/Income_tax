@@ -492,7 +492,7 @@ body { background:var(--bg-root); color:var(--tx-primary); transition:background
 .vap-arc-ring { display: none; }
 .vap-arc-ring-1 { display: none; }
 .vap-arc-ring-2 { display: none; }
-.vap-avatar-system.vap-listening .vap-arc-ring-1 { border-top-color:rgba(220,50,50,0.80); border-left-color:rgba(220,50,50,0.40); animation-duration:1.8s; }
+/* hidden */
 .vap-avatar-system.vap-listening .vap-arc-ring-2 { border-right-color:rgba(220,50,50,0.50); }
 .vap-avatar-system.vap-thinking  .vap-arc-ring-1 { border-top-color:rgba(234,179,8,0.80); border-left-color:rgba(234,179,8,0.40); animation-duration:1.2s; }
 .vap-avatar-system.vap-thinking  .vap-arc-ring-2 { border-right-color:rgba(234,179,8,0.50); }
@@ -911,4 +911,16 @@ body { background:var(--bg-root); color:var(--tx-primary); transition:background
 @keyframes vap-dot-pulse {
   0%, 80%, 100% { transform: scale(0.7); opacity: 0.3; }
   40%           { transform: scale(1.1); opacity: 0.9; }
+}
+/* Force hide all arc rings */
+.vap-arc-ring,
+.vap-arc-ring-1,
+.vap-arc-ring-2,
+.vap-avatar-system.vap-listening .vap-arc-ring-1,
+.vap-avatar-system.vap-listening .vap-arc-ring-2,
+.vap-avatar-system.vap-thinking .vap-arc-ring-1,
+.vap-avatar-system.vap-thinking .vap-arc-ring-2,
+.vap-avatar-system.vap-speaking .vap-arc-ring-1,
+.vap-avatar-system.vap-speaking .vap-arc-ring-2 {
+  display: none !important;
 }
