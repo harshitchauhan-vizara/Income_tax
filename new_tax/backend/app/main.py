@@ -13,8 +13,6 @@ from .asr.whisper_service import WhisperService
 from .config import Settings, get_settings
 from .llm.llm_service import LLMService
 from .rag.rag_pipeline import RAGPipeline
-from .rag.retriever import RetrieverService
-from .rag.vectorstore import VectorStoreService
 from .tts.sarvam_service import SarvamTTSService
 from .utils.language_detector import detect_supported_language
 from .websocket_manager import WebSocketManager
@@ -72,19 +70,14 @@ def sanitize_stream_token(token: str) -> str:
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("Starting application")
-    vectorstore = VectorStoreService(settings)
-    await vectorstore.ensure_index()
 
-    retriever        = RetrieverService(settings, vectorstore)
     llm_service      = LLMService(settings)
-    rag_pipeline     = RAGPipeline(settings, retriever, llm_service)
     whisper_service  = WhisperService(settings)
     sarvam_tts       = SarvamTTSService(settings)
     websocket_manager = WebSocketManager(settings)
 
-    app.state.vectorstore       = vectorstore
-    app.state.retriever         = retriever
     app.state.llm_service       = llm_service
+    rag_pipeline     = RAGPipeline(settings, None, llm_service)
     app.state.rag_pipeline      = rag_pipeline
     app.state.whisper_service   = whisper_service
     app.state.sarvam_tts        = sarvam_tts

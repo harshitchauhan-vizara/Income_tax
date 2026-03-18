@@ -412,3 +412,28 @@ class WhisperService:
         confidence    = float(info.language_probability or 0.0)
 
         return transcript, detected_lang, confidence
+# ---------------------------------------------------------------------------
+# Monkey-patch _is_hallucination to also catch space-separated word loops
+# e.g. "पर पर पर पर पर..." or "the the the the..."
+# ---------------------------------------------------------------------------
+_orig_is_hallucination = _is_hallucination
+
+def _is_hallucination(text: str) -> bool:
+    if _orig_is_hallucination(text):
+        return True
+    if not text:
+        return False
+    # Check 3: space-separated single-word repetition loop
+    words = [w.strip() for w in text.split() if w.strip()]
+    if len(words) >= 6:
+        counts: dict[str, int] = {}
+        for w in words:
+            counts[w] = counts.get(w, 0) + 1
+        top = max(counts.values())
+        if top / len(words) >= 0.5:
+            import logging as _log
+            _log.getLogger("app.asr.whisper_service").warning(
+                "Hallucination (space-loop): %r", text[:80]
+            )
+            return True
+    return False
