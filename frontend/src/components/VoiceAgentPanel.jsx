@@ -17,7 +17,7 @@ function detectScriptLang(text = "") {
 }
 
 /* ══════════════════════════════════════════════════
-   NeuralWaveform  — UNCHANGED
+   NeuralWaveform — UNCHANGED
    ══════════════════════════════════════════════════ */
 function NeuralWaveform({ voiceState }) {
   const canvasRef    = useRef(null);
@@ -91,11 +91,9 @@ function NeuralWaveform({ voiceState }) {
     if (!canvas) { rafRef.current = requestAnimationFrame(draw); return; }
     frameRef.current = (frameRef.current + 1) % 2;
     if (frameRef.current !== 0) { rafRef.current = requestAnimationFrame(draw); return; }
-
     const ctx = canvas.getContext("2d");
     const W = canvas.width, H = canvas.height;
     ctx.clearRect(0, 0, W, H);
-
     let rawAmp = 0;
     if (analyserRef.current && isActive) {
       const buf = new Uint8Array(analyserRef.current.frequencyBinCount);
@@ -113,7 +111,6 @@ function NeuralWaveform({ voiceState }) {
       { speed:1.90, ampMul:0.40, freq:3.50, alpha:isActive ? 0.22+amp*0.38 : 0.05, lw:0.7 },
     ];
     const baseAmpPx = isActive ? 12 + amp*24 : 4;
-
     LANES.forEach((lane, li) => {
       const cr = li<2 ? scheme.r : scheme.accent[0];
       const cg = li<2 ? scheme.g : scheme.accent[1];
@@ -123,8 +120,7 @@ function NeuralWaveform({ voiceState }) {
         ctx.shadowColor = `rgba(${cr},${cg},${cb},${lane.alpha*0.55})`;
         ctx.shadowBlur  = 16 + amp*12;
         ctx.strokeStyle = `rgba(${cr},${cg},${cb},${lane.alpha*0.35})`;
-        ctx.lineWidth   = lane.lw * 3.2;
-        ctx.lineCap     = "round";
+        ctx.lineWidth   = lane.lw * 3.2; ctx.lineCap = "round";
         ctx.beginPath();
         for (let x=0; x<=W; x+=3) {
           const nx=x/W, env=Math.sin(nx*Math.PI);
@@ -144,7 +140,6 @@ function NeuralWaveform({ voiceState }) {
       }
       ctx.stroke(); ctx.restore();
     });
-
     rafRef.current = requestAnimationFrame(draw);
   }, [isActive, voiceState]);
 
@@ -154,18 +149,12 @@ function NeuralWaveform({ voiceState }) {
   }, [draw]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="vap-wave-canvas"
-      width={640}
-      height={56}
-      aria-hidden="true"
-    />
+    <canvas ref={canvasRef} className="vap-wave-canvas" width={640} height={56} aria-hidden="true" />
   );
 }
 
 /* ══════════════════════════════════════════════════
-   FloatingParticles  — UNCHANGED
+   FloatingParticles — UNCHANGED
    ══════════════════════════════════════════════════ */
 function FloatingParticles({ voiceState }) {
   const canvasRef = useRef(null);
@@ -177,20 +166,15 @@ function FloatingParticles({ voiceState }) {
   useEffect(() => {
     ptsRef.current = Array.from({ length:38 }, () => ({
       x:Math.random(), y:Math.random(),
-      vx:(Math.random()-0.5)*0.00018,
-      vy:(Math.random()-0.5)*0.00018-0.00009,
-      r:0.8+Math.random()*2.2,
-      alpha:0.05+Math.random()*0.18,
+      vx:(Math.random()-0.5)*0.00018, vy:(Math.random()-0.5)*0.00018-0.00009,
+      r:0.8+Math.random()*2.2, alpha:0.05+Math.random()*0.18,
       t:Math.random()*Math.PI*2,
     }));
   }, []);
 
   const SCHEME = {
-    idle:        [108, 155, 210],
-    listening:   [220, 50,  50 ],
-    transcribing:[234, 179, 8  ],
-    generating:  [234, 179, 8  ],
-    speaking:    [58,  107, 163],
+    idle:[108,155,210], listening:[220,50,50],
+    transcribing:[234,179,8], generating:[234,179,8], speaking:[58,107,163],
   };
 
   const draw = useCallback(() => {
@@ -205,16 +189,13 @@ function FloatingParticles({ voiceState }) {
     const speedMul = isActive ? 2.2 : 1;
     const now = Date.now()*0.001;
     ptsRef.current.forEach(p => {
-      p.t  += 0.008*speedMul;
-      p.x  += p.vx*speedMul + Math.sin(p.t*0.7)*0.00006;
-      p.y  += p.vy*speedMul;
+      p.t += 0.008*speedMul; p.x += p.vx*speedMul + Math.sin(p.t*0.7)*0.00006; p.y += p.vy*speedMul;
       if (p.x<-0.05) p.x=1.05; if (p.x>1.05) p.x=-0.05;
       if (p.y<-0.05) p.y=1.05; if (p.y>1.05) p.y=-0.05;
       const pulse = 0.5+0.5*Math.sin(now*1.4+p.t);
-      const alpha = p.alpha*(isActive ? 0.55+pulse*0.55 : 0.3);
       ctx.beginPath();
       ctx.arc(p.x*W, p.y*H, p.r*(isActive ? 1+pulse*0.6 : 1), 0, Math.PI*2);
-      ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
+      ctx.fillStyle = `rgba(${r},${g},${b},${p.alpha*(isActive ? 0.55+pulse*0.55 : 0.3)})`;
       ctx.fill();
     });
     rafRef.current = requestAnimationFrame(draw);
@@ -226,12 +207,7 @@ function FloatingParticles({ voiceState }) {
   }, [draw]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="vap-particles-canvas"
-      width={960} height={600}
-      aria-hidden="true"
-    />
+    <canvas ref={canvasRef} className="vap-particles-canvas" width={960} height={600} aria-hidden="true" />
   );
 }
 
@@ -239,7 +215,8 @@ function FloatingParticles({ voiceState }) {
    VoiceAgentPanel
    ══════════════════════════════════════════════════════════ */
 const VoiceAgentPanel = ({
-  voiceState, transcript, latestResponse,
+  voiceState, transcript, typedTranscript,
+  latestResponse, clearResponse,
   isRecording, micUnavailable, onToggleMic,
   isSpeaking, ttsProvider,
 }) => {
@@ -248,7 +225,7 @@ const VoiceAgentPanel = ({
   const isThinking  = voiceState === "generating" || voiceState === "transcribing";
   const isTalking   = voiceState === "speaking";
 
-  /* typewriter */
+  // Typewriter only for RESPONSE card
   const [displayedResponse, setDisplayedResponse] = useState("");
   const typeTimerRef = useRef(null);
   useEffect(() => {
@@ -264,7 +241,7 @@ const VoiceAgentPanel = ({
     return () => clearInterval(typeTimerRef.current);
   }, [latestResponse]);
 
-  const transcriptLang = detectScriptLang(transcript);
+  const transcriptLang = detectScriptLang(typedTranscript || transcript);
   const responseLang   = detectScriptLang(latestResponse);
 
   const wrapCls = [
@@ -282,10 +259,33 @@ const VoiceAgentPanel = ({
     isThinking  ? "vap-status-think"  : "",
   ].filter(Boolean).join(" ");
 
+  // ── YOU SAID card content ──────────────────────────────────────────────────
+  // During listening: show live speech text instantly (from Web Speech API)
+  // After stop: show Whisper final text or placeholder
+  const youSaidContent = () => {
+    if (isListening) {
+      if (typedTranscript) {
+        // Live words from Web Speech API — shown immediately with cursor
+        return (
+          <span style={{ opacity: 0.9 }}>
+            {typedTranscript}
+            <span className="vap-cursor" aria-hidden="true">▌</span>
+          </span>
+        );
+      }
+      // Mic just opened — waiting for first word
+      return (
+        <span className="vap-listening-dots">
+          <span /><span /><span />
+        </span>
+      );
+    }
+    // Not listening — show final transcript or placeholder
+    return typedTranscript || transcript || "Tap the microphone and speak your query...";
+  };
+
   return (
     <section className="vap-root" aria-live="polite">
-
-      {/* ── Ambient layers ── */}
       <div className="vap-scanlines"      aria-hidden="true" />
       <div className="vap-orb vap-orb-1"  aria-hidden="true" />
       <div className="vap-orb vap-orb-2"  aria-hidden="true" />
@@ -296,9 +296,6 @@ const VoiceAgentPanel = ({
       </div>
       <div className="vap-grid" aria-hidden="true" />
 
-      {/* ════════════════════════════════════════════
-          VERTICAL STACK — everything centred
-          ════════════════════════════════════════════ */}
       <div className="vap-stack">
 
         {/* 1. AVATAR */}
@@ -325,7 +322,7 @@ const VoiceAgentPanel = ({
             <div className="vap-bracket vap-bracket-tr" aria-hidden="true" />
             <div className="vap-bracket vap-bracket-bl" aria-hidden="true" />
             <div className="vap-bracket vap-bracket-br" aria-hidden="true" />
-            <div className="vap-avatar-shimmer"         aria-hidden="true" />
+            <div className="vap-avatar-shimmer" aria-hidden="true" />
           </div>
         </div>
 
@@ -336,45 +333,54 @@ const VoiceAgentPanel = ({
 
         {/* 3. STATUS */}
         <p className={statusCls}>
-          {isActive && <span className="vap-status-dot"   aria-hidden="true" />}
+          {isActive && <span className="vap-status-dot" aria-hidden="true" />}
           <span className="vap-status-text">{stateLabel[voiceState] || stateLabel.idle}</span>
           {isActive && <span className="vap-status-dot vap-status-dot-r" aria-hidden="true" />}
         </p>
 
-        {/* 4. CARDS */}
-        <div className={`vap-cards-row${latestResponse ? "" : " single"}`}>
+        {/* 4. CARDS — always stacked vertically */}
+        <div className="vap-cards-row single" style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
 
-          <div className={`vap-card${transcript ? "" : " vap-card-muted"}`}>
+          {/* YOU SAID — live text while speaking, final after stop */}
+          <div className={`vap-card${(transcript || typedTranscript) ? "" : " vap-card-muted"}`} style={{ width: "100%" }}>
             <div className="vap-card-label">
               <span className="vap-card-label-dot" />
               YOU SAID
             </div>
             <p className="vap-card-text" lang={transcriptLang}>
-              {transcript || "Tap the microphone and speak your query..."}
+              {youSaidContent()}
             </p>
           </div>
 
-          {latestResponse && (
-            <div className="vap-card response">
+          {/* RESPONSE — dots while thinking, text streams in as LLM responds */}
+          {/* clearResponse=true means new question started — hide old response */}
+          {!clearResponse && (latestResponse || isThinking) && (
+            <div className="vap-card response" style={{ width: "100%" }}>
               <div className="vap-card-label">
                 <span className="vap-card-label-dot" />
                 RESPONSE
               </div>
               <p className="vap-card-text" lang={responseLang}>
-                {displayedResponse}
-                {displayedResponse.length < latestResponse.length && (
-                  <span className="vap-cursor" aria-hidden="true">▌</span>
+                {isThinking && !displayedResponse ? (
+                  // Dots while LLM is thinking — exactly what you asked for
+                  <span className="vap-listening-dots">
+                    <span /><span /><span />
+                  </span>
+                ) : (
+                  <>
+                    {displayedResponse}
+                    {displayedResponse.length < (latestResponse?.length ?? 0) && (
+                      <span className="vap-cursor" aria-hidden="true">▌</span>
+                    )}
+                  </>
                 )}
               </p>
             </div>
           )}
-
         </div>
 
         {/* 5. CONTROLS */}
         <div className="vap-controls">
-
-          {/* Provider pill */}
           <div className="vap-provider-chip">
             <span className="vap-provider-dot" />
             {ttsProvider === "elevenlabs"  ? "ElevenLabs Voice Engine" :
@@ -383,7 +389,6 @@ const VoiceAgentPanel = ({
              "Detecting Engine..."}
           </div>
 
-          {/* Mic button — neumorphic raised rounded-square, icon colour via CSS */}
           <button
             type="button"
             className={`vap-mic-btn${isRecording ? " vap-mic-active" : ""}`}
@@ -392,62 +397,33 @@ const VoiceAgentPanel = ({
             aria-pressed={isRecording}
             aria-label={isRecording ? "Stop recording" : "Start recording"}
           >
-            {/*
-              vap-mic-wrap is exactly 68×68 — the same size as the core.
-              Ripple rings and orbit are absolutely positioned inside it,
-              so they radiate from the true centre of the square button.
-            */}
             <div className="vap-mic-wrap">
-              {/* Ripple rings */}
               <div className="vap-ripple"              aria-hidden="true" />
               <div className="vap-ripple vap-ripple-2" aria-hidden="true" />
               <div className="vap-ripple vap-ripple-3" aria-hidden="true" />
-              {/* Orbit dashed ring */}
               <div className="vap-mic-orbit"           aria-hidden="true" />
-
-              {/* Neumorphic core */}
               <div className="vap-mic-core">
                 {isRecording ? (
                   <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-                    <rect
-                      x="6" y="6" width="12" height="12" rx="2.5"
-                      className="vap-mic-icon-fill"
-                    />
+                    <rect x="6" y="6" width="12" height="12" rx="2.5" className="vap-mic-icon-fill" />
                   </svg>
                 ) : (
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <rect
-                      x="9" y="2" width="6" height="11" rx="3"
-                      className="vap-mic-icon-fill"
-                    />
-                    <path
-                      d="M5 11a7 7 0 0 0 14 0"
-                      strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"
-                      className="vap-mic-icon-stroke"
-                    />
-                    <line
-                      x1="12" y1="18" x2="12" y2="21"
-                      strokeWidth="1.9" strokeLinecap="round"
-                      className="vap-mic-icon-stroke"
-                    />
-                    <line
-                      x1="9" y1="21" x2="15" y2="21"
-                      strokeWidth="1.9" strokeLinecap="round"
-                      className="vap-mic-icon-stroke"
-                    />
+                    <rect x="9" y="2" width="6" height="11" rx="3" className="vap-mic-icon-fill" />
+                    <path d="M5 11a7 7 0 0 0 14 0" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" className="vap-mic-icon-stroke" />
+                    <line x1="12" y1="18" x2="12" y2="21" strokeWidth="1.9" strokeLinecap="round" className="vap-mic-icon-stroke" />
+                    <line x1="9" y1="21" x2="15" y2="21" strokeWidth="1.9" strokeLinecap="round" className="vap-mic-icon-stroke" />
                   </svg>
                 )}
               </div>
-            </div>{/* end vap-mic-wrap */}
-
+            </div>
             <span className="vap-mic-label">
               {isRecording ? "TAP TO STOP" : "TAP TO SPEAK"}
             </span>
           </button>
-
         </div>
 
-      </div>{/* end vap-stack */}
+      </div>
     </section>
   );
 };

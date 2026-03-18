@@ -166,18 +166,41 @@ async def websocket_endpoint(websocket: WebSocket):
                 chunk = message["bytes"]
                 manager.append_audio_chunk(session_id, chunk)
 
-                # Live partial STT — show the user what they are saying while speaking.
-                # Throttled to once per second per session to avoid CPU overload.
+                # ── Live partial STT — fire-and-forget background task ────────
+                # On CPU, Whisper takes 1-3 s per partial. We must NEVER await it
+                # inside the audio-receive loop or we stall incoming audio chunks.
+                #
+                # Strategy:
+                #   - Throttle task launch to every 1.2 s (CPU Whisper needs time)
+                #   - Launch transcription as asyncio.Task — runs concurrently
+                #   - When it finishes it sends partial_transcript with real words
+                #   - No timeout, no hint fallback — YOU SAID stays blank until
+                #     real words arrive (far better UX than showing "3s")
                 now = time.monotonic()
-                if now - _partial_times.get(session_id, 0.0) >= 1.0:
-                    _partial_times[session_id] = now
+                if now - _partial_times.get(session_id, 0.0) >= 1.2:
                     current_audio = bytes(manager.audio_buffers.get(session_id, bytearray()))
-                    partial_text = await whisper_service.transcribe_partial(current_audio, "auto")
-                    await manager.send_json(
-                        websocket, {"type": "partial_transcript", "text": partial_text}
-                    )
-                else:
-                    await manager.send_json(websocket, {"type": "partial_transcript", "text": ""})
+                    if len(current_audio) > 8000:
+                        _partial_times[session_id] = now
+
+                        async def _run_partial(audio_snapshot: bytes) -> None:
+                            loop = asyncio.get_event_loop()
+                            try:
+                                text = await loop.run_in_executor(
+                                    None,
+                                    lambda: whisper_service.transcribe_partial_sync(
+                                        audio_snapshot, "auto"
+                                    ),
+                                )
+                                if text and text.strip():
+                                    await manager.send_json(
+                                        websocket,
+                                        {"type": "partial_transcript", "text": text.strip()},
+                                    )
+                            except Exception:
+                                pass  # silently skip — never show a timing hint
+
+                        asyncio.create_task(_run_partial(current_audio))
+                # else: throttled — keep receiving audio without blocking
                 continue
 
             text_data = message.get("text")
@@ -203,40 +226,47 @@ async def websocket_endpoint(websocket: WebSocket):
                     await manager.send_json(websocket, {"type": "error", "message": "No audio received."})
                     continue
 
-                # Tell frontend: audio received, now transcribing — show spinner/indicator
                 await manager.send_json(websocket, {"type": "transcribing"})
 
                 transcript, detected_lang, confidence = await whisper_service.transcribe(raw_audio, preferred_language)
-                if confidence < settings.whisper_confidence_threshold:
+
+                # Only reject truly silent / noise audio where Whisper returned nothing.
+                # Indian-accent English on large-v3 CPU int8 commonly scores 0.30-0.55,
+                # so a hard threshold was silently dropping valid tax queries.
+                # We accept any transcript that has actual text content.
+                if not transcript.strip():
+                    # Distinguish: model not loaded vs genuine silence
+                    if confidence == 0.0:
+                        await manager.send_json(
+                            websocket,
+                            {
+                                "type": "asr_error",
+                                "message": "Could not hear you clearly. Please speak again.",
+                                "language": preferred_language if preferred_language in {"en", "hi"} else "en",
+                            },
+                        )
+                        continue
+                    # else: model returned empty with some confidence — treat as silence
                     await manager.send_json(
                         websocket,
                         {
                             "type": "asr_error",
-                            "message": "Could you please repeat your question clearly?",
+                            "message": "No speech detected. Please tap the mic and speak your question.",
                             "language": preferred_language if preferred_language in {"en", "hi"} else "en",
                         },
                     )
                     continue
-                if not transcript.strip():
-                    asr_status = whisper_service.get_status()
-                    if not asr_status.get("available"):
-                        await manager.send_json(
-                            websocket,
-                            {
-                                "type": "asr_error",
-                                "message": "ASR service is unavailable. Install and configure faster-whisper.",
-                                "details": asr_status.get("last_error", ""),
-                            },
-                        )
-                    else:
-                        await manager.send_json(
-                            websocket,
-                            {
-                                "type": "asr_error",
-                                "message": "Unable to transcribe audio. Please speak clearly and try again.",
-                                "details": asr_status.get("last_error", ""),
-                            },
-                        )
+                # Check ASR availability separately (model not loaded case)
+                asr_status = whisper_service.get_status()
+                if not asr_status.get("available"):
+                    await manager.send_json(
+                        websocket,
+                        {
+                            "type": "asr_error",
+                            "message": "ASR service is unavailable. Install and configure faster-whisper.",
+                            "details": asr_status.get("last_error", ""),
+                        },
+                    )
                     continue
 
                 from .llm.llm_service import detect_language as _detect_lang_asr
@@ -251,10 +281,6 @@ async def websocket_endpoint(websocket: WebSocket):
                     if lang not in {"en", "hi"}:
                         lang = "en"
 
-                # FIX Bug 1: Send user_transcript IMMEDIATELY after transcription.
-                # This makes the user's question appear in the UI before the LLM
-                # starts generating — previously it was shown only after handle_query
-                # returned, which is after TTS completes (many seconds too late).
                 await manager.send_json(
                     websocket,
                     {
@@ -265,8 +291,6 @@ async def websocket_endpoint(websocket: WebSocket):
                     },
                 )
 
-                # Signal frontend to open/prepare the assistant response box
-                # before the first LLM token arrives.
                 await manager.send_json(websocket, {"type": "assistant_start"})
 
                 await handle_query(
@@ -335,7 +359,6 @@ async def websocket_endpoint(websocket: WebSocket):
                         "language": lang,
                     },
                 )
-                # Signal frontend to open/prepare the assistant response box immediately
                 await manager.send_json(websocket, {"type": "assistant_start"})
 
                 await handle_query(
@@ -393,11 +416,6 @@ async def websocket_endpoint(websocket: WebSocket):
 
 
 def _split_into_tts_sentences(text: str, min_len: int = 80) -> list[str]:
-    """
-    Split text into sentence batches suitable for Sarvam TTS.
-    Short sentences are merged until min_len is reached to avoid
-    choppy audio from Sarvam's per-request latency overhead.
-    """
     raw = re.split(r'(?<=[.!?।])\s+', text.strip())
     batches: list[str] = []
     current = ""
@@ -415,9 +433,6 @@ def _split_into_tts_sentences(text: str, min_len: int = 80) -> list[str]:
 
 
 def _extract_clean_answer(raw: str) -> str:
-    """
-    Strip the LLM chain-of-thought meta block from the full raw output.
-    """
     text = raw or ""
 
     if "final<|message|>" in text:
@@ -445,22 +460,6 @@ def _extract_clean_answer(raw: str) -> str:
 
 
 def _sanitize_for_tts(text: str) -> str:
-    """
-    Convert all non-speakable content to natural spoken words for Sarvam TTS.
-
-      Step 1  URLs           https://incometax.gov.in  → "for more details visit incometax dot gov dot in"
-      Step 2  % ranges       (5%‑30%)                  → "between 5 percent to 30 percent"
-      Step 3  ₹ lakh ranges  (₹3‑7 L)                  → "between 3 laakh to 7 laakh"
-      Step 4  ₹ amounts      ₹14,25,000                → "rupees 14 laakh 25 thousand"
-      Step 5  Slab lists     0‑5‑10‑15‑20‑30%          → "zero, five, ..., thirty percent"
-      Step 6  Lone dashes    remaining ‑                → " to "
-      Step 7  Section IDs    87A, 80C                  → "87 A", "80 C"
-      Step 8  Markdown       **bold**                  → "bold"
-      Step 9  Whitespace     normalise
-
-    Note: "laakh" is used throughout (not "lakh") because Sarvam pronounces
-    "laakh" correctly as the Indian word, while "lakh" can sound like "lack".
-    """
     _ONES = ["zero","one","two","three","four","five","six","seven","eight","nine",
              "ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen",
              "seventeen","eighteen","nineteen"]
@@ -473,7 +472,6 @@ def _sanitize_for_tts(text: str) -> str:
         return str(n)
 
     def _indian_amount(raw: str) -> str:
-        """14,25,000 → "14 laakh twenty five thousand" """
         try:
             n = int(raw.replace(",", ""))
         except ValueError:
@@ -492,11 +490,9 @@ def _sanitize_for_tts(text: str) -> str:
         return " ".join(parts)
 
     def _expand_pct_range(m):
-        """(5%‑30%) → "between 5 percent to 30 percent" """
         return f"between {m.group(1)} percent to {m.group(2)} percent"
 
     def _expand_lakh_range(m):
-        """(₹3‑7 L) → "between 3 laakh to 7 laakh" """
         a, b = m.group(1), m.group(2)
         sfx  = (m.group(3) or "").strip()
         if sfx in ("L","l","lakh"):    return f"between {a} laakh to {b} laakh"
@@ -504,7 +500,6 @@ def _sanitize_for_tts(text: str) -> str:
         return f"between {a} to {b}"
 
     def _expand_slab(m):
-        """0‑5‑10‑15‑20‑30% → "zero, five, ..., thirty percent" """
         nums  = re.split(_DASH, m.group(1))
         words = [_nw(int(n)) for n in nums if n.isdigit()]
         if not words: return m.group(0)
@@ -517,50 +512,26 @@ def _sanitize_for_tts(text: str) -> str:
 
     t = text or ""
 
-    # Step 1: URLs
     t = re.sub(r'\b(?:visit|see|check|go to|refer to)\s+https?://\S+',
                lambda m: _url_speech(re.search(r'https?://\S+', m.group(0))), t)
     t = re.sub(r'https?://\S+', _url_speech, t)
-
-    # Step 2: Percentage ranges  (5%‑30%)  →  "between 5 percent to 30 percent"
     t = re.sub(r'(\d[\d.]*)\s*%\s*' + _DASH + r'\s*(\d[\d.]*)\s*%', _expand_pct_range, t)
-
-    # Step 3: ₹ lakh/crore ranges  (₹3‑7 L)  →  "between 3 laakh to 7 laakh"
     t = re.sub(r'₹\s*(\d[\d,]*)\s*' + _DASH + r'\s*(\d[\d.,]*)\s*(L|Cr|lakh|crore)?',
                _expand_lakh_range, t)
-
-    # Step 4: Plain ₹ amounts  →  spoken Indian numbers
     t = re.sub(r'₹\s*(\d[\d,]*)', lambda m: "rupees " + _indian_amount(m.group(1)), t)
-
-    # Step 5: Slab lists  0‑5‑10‑15‑20‑30%
     t = re.sub(r'(\d+(?:' + _DASH + r'\d+){2,})%', _expand_slab, t)
-
-    # Step 6: Remaining digit‑digit  →  "X to Y"
     t = re.sub(r'(\d)\s*' + _DASH + r'\s*(\d)', r'\1 to \2', t)
-
-    # Step 7: Any leftover unicode dashes  →  comma pause
     for ch in "\u2010\u2011\u2012\u2013\u2014\u2015\u2212":
         t = t.replace(ch, ", ")
-
-    # Step 8: Strip markdown bold/italic
     t = re.sub(r"\*{1,3}([^*]+)\*{1,3}", r"\1", t)
     t = re.sub(r"_{1,2}([^_]+)_{1,2}", r"\1", t)
-
-    # Step 9: Section codes  87A → "87 A"
     t = re.sub(r'\b(\d+)([A-Z]{1,3})\b', r'\1 \2', t)
-
-    # Step 10: Whitespace
     t = re.sub(r"[ \t]{2,}", " ", t)
     t = re.sub(r"\n+", " ", t)
     return t.strip()
 
 
 def _safe_append(buf: str, new_text: str) -> str:
-    """
-    Append new_text to buf ensuring a word-boundary space where needed.
-    Fixes "taxif" (token "tax" + token "if" with no space between them)
-    and "lakh.New" (punctuation end + letter start).
-    """
     if buf and new_text:
         last  = buf[-1]
         first = new_text[0]
@@ -583,25 +554,17 @@ async def handle_query(
     enable_voice: bool = False,
     streaming_tts: bool = False,
 ) -> None:
-    """
-    Concurrent pipeline — text streaming and TTS run at the same time.
-    TTS receives only sanitized-for-speech text (numbers expanded, symbols
-    stripped, URLs removed) to prevent letter-by-letter hallucination.
-    """
     sarvam_tts: SarvamTTSService = getattr(websocket.app.state, "sarvam_tts")
 
     do_tts = enable_voice and sarvam_tts.enabled
 
-    # Raised from 120 → 200: fewer, larger TTS batches = fewer API calls = faster audio
     MIN_BATCH_CHARS = 250
     SENTENCE_END_RE = re.compile(r'(?<=[.!?।])\s+')
 
-    # Max seconds to wait for a single out-of-order TTS batch before skipping it
     MAX_WAIT_S = 8.0
 
     tts_queue: asyncio.Queue = asyncio.Queue()
 
-    # ── Track A: stream tokens live to frontend AND push TTS batches ────────
     async def _stream_tokens() -> str:
         raw_chunks:       list[str] = []
         post_marker_raw:  list[str] = []
@@ -611,8 +574,6 @@ async def handle_query(
 
         def _push_batch(text: str) -> None:
             nonlocal batch_idx
-            # Sanitize for speech BEFORE queuing — removes URLs, fixes symbols,
-            # strips anything that makes Sarvam spell letter-by-letter
             cleaned = _sanitize_for_tts(text)
             if cleaned:
                 tts_queue.put_nowait((batch_idx, cleaned))
@@ -620,31 +581,13 @@ async def handle_query(
 
         def _maybe_flush_tts(new_text: str) -> None:
             nonlocal tts_buf
-            # Use _safe_append to prevent token-joining bugs like "taxif"
             tts_buf = _safe_append(tts_buf, new_text)
             if len(tts_buf) >= MIN_BATCH_CHARS:
                 parts = SENTENCE_END_RE.split(tts_buf)
                 if len(parts) > 1:
-                    # Only flush complete sentences — never cut mid-word
                     _push_batch(" ".join(parts[:-1]))
                     tts_buf = parts[-1]
-                # If no sentence boundary yet, keep accumulating.
-                # Do NOT split at word boundary — that causes letter-by-letter
-                # artifacts when a word is cut across two TTS batches.
 
-        # Stream tokens live — with strict pre/post marker separation.
-        #
-        # CRITICAL RULES (fixes Bug 2 + Bug 3):
-        #   1. Pre-marker tokens (LLM chain-of-thought / analysis zone) are
-        #      NEVER sent to the frontend and NEVER fed to TTS.
-        #      Sending them caused: garbage text in the response box, and TTS
-        #      speaking the LLM's internal reasoning instead of the answer.
-        #   2. TTS only receives clean post-marker tokens — the actual answer.
-        #   3. The assistant_token stream only starts after the final marker is
-        #      confirmed, so the response box stays empty until real content arrives.
-        #
-        # If the LLM never emits a final marker (Format C — no meta block),
-        # the entire output is treated as the answer and streamed normally.
         async for token in rag_pipeline.answer_stream(
             query=query, session_id=session_id, language_hint=language
         ):
@@ -655,21 +598,17 @@ async def handle_query(
             full_so_far = "".join(raw_chunks)
 
             if not final_marker_seen and "final<|message|>" in full_so_far:
-                # Marker just arrived — extract only the content after it
                 final_marker_seen = True
                 _, _, after = full_so_far.partition("final<|message|>")
                 if after:
                     post_marker_raw.append(after)
                     clean_tok = sanitize_stream_token(after)
                     if clean_tok:
-                        # Now safe to stream to frontend and TTS
                         await manager.send_json(websocket, {"type": "assistant_token", "token": clean_tok + " "})
                         if do_tts:
                             _maybe_flush_tts(clean_tok + " ")
-                # Pre-marker tokens are silently discarded — never sent anywhere
 
             elif final_marker_seen:
-                # Post-marker: clean and stream everything
                 post_marker_raw.append(token)
                 clean_tok = sanitize_stream_token(token)
                 if clean_tok:
@@ -677,26 +616,14 @@ async def handle_query(
                     if do_tts:
                         _maybe_flush_tts(clean_tok)
 
-            # else: still in pre-marker zone — DO NOTHING. Do not stream, do not
-            # feed TTS. The analysis block is internal LLM reasoning only.
-
-        # Build the final clean answer for assistant_final message.
-        # Format C (no marker at all): the whole output is the answer.
-        # In this case final_marker_seen is False but raw_chunks has everything.
-        # We need to handle streaming for Format C too — if no marker was ever
-        # seen, the tokens above were all silently dropped. Replay them now as
-        # the clean answer stream.
         if not final_marker_seen:
             answer_text = sanitize_assistant_output(
                 _extract_clean_answer("".join(raw_chunks))
             )
-            # Stream clean answer to frontend word-by-word (Format C — no marker)
             words = answer_text.split()
             for i, word in enumerate(words):
                 tok = word + (" " if i < len(words) - 1 else "")
                 await manager.send_json(websocket, {"type": "assistant_token", "token": tok})
-            # For TTS in Format C: push whole answer as sentence-split batches,
-            # not word-by-word, so we never cut mid-word.
             if do_tts:
                 for sentence in SENTENCE_END_RE.split(_sanitize_for_tts(answer_text)):
                     s = sentence.strip()
@@ -711,15 +638,12 @@ async def handle_query(
                 "Please visit https://www.incometax.gov.in or call 1800-103-0025."
             )
 
-        # Flush remaining TTS buffer
         if do_tts and tts_buf.strip():
             _push_batch(tts_buf)
 
-        # Signal Track B: no more batches
         tts_queue.put_nowait(None)
         return answer_text
 
-    # ── Track B: synthesise all batches concurrently, send in order ─────────
     async def _run_tts() -> None:
         if not do_tts:
             while await tts_queue.get() is not None:
@@ -736,7 +660,6 @@ async def handle_query(
                 logger.warning("TTS batch=%d failed: %s", idx, exc)
                 return idx, None
 
-        # Drain queue, launching synthesis tasks immediately as batches arrive
         pending: dict[int, asyncio.Task] = {}
         while True:
             item = await tts_queue.get()
@@ -748,12 +671,6 @@ async def handle_query(
         if not pending:
             return
 
-        # ── FIX: send each chunk as soon as it finishes (not blocked by order) ──
-        # We maintain a done buffer and always send the lowest unsent index
-        # once it's available. This means:
-        #   - If batch 0 finishes before batch 1, send batch 0 immediately.
-        #   - If batch 1 finishes before batch 0, buffer it and wait for batch 0.
-        # We never wait more than MAX_WAIT_S for any single batch.
         done_buf: dict[int, bytes | None] = {}
         next_send = 0
         total = len(pending)
@@ -762,7 +679,6 @@ async def handle_query(
             result_idx, audio_bytes = await coro
             done_buf[result_idx] = audio_bytes
 
-            # Send all consecutive completed batches in order
             while next_send in done_buf:
                 audio = done_buf.pop(next_send)
                 if audio:
@@ -777,7 +693,6 @@ async def handle_query(
                     )
                 next_send += 1
 
-        # Send any remaining buffered chunks in order (handles stragglers)
         while next_send < total:
             audio = done_buf.get(next_send)
             if audio:
@@ -792,7 +707,6 @@ async def handle_query(
                 )
             next_send += 1
 
-    # ── Run both tracks concurrently ───────────────────────────────────────
     stream_task = asyncio.create_task(_stream_tokens())
     tts_task    = asyncio.create_task(_run_tts())
 

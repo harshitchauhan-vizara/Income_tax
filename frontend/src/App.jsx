@@ -106,12 +106,32 @@ function App() {
     ttsProvider,
     enableVoiceInChat,
     setEnableVoiceInChat,
+    // FIX: destructure clearResponse so it can be passed to VoiceAgentPanel
+    clearResponse,
   } = useChat();
 
+  // lastTranscript: what shows in YOU SAID after recording stops.
+  // FIX: single useEffect — the original had two identical useEffects on
+  // [messages] which caused double-sync and stale closure issues.
+  // Logic:
+  //   • While speaking → show live partial (typedTranscript from Web Speech API)
+  //   • After stop → show final confirmed transcript from the latest user message
   const [lastTranscript, setLastTranscript] = useState("");
+
   useEffect(() => {
-    if (liveTranscript) setLastTranscript(liveTranscript);
-  }, [liveTranscript]);
+    // During recording: live partial text drives YOU SAID directly via typedTranscript.
+    // After recording: sync from the last confirmed user message in the message list.
+    const lastUser = [...messages].reverse().find((m) => m.role === "user");
+    if (lastUser?.text) setLastTranscript(lastUser.text);
+  }, [messages]);
+
+  // When a new recording starts, clear lastTranscript immediately so
+  // YOU SAID goes blank before the new live text appears.
+  useEffect(() => {
+    if (voiceState === "listening") {
+      setLastTranscript("");
+    }
+  }, [voiceState]);
 
   const handleClearChat = () => {
     if (window.speechSynthesis) window.speechSynthesis.cancel();
@@ -219,6 +239,7 @@ function App() {
             transcript={lastTranscript}
             typedTranscript={typedTranscript}
             latestResponse={latestResponse}
+            clearResponse={clearResponse}
             isRecording={isRecording}
             micUnavailable={micUnavailable}
             onToggleMic={toggleRecording}
