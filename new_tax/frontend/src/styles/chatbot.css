@@ -489,23 +489,9 @@ body { background:var(--bg-root); color:var(--tx-primary); transition:background
 }
 
 /* Arc rings */
-.vap-arc-ring { position:absolute; inset:-8px; border-radius:44px; border:1.5px solid transparent; pointer-events:none; }
-.vap-arc-ring-1 {
-  border-top-color: rgba(108,155,210,0.70);
-  border-right-color: rgba(108,155,210,0.12);
-  border-bottom-color: rgba(108,155,210,0.12);
-  border-left-color: rgba(108,155,210,0.40);
-  animation: arcSpin 4s linear infinite;
-}
-.vap-arc-ring-2 {
-  inset: -16px;
-  border-radius: 52px;
-  border-top-color: transparent;
-  border-right-color: rgba(108,155,210,0.40);
-  border-bottom-color: rgba(108,155,210,0.08);
-  border-left-color: transparent;
-  animation: arcSpin 7s linear infinite reverse;
-}
+.vap-arc-ring { display: none; }
+.vap-arc-ring-1 { display: none; }
+.vap-arc-ring-2 { display: none; }
 .vap-avatar-system.vap-listening .vap-arc-ring-1 { border-top-color:rgba(220,50,50,0.80); border-left-color:rgba(220,50,50,0.40); animation-duration:1.8s; }
 .vap-avatar-system.vap-listening .vap-arc-ring-2 { border-right-color:rgba(220,50,50,0.50); }
 .vap-avatar-system.vap-thinking  .vap-arc-ring-1 { border-top-color:rgba(234,179,8,0.80); border-left-color:rgba(234,179,8,0.40); animation-duration:1.2s; }
