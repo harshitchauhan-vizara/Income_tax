@@ -2,14 +2,13 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ChatWebSocket } from "../services/websocket";
 import { StreamingTTSBuffer } from "../utils/streamingTTS";
 
-const STORAGE_MESSAGES_KEY = "cp_chat_messages_v2";
 const STORAGE_UI_KEY = "cp_chat_ui_v2";
 
 const getDefaultWsUrl = () => {
   if (typeof window === "undefined") return "ws://localhost:8111/ws";
   const protocol = window.location.protocol === "https:" ? "wss" : "ws";
   const host = window.location.hostname || "localhost";
-  return `${protocol}://${host}:/ws`;
+  return `${protocol}://${host}:8111/ws`;
 };
 
 const WS_URL = import.meta.env.VITE_WS_URL || getDefaultWsUrl();
@@ -18,21 +17,14 @@ const safeLoad = (key, fallback) => {
   try {
     const val = JSON.parse(localStorage.getItem(key) || "null");
     return val ?? fallback;
-  } catch {
-    return fallback;
-  }
+  } catch { return fallback; }
 };
 
 const createId = () => (crypto?.randomUUID ? crypto.randomUUID() : `msg_${Date.now()}`);
 const now = () => new Date().toISOString();
 
 const makeMessage = (overrides = {}) => ({
-  id: createId(),
-  role: "bot",
-  text: "",
-  timestamp: now(),
-  source: null,
-  language: "EN",
+  id: createId(), role: "bot", text: "", timestamp: now(), source: null, language: "EN",
   ...overrides,
 });
 
@@ -56,14 +48,32 @@ const sanitizeText = (text = "") =>
 
 const decodeBase64ToBlob = (base64, mime = "audio/wav") => {
   const binary = atob(base64);
-  const len = binary.length;
-  const bytes = new Uint8Array(len);
-  for (let i = 0; i < len; i += 1) bytes[i] = binary.charCodeAt(i);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
   return new Blob([bytes], { type: mime });
 };
 
+// ── Web Speech API helpers ────────────────────────────────────────────────────
+// Detects if the browser supports real-time speech recognition.
+// Chrome/Edge on desktop: full support. Firefox/Safari: limited or none.
+const hasSpeechRecognition = () =>
+  typeof window !== "undefined" &&
+  ("SpeechRecognition" in window || "webkitSpeechRecognition" in window);
+
+const createSpeechRecognition = (lang = "en-IN") => {
+  if (!hasSpeechRecognition()) return null;
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const rec = new SR();
+  rec.continuous      = true;   // keep listening until we stop it
+  rec.interimResults  = true;   // fire events for in-progress words
+  rec.maxAlternatives = 1;
+  rec.lang            = lang;   // match the app's language
+  return rec;
+};
+// ─────────────────────────────────────────────────────────────────────────────
+
 export function useChat() {
-  // ── State (same order every render) ──────────────────────────────────
+  // ── State ──────────────────────────────────────────────────────────────────
   const [messages, setMessages]                   = useState([]);
   const [input, setInput]                         = useState("");
   const [isTyping, setIsTyping]                   = useState(false);
@@ -76,37 +86,39 @@ export function useChat() {
   const [micUnavailable, setMicUnavailable]       = useState(false);
   const [ttsProvider, setTtsProvider]             = useState("unknown");
   const [voiceState, setVoiceState]               = useState("idle");
+  // liveTranscript = what shows in YOU SAID (live while speaking, final after stop)
   const [liveTranscript, setLiveTranscript]       = useState("");
+  // clearResponse: true while user is speaking/transcribing — hides old response
+  const [clearResponse, setClearResponse]         = useState(false);
   const [isSpeaking, setIsSpeaking]               = useState(false);
   const [enableVoiceInChat, setEnableVoiceInChat] = useState(
     () => safeLoad(STORAGE_UI_KEY, {}).enableVoiceInChat || false
   );
+  // typedTranscript is the value rendered in the YOU SAID card — set directly, no animation
   const [typedTranscript, setTypedTranscript]     = useState("");
 
-  // ── Refs (same count every render) ───────────────────────────────────
-  const wsRef                   = useRef(null);
-  const activeStreamIdRef       = useRef(null);
-  const pendingUserTextRef      = useRef("");
-  const mediaRecorderRef        = useRef(null);
-  const mediaStreamRef          = useRef(null);
-  const stopRecordingPromiseRef = useRef(null);
-  const audioChunkBlobsRef      = useRef([]);
-  const audioQueueRef           = useRef([]);
-  const isAudioPlayingRef       = useRef(false);
-  const shouldPlayTtsRef        = useRef(false);
-  // Single handler ref — avoids recreating WebSocket on every render
+  // ── Refs ───────────────────────────────────────────────────────────────────
+  const wsRef                    = useRef(null);
+  const activeStreamIdRef        = useRef(null);
+  const pendingUserTextRef       = useRef("");
+  const mediaRecorderRef         = useRef(null);
+  const mediaStreamRef           = useRef(null);
+  const stopRecordingPromiseRef  = useRef(null);
+  const audioChunkBlobsRef       = useRef([]);
+  const audioQueueRef            = useRef([]);
+  const isAudioPlayingRef        = useRef(false);
+  const shouldPlayTtsRef         = useRef(false);
   const handleIncomingMessageRef = useRef(null);
+  const streamingTTSRef          = useRef(null);
+  const currentAudioRef          = useRef(null);
+  // Web Speech API recognition instance
+  const recognitionRef           = useRef(null);
+  // Tracks the interim text so we can update YOU SAID in real-time
+  const interimTextRef           = useRef("");
 
-  // ── NEW: StreamingTTSBuffer ref ────────────────────────────────────────
-  // One buffer instance per chat session. Lives in a ref so it persists
-  // across renders without triggering re-renders itself.
-  const streamingTTSRef = useRef(null);
-
-  const currentAudioRef = useRef(null);   // track the currently playing Audio object
-
-  // ── stopAllAudio — immediately stops all queued and playing audio ─────
+  // ── stopAllAudio ───────────────────────────────────────────────────────────
   const stopAllAudio = useCallback(() => {
-    audioQueueRef.current     = [];        // clear pending queue
+    audioQueueRef.current     = [];
     isAudioPlayingRef.current = false;
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
@@ -117,7 +129,7 @@ export function useChat() {
     setVoiceState((prev) => (prev === "speaking" ? "idle" : prev));
   }, []);
 
-  // ── playNextAudio — plain function, no hook ───────────────────────────
+  // ── playNextAudio ──────────────────────────────────────────────────────────
   const playNextAudio = useCallback(() => {
     if (isAudioPlayingRef.current) return;
     const next = audioQueueRef.current.shift();
@@ -143,7 +155,7 @@ export function useChat() {
     audio.play().catch(cleanup);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // ── Persist UI settings only (not messages) ───────────────────────────
+  // ── Persist UI settings ────────────────────────────────────────────────────
   useEffect(() => {
     localStorage.setItem(
       STORAGE_UI_KEY,
@@ -151,24 +163,7 @@ export function useChat() {
     );
   }, [darkMode, selectedLanguage, sessionMode, enableVoiceInChat]);
 
-  // ── Typewriter effect for live transcript ─────────────────────────────
-  // When liveTranscript changes (ASR result arrives), animate it character
-  // by character into typedTranscript so it appears to be typed live.
-  useEffect(() => {
-    if (!liveTranscript) {
-      setTypedTranscript("");
-      return;
-    }
-    setTypedTranscript("");
-    let i = 0;
-    const interval = setInterval(() => {
-      i += 1;
-      setTypedTranscript(liveTranscript.slice(0, i));
-      if (i >= liveTranscript.length) clearInterval(interval);
-    }, 22); // ~45 chars/second — feels natural
-    return () => clearInterval(interval);
-  }, [liveTranscript]);
-
+  // ── sessionMode / TTS sync ─────────────────────────────────────────────────
   useEffect(() => {
     if (sessionMode === "voice") {
       setEnableVoiceInChat(false);
@@ -178,7 +173,19 @@ export function useChat() {
     }
   }, [sessionMode, enableVoiceInChat]);
 
-  // ── appendMessage / finalizeStream ────────────────────────────────────
+  // ── Clear YOU SAID after response is done ──────────────────────────────────
+  useEffect(() => {
+    if (voiceState === "idle" || voiceState === "generating") {
+      const t = setTimeout(() => {
+        setTypedTranscript("");
+        setLiveTranscript("");
+        interimTextRef.current = "";
+      }, 800);
+      return () => clearTimeout(t);
+    }
+  }, [voiceState]);
+
+  // ── appendMessage / finalizeStream ────────────────────────────────────────
   const appendMessage = useCallback((msg) => {
     setMessages((prev) => [...prev, makeMessage(msg)]);
   }, []);
@@ -200,26 +207,16 @@ export function useChat() {
     });
   }, []);
 
-  // ── Keep handleIncomingMessageRef current without adding hook count ───
-  // Assigned every render so it always closes over latest state/callbacks,
-  // but the ref identity never changes → WebSocket effect stays mount-only.
+  // ── handleIncomingMessageRef ───────────────────────────────────────────────
   handleIncomingMessageRef.current = (payload) => {
     const type = payload.type;
     if (payload.session_id) setSessionId(payload.session_id);
 
-    if (type === "session_updated") {
+    if (type === "session_updated" || type === "session_cleared") {
       setMessages([]);
       setLiveTranscript("");
       setTypedTranscript("");
-      setVoiceState("idle");
-      stopAllAudio();
-      streamingTTSRef.current?.reset();
-      return;
-    }
-    if (type === "session_cleared") {
-      setMessages([]);
-      setLiveTranscript("");
-      setTypedTranscript("");
+      setClearResponse(false);
       setVoiceState("idle");
       stopAllAudio();
       streamingTTSRef.current?.reset();
@@ -230,30 +227,16 @@ export function useChat() {
       if (!token) return;
       setIsTyping(true);
       setVoiceState("generating");
-
-      // ── STREAMING TTS: feed each token into the buffer ────────────────
-      // The buffer fires onSentenceReady as soon as a full sentence arrives.
-      // Only do this when TTS playback is actually enabled.
       if (shouldPlayTtsRef.current && streamingTTSRef.current) {
-        // Sync language from the token payload when available
-        if (payload.language) {
-          streamingTTSRef.current.setLanguage(
-            normalizeLang(payload.language).toLowerCase()
-          );
-        }
+        if (payload.language) streamingTTSRef.current.setLanguage(normalizeLang(payload.language).toLowerCase());
         streamingTTSRef.current.feedToken(token);
       }
-      // ── END STREAMING TTS ─────────────────────────────────────────────
-
       setMessages((prev) => {
         const sid = activeStreamIdRef.current;
         if (!sid) {
           const m = makeMessage({
-            role: "bot",
-            text: token,
-            isStreaming: true,
-            source: payload.source,
-            language: normalizeLang(payload.language),
+            role: "bot", text: token, isStreaming: true,
+            source: payload.source, language: normalizeLang(payload.language),
           });
           activeStreamIdRef.current = m.id;
           return [...prev, m];
@@ -264,29 +247,32 @@ export function useChat() {
     }
     if (type === "assistant_final") {
       setIsTyping(false);
+      setClearResponse(false);   // show the new response
       finalizeStream(payload);
       setVoiceState((prev) => (prev === "generating" ? "idle" : prev));
-
-      // ── STREAMING TTS: flush any remaining partial sentence ────────────
-      // When the LLM stream ends there may be text in the buffer that never
-      // hit a sentence boundary (e.g. a response that ends without a period).
-      if (shouldPlayTtsRef.current && streamingTTSRef.current) {
-        streamingTTSRef.current.flush();
-      }
-      // ── END STREAMING TTS ─────────────────────────────────────────────
+      if (shouldPlayTtsRef.current && streamingTTSRef.current) streamingTTSRef.current.flush();
       return;
     }
     if (type === "partial_transcript") {
-      const text = payload.text || "";
-      if (text) setLiveTranscript(text);
+      // Whisper partials — only use if Web Speech API is NOT available
+      // (Web Speech API already handles live display in the browser)
+      if (!hasSpeechRecognition()) {
+        const text = (payload.text || "").trim();
+        if (text && !text.startsWith("\uD83C\uDFA4")) {
+          setTypedTranscript(text);
+          setLiveTranscript(text);
+        }
+      }
       return;
     }
     if (type === "user_transcript") {
-      const text     = payload.text || "";
-      setLiveTranscript(text);        // ← ADD THIS LINE to clear the partial
+      // Final Whisper transcript — replaces Web Speech API interim text
+      const text = payload.text || "";
+      setTypedTranscript(text);
+      setLiveTranscript(text);
+      interimTextRef.current = "";
       const pending  = (pendingUserTextRef.current || "").trim().toLowerCase();
       const incoming = text.trim().toLowerCase();
-      setLiveTranscript(text);
       if (pending && pending === incoming) {
         pendingUserTextRef.current = "";
         setVoiceState("transcribing");
@@ -299,15 +285,11 @@ export function useChat() {
     if (type === "tts_chunk" && payload.audio_base64) {
       if (!shouldPlayTtsRef.current) return;
       if (payload.provider) setTtsProvider(payload.provider);
-      const blob = decodeBase64ToBlob(payload.audio_base64, payload.mime || "audio/wav");
-      audioQueueRef.current.push(blob);
+      audioQueueRef.current.push(decodeBase64ToBlob(payload.audio_base64, payload.mime || "audio/wav"));
       playNextAudio();
       return;
     }
-    if (type === "tts_provider") {
-      setTtsProvider(payload.provider || "unknown");
-      return;
-    }
+    if (type === "tts_provider") { setTtsProvider(payload.provider || "unknown"); return; }
     if (type === "tts_end") {
       if (!audioQueueRef.current.length && !isAudioPlayingRef.current) {
         setIsSpeaking(false);
@@ -318,49 +300,29 @@ export function useChat() {
     if (type === "error" || type === "asr_error") {
       stopAllAudio();
       streamingTTSRef.current?.reset();
-      appendMessage({
-        role: "bot",
-        text: payload.message || "Something went wrong.",
-        source: payload.source,
-        language: normalizeLang(payload.language),
-      });
+      appendMessage({ role: "bot", text: payload.message || "Something went wrong.", source: payload.source, language: normalizeLang(payload.language) });
       setIsTyping(false);
       setVoiceState("idle");
     }
   };
 
-  // ── WebSocket — created ONCE on mount ─────────────────────────────────
+  // ── WebSocket mount ────────────────────────────────────────────────────────
   useEffect(() => {
-    localStorage.removeItem("cp_chat_messages_v2"); // clear old data
-    
+    localStorage.removeItem("cp_chat_messages_v2");
     const ws = new ChatWebSocket(WS_URL, {
       onMessage: (payload) => handleIncomingMessageRef.current(payload),
       onStatus:  setConnectionStatus,
     });
     ws.connect();
     wsRef.current = ws;
-
-    // ── NEW: Create the StreamingTTSBuffer, wired to sendTTSRequest ──────
-    // onSentenceReady fires each time a complete sentence is buffered.
-    // It sends a "tts_request" WS message → backend synthesises it with
-    // Sarvam → sends back "tts_chunk" → existing audioQueue plays it.
-    // This is the ONLY place the buffer is created — once per mount.
     streamingTTSRef.current = new StreamingTTSBuffer({
       language: "en",
-      onSentenceReady: (sentence, language) => {
-        // Backend now handles sentence-by-sentence TTS after collecting
-        // the full clean answer. Do NOT send tts_request from the frontend
-        // to avoid speaking the response twice.
-        // This callback is intentionally a no-op.
-        void sentence; void language;
-      },
+      onSentenceReady: (s, l) => { void s; void l; },
     });
-    // ── END NEW ───────────────────────────────────────────────────────────
-
     return () => ws.disconnect();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // ── sendText ──────────────────────────────────────────────────────────
+  // ── sendText ───────────────────────────────────────────────────────────────
   const sendText = useCallback(() => {
     const text = input.trim();
     if (!text || !wsRef.current?.isOpen() || isRecording) return;
@@ -368,38 +330,109 @@ export function useChat() {
     pendingUserTextRef.current = text;
     setIsTyping(true);
     setVoiceState("generating");
-
-    // Stop any audio still playing from the previous response
     stopAllAudio();
-    // Reset the TTS buffer so previous partial sentences don't bleed in
     streamingTTSRef.current?.reset();
-
     wsRef.current.sendText(text, selectedLanguage, enableVoiceInChat);
     setInput("");
   }, [appendMessage, input, isRecording, selectedLanguage, enableVoiceInChat, stopAllAudio]);
 
-  // ── toggleRecording ───────────────────────────────────────────────────
+  // ── toggleRecording ────────────────────────────────────────────────────────
+  // Two parallel tracks run simultaneously when recording:
+  //
+  // Track A — Web Speech API (browser built-in, free, instant):
+  //   Fires onresult events with interim words in near real-time (<100ms).
+  //   Words appear in YOU SAID AS the user speaks — Google-style.
+  //   Falls back gracefully if browser doesn't support it (Firefox, older Safari).
+  //
+  // Track B — MediaRecorder + Whisper (backend, accurate):
+  //   Collects full audio, sends at stop → Whisper gives accurate final text.
+  //   Replaces the Web Speech API interim text once it arrives.
+  //
+  // This gives the FEEL of instant recognition (Track A) with the ACCURACY
+  // of Whisper (Track B) — best of both worlds.
   const toggleRecording = useCallback(async () => {
     if (micUnavailable || !wsRef.current?.isOpen()) return;
+
     if (!isRecording) {
-      // Stop any playing audio before recording
+      // ── START ──────────────────────────────────────────────────────────────
       stopAllAudio();
       streamingTTSRef.current?.reset();
+      setTypedTranscript("");
+      setLiveTranscript("");
+      interimTextRef.current = "";
+      setClearResponse(true);
+
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         setMicUnavailable(false);
         mediaStreamRef.current = stream;
-        const recorder = new MediaRecorder(stream, {
-          mimeType: MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
-            ? "audio/webm;codecs=opus"
-            : "audio/webm",
-        });
+
+        // ── Track A: Web Speech API for instant live display ───────────────
+        if (hasSpeechRecognition()) {
+          // Map app language to BCP-47 tag for Web Speech API
+          const speechLang =
+            selectedLanguage === "hi" ? "hi-IN" :
+            selectedLanguage === "ta" ? "ta-IN" : "en-IN";
+
+          const rec = createSpeechRecognition(speechLang);
+          recognitionRef.current = rec;
+
+          rec.onresult = (event) => {
+            let interim = "";
+            let finalSoFar = "";
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+              const t = event.results[i][0].transcript;
+              if (event.results[i].isFinal) finalSoFar += t + " ";
+              else interim += t;
+            }
+            // Show the most complete text we have right now
+            const display = (finalSoFar + interim).trim();
+            if (display) {
+              interimTextRef.current = display;
+              setTypedTranscript(display);
+              setLiveTranscript(display);
+            }
+          };
+
+          rec.onerror = (e) => {
+            // "no-speech" and "aborted" are normal — not real errors
+            if (e.error !== "no-speech" && e.error !== "aborted") {
+              console.warn("SpeechRecognition error:", e.error);
+            }
+          };
+
+          // onend fires when recognition stops — restart it while still recording
+          // so continuous mode stays active across browser-imposed time limits
+          rec.onend = () => {
+            if (isRecording && recognitionRef.current === rec) {
+              try { rec.start(); } catch (_) {}
+            }
+          };
+
+          try { rec.start(); } catch (_) {}
+        }
+        // ── End Track A ────────────────────────────────────────────────────
+
+        // ── Track B: MediaRecorder + Whisper for accurate final text ────────
+        const mimeType = MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
+          ? "audio/webm;codecs=opus" : "audio/webm";
+        const recorder = new MediaRecorder(stream, { mimeType });
         mediaRecorderRef.current   = recorder;
         audioChunkBlobsRef.current = [];
-        recorder.ondataavailable   = (event) => {
-          if (event.data?.size) audioChunkBlobsRef.current.push(event.data);
+
+        recorder.ondataavailable = (event) => {
+          if (!event.data?.size) return;
+          // Collect chunks — will be assembled into one complete WebM blob at stop.
+          // We do NOT stream individual chunks to the backend because WebM chunks
+          // after the first are missing the EBML container header and cause
+          // "InvalidDataError: Invalid data found" in PyAV/Whisper.
+          // Web Speech API handles live display; Whisper gets the full clean blob.
+          audioChunkBlobsRef.current.push(event.data);
         };
-        recorder.start();
+
+        recorder.start(250); // 250ms chunks → continuous backend streaming
+        // ── End Track B ────────────────────────────────────────────────────
+
         setIsRecording(true);
         setVoiceState("listening");
       } catch {
@@ -407,6 +440,16 @@ export function useChat() {
       }
       return;
     }
+
+    // ── STOP ───────────────────────────────────────────────────────────────
+    // Stop Web Speech API first so it doesn't fire more results
+    if (recognitionRef.current) {
+      recognitionRef.current.onend = null; // prevent auto-restart
+      try { recognitionRef.current.stop(); } catch (_) {}
+      recognitionRef.current = null;
+    }
+
+    // Stop MediaRecorder
     const recorder = mediaRecorderRef.current;
     if (recorder && recorder.state !== "inactive") {
       stopRecordingPromiseRef.current = new Promise((resolve) =>
@@ -415,23 +458,26 @@ export function useChat() {
       recorder.stop();
       await stopRecordingPromiseRef.current;
     }
-    const audioBlob = new Blob(audioChunkBlobsRef.current, {
-      type: recorder?.mimeType || "audio/webm",
-    });
-    const buffer = await audioBlob.arrayBuffer();
 
-    // Reset TTS buffer before sending voice query too
-    streamingTTSRef.current?.reset();
-
-    wsRef.current?.sendAudioChunk(buffer);
+    // Send the complete audio blob as one binary message then signal audio_end.
+    // Sending as one complete WebM ensures PyAV can decode it correctly.
+    if (audioChunkBlobsRef.current.length > 0) {
+      const fullBlob = new Blob(audioChunkBlobsRef.current, {
+        type: recorder?.mimeType || "audio/webm",
+      });
+      const fullBuffer = await fullBlob.arrayBuffer();
+      wsRef.current?.sendAudioChunk(fullBuffer);
+    }
     wsRef.current?.sendControl("audio_end", { language: selectedLanguage });
+
     mediaStreamRef.current?.getTracks().forEach((t) => t.stop());
     mediaStreamRef.current = null;
     setIsRecording(false);
     setVoiceState("transcribing");
+    // Keep showing whatever Web Speech showed until Whisper result arrives
   }, [isRecording, micUnavailable, selectedLanguage, stopAllAudio]);
 
-  // ── clearChat / startNewSession ───────────────────────────────────────
+  // ── clearChat / startNewSession ────────────────────────────────────────────
   const clearChat = useCallback(() => {
     setMessages([]);
     wsRef.current?.sendControl("clear_session");
@@ -440,91 +486,28 @@ export function useChat() {
   const startNewSession = useCallback(() => {
     setMessages([]);
     setLiveTranscript("");
+    setTypedTranscript("");
     stopAllAudio();
     streamingTTSRef.current?.reset();
     wsRef.current?.sendControl("new_session");
   }, [stopAllAudio]);
 
-  // ── Typewriter effect: animate liveTranscript → typedTranscript ──────
-  // When a new transcript arrives, reveal it character by character.
-  // Speed: 18ms per character (~55 chars/sec) — fast enough to feel live.
-  const typewriterRef = useRef(null);
-
-  useEffect(() => {
-    // Clear any running animation
-    if (typewriterRef.current) {
-      clearInterval(typewriterRef.current);
-      typewriterRef.current = null;
-    }
-
-    if (!liveTranscript) {
-      setTypedTranscript("");
-      return;
-    }
-
-    // Start from scratch each time a new transcript arrives
-    let i = 0;
-    setTypedTranscript("");
-    typewriterRef.current = setInterval(() => {
-      i += 1;
-      setTypedTranscript(liveTranscript.slice(0, i));
-      if (i >= liveTranscript.length) {
-        clearInterval(typewriterRef.current);
-        typewriterRef.current = null;
-      }
-    }, 18);
-
-    return () => {
-      if (typewriterRef.current) {
-        clearInterval(typewriterRef.current);
-        typewriterRef.current = null;
-      }
-    };
-  }, [liveTranscript]);
-
-  // Clear typedTranscript when voice state moves past transcribing
-  useEffect(() => {
-    if (voiceState === "idle" || voiceState === "generating") {
-      // Small delay so user sees the completed transcript briefly
-      const t = setTimeout(() => setTypedTranscript(""), 600);
-      return () => clearTimeout(t);
-    }
-  }, [voiceState]);
-  // ── END typewriter ────────────────────────────────────────────────────
+  // ── latestResponse ─────────────────────────────────────────────────────────
   const latestResponse = useMemo(() => {
-    for (let i = messages.length - 1; i >= 0; i -= 1) {
+    for (let i = messages.length - 1; i >= 0; i--) {
       if (messages[i].role === "bot") return messages[i].text;
     }
     return "";
   }, [messages]);
 
   return {
-    messages,
-    input,
-    setInput,
-    sendText,
-    isTyping,
-    clearChat,
-    startNewSession,
-    connectionStatus,
-    selectedLanguage,
-    setSelectedLanguage,
-    isRecording,
-    micUnavailable,
-    toggleRecording,
-    darkMode,
-    toggleDarkMode: () => setDarkMode((prev) => !prev),
-    sessionMode,
-    setSessionMode,
-    sessionId,
-    voiceState,
-    liveTranscript,
-    typedTranscript,
-    latestResponse,
-    isSpeaking,
-    ttsProvider,
-    enableVoiceInChat,
-    setEnableVoiceInChat,
-    stopAllAudio,
+    messages, input, setInput, sendText, isTyping, clearChat, startNewSession,
+    clearResponse,
+    connectionStatus, selectedLanguage, setSelectedLanguage,
+    isRecording, micUnavailable, toggleRecording,
+    darkMode, toggleDarkMode: () => setDarkMode((prev) => !prev),
+    sessionMode, setSessionMode, sessionId,
+    voiceState, liveTranscript, typedTranscript, latestResponse,
+    isSpeaking, ttsProvider, enableVoiceInChat, setEnableVoiceInChat, stopAllAudio,
   };
 }
