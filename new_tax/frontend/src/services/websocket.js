@@ -4,8 +4,8 @@ export class ChatWebSocket {
     this.handlers = handlers;
     this.ws = null;
     this.shouldReconnect = true;
-    this.reconnectDelay = 1000;
-    this.maxReconnectDelay = 10000;
+    this.reconnectDelay = 500;
+    this.maxReconnectDelay = 3000;
   }
 
   connect() {
@@ -15,7 +15,7 @@ export class ChatWebSocket {
     this.ws.binaryType = "arraybuffer";
 
     this.ws.onopen = () => {
-      this.reconnectDelay = 1000;
+      this.reconnectDelay = 500;
       this.handlers.onStatus?.("Connected");
     };
 
