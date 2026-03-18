@@ -387,6 +387,17 @@ Finance Act, 2026 was introduced on Feb 1, 2026 and governs tax rates for FY 202
 Key benefit: tax-free income under new regime up to Rs.12,00,000 (via 87A rebate of Rs.60,000).
 For salaried: zero tax up to Rs.12,75,000 salary (Rs.12,00,000 taxable after Rs.75,000 std dedn).
 
+── KEY CHANGES IN FINANCE ACT 2026 ──
+- Buyback of shares: excluded from "dividend", taxed as capital gains in shareholders' hands. Promoters pay additional tax (2%/9.5% for domestic cos, 10%/17.5% for others).
+- Sovereign Gold Bonds: redemption at maturity exempt for original subscriber.
+- TCS rates rationalised: alcoholic liquor 2%, tendu leaves 2%, scrap 2%, minerals (coal/lignite/iron ore) 2%, overseas tour package 2% (no threshold), LRS for education/medical 2% (threshold Rs.7L).
+- Revised return timeline extended to 12 months from end of tax year. Fee if after 9 months.
+- New ITR due date for non‑audit business/profession: August 31.
+- Prosecution decriminalised for amounts < Rs.10 lakh (fine only). Simple imprisonment for higher amounts.
+- New penalties: failure to furnish audit report (Rs.75k/1.5L), failure to furnish SFT (Rs.200/day, max Rs.1L), failure to comply with Sec 254 (Rs.25k).
+- New exemptions: disability pension, interest on motor accident compensation, land acquisition compensation, foreign company providing capital goods for electronics, etc.
+- Foreign Assets Disclosure Scheme, 2026: small taxpayers can declare foreign assets with tax+penalty 60% (or flat Rs.1L for certain cases) and get immunity.
+
 ── NEW TAX REGIME — Section 115BAC (DEFAULT, no action needed) ──
 Slabs for FY 2026-27 / AY 2027-28 (Finance Act 2026 — UNCHANGED from prior year):
   Up to Rs.4,00,000          → NIL
@@ -468,13 +479,47 @@ LTCG on gold/debt MFs: 12.5%
 BUYBACK OF SHARES (FY 2026-27 — Finance Act 2026 change): Under Income Tax Act 2025,
 buyback consideration is EXCLUDED from the definition of "dividend" (sub-clause (f) of
 Section 2(40) omitted by Finance Act 2026). Buyback proceeds are taxed as CAPITAL GAINS,
-not as dividend income, in the hands of shareholders for FY 2026-27.
+not as dividend income, in the hands of shareholders for FY 2026-27. Promoters pay additional tax:
+  - STCG: 2% (domestic company) / 10% (others)
+  - LTCG: 9.5% (domestic company) / 17.5% (others)
+Sovereign Gold Bonds: redemption at maturity exempt for original subscriber.
 STT on F&O: options sales 0.15%; futures 0.05%.
 
 ── INTEREST INCOME ──
 FD interest: taxable at slab rate. TDS 10% if > Rs.40,000 (Rs.50K senior).
 Savings bank interest: 80TTA deduction Rs.10,000 (below 60). Form 15G/15H to avoid TDS.
 Rental income: GAV - municipal tax = NAV; NAV - 30% std deduction - home loan interest = taxable.
+
+── TDS ──
+Salary: As per slab | FD: 10% above Rs.40K (Rs.50K senior) | Dividend: 10% above Rs.5K
+Rent: 2% above Rs.50K/month | Professional: 10% above Rs.30K | Property: 1% above Rs.50L
+Lottery: 30% above Rs.10K | EPF (before 5yr): 10% above Rs.50K
+No PAN → higher of 20% or prescribed rate. Form 15G/15H → nil TDS if no tax liability.
+Finance Act 2026: Interest on motor accident compensation – no TDS for individuals; for others, TDS if interest > Rs.50K.
+From Apr 2027, Form 15G/15H can be filed electronically with depository.
+
+── TCS (FY 2026-27 RATES) ──
+Foreign remittance (LRS) other than education/medical: 20% above Rs.7L
+LRS for education (loan): 0.5% above Rs.7L
+LRS for education (own funds) / medical: 2% above Rs.7L (was 5%)
+Overseas tour package: 2% (no threshold) (was 5% with threshold)
+Alcoholic liquor: 2% (was 1%)
+Tendu leaves: 2% (was 5%)
+Scrap: 2% (was 1%)
+Minerals (coal/lignite/iron ore): 2% (was 1%)
+Motor vehicles above Rs.10L: 1%
+Sale of goods by seller (turnover > Rs.10cr, transaction > Rs.50L): 0.1%
+
+── ADVANCE TAX (FY 2026-27) ──
+Pay in instalments if tax > Rs.10K after TDS.
+June 15, 2026 (15%) | September 15, 2026 (45%) | December 15, 2026 (75%) | March 15, 2027 (100%).
+Interest for default: 234A, 234B, 234C — 1%/month simple.
+Senior citizens (no business income): EXEMPT from advance tax.
+
+── SURCHARGE (FY 2026-27 — UNCHANGED) ──
+Rs.50L-Rs.1Cr: 10% | Rs.1-2Cr: 15% | Rs.2-5Cr: 25% | >Rs.5Cr: 37% (old) / 25% (new, capped)
+LTCG/STCG equity surcharge: capped at 15%.
+Cess: 4% on (tax + surcharge).
 
 ── ITR FILING (FY 2026-27 / AY 2027-28) — Finance Act 2026 ──
 Due dates (Section 263, Income Tax Act 2025):
@@ -494,7 +539,7 @@ UPDATED RETURN (ITR-U) — Finance Act 2026:
   Window: 48 months (4 years) from end of the financial year succeeding the relevant tax year
   For FY 2026-27 (AY 2027-28): ITR-U can be filed up to March 31, 2032
   Additional tax: 25%-70% of incremental tax depending on year of filing
-  If filed in pursuance of notice under Section 148: within period specified in that notice
+  If filed in pursuance of notice under Section 148: within period specified in that notice, additional 10% tax
   Cannot reduce tax liability or claim refund
 
 ITR-1 (Sahaj): Salaried, 1 house property, income <= Rs.50L, resident.
@@ -503,76 +548,40 @@ ITR-3: Business/profession (non-presumptive).
 ITR-4 (Sugam): Presumptive taxation.
 Late filing fee: Rs.1K if income <= Rs.5L; Rs.5K if > Rs.5L.
 
-── TDS ──
-Salary: As per slab | FD: 10% above Rs.40K (Rs.50K senior) | Dividend: 10% above Rs.5K
-Rent: 2% above Rs.50K/month | Professional: 10% above Rs.30K | Property: 1% above Rs.50L
-Lottery: 30% above Rs.10K | EPF (before 5yr): 10% above Rs.50K
-No PAN → higher of 20% or prescribed rate. Form 15G/15H → nil TDS if no tax liability.
-
-── TCS (FY 2026-27 RATES) ──
-Foreign remittance (LRS): 20% above Rs.7L | LRS for education (loan): 0.5% | LRS for medical: 5%
-Overseas tour package: 20% (no threshold)
-Motor vehicles above Rs.10L: 1%
-
-── ADVANCE TAX (FY 2026-27) ──
-Pay in instalments if tax > Rs.10K after TDS.
-June 15, 2026 (15%) | September 15, 2026 (45%) | December 15, 2026 (75%) | March 15, 2027 (100%).
-Interest for default: 234A, 234B, 234C — 1%/month simple.
-Senior citizens (no business income): EXEMPT from advance tax.
-
-── SURCHARGE (FY 2026-27 — UNCHANGED) ──
-Rs.50L-Rs.1Cr: 10% | Rs.1-2Cr: 15% | Rs.2-5Cr: 25% | >Rs.5Cr: 37% (old) / 25% (new, capped)
-LTCG/STCG equity surcharge: capped at 15%.
-Cess: 4% on (tax + surcharge).
-
-── GRATUITY ──
-Government: fully exempt.
-Private: exempt = least of actual / Rs.20L lifetime / 15 days salary per completed year of service.
-
-── SENIOR CITIZENS (FY 2026-27) ──
-60-79: exemption Rs.3L (old regime), 80TTB Rs.50K on all deposits, 80D Rs.50K, advance tax exempt.
-80+: exemption Rs.5L (old regime), paper ITR allowed.
-194P (75+): bank files ITR if only pension + interest from same bank.
-
-── NOTICES ──
-143(1): Auto-processed intimation (demand/refund). NOT scrutiny.
-143(2): Scrutiny notice — detailed examination.
-148/148A: Income escaped assessment.
-Every genuine notice has DIN. No DIN = invalid notice.
-Finance Act 2026: clarifies DIN requirement — assessment order referenced by DIN is valid
-even if there is a minor error in quoting the DIN.
-
 ── PENALTIES (FY 2026-27) ──
-Under-reporting: 50% of tax. Misreporting: 200%. Late filing fee: Rs.1K/Rs.5K.
-Finance Act 2026: Penalty for under-reporting of income (Section 270A / Section 439) is now
-imposed IN the assessment order itself (for assessment orders made on or after April 1, 2027).
-Immunity from penalty available for misreporting cases if 100% additional tax paid.
+Late filing fee (Sec 428(a)): Rs.1K (income ≤5L) / Rs.5K (>5L)
+Revised return after 9 months (Sec 428(b)): Rs.1K / Rs.5K
+Failure to get audit (Sec 428(c)): Rs.75K (up to 1 month) / Rs.1.5L thereafter
+Failure to furnish accountant's report (Sec 428(d)): Rs.50K (up to 1 month) / Rs.1L thereafter
+Failure to furnish TDS/TCS statement (Sec 427(1)): Rs.200/day (max = tax amount)
+Failure to furnish SFT (Sec 427(3)): Rs.200/day (max Rs.1L)
+Failure to furnish crypto statement (Sec 446(1)): Rs.200/day
+Inaccurate crypto info & no correction (Sec 446(2)): Rs.50K
+Failure to furnish SFT after notice (Sec 454): Rs.1,000/day (max Rs.1L)
+Non-compliance with Sec 254 (Sec 466): Rs.25,000 (increased from Rs.1,000)
+Under-reporting: 50% of tax; Misreporting: 200% of tax
 
 ── PROSECUTION — DECRIMINALIZED (Finance Act 2026) ──
 Finance Act 2026 substantially decriminalises many tax offences. Updated punishments:
-Wilful tax evasion / failure to file (Section 276C, 276CC, 276B etc.):
+Wilful tax evasion / failure to file (Section 276C, 276CC, 276B etc. in 1961 Act; corresponding sections in 2025 Act):
   Evasion/TDS default > Rs.50 lakh: Simple imprisonment up to 2 years, OR fine, OR both
   Evasion/TDS default Rs.10-50 lakh: Simple imprisonment up to 6 months, OR fine, OR both
   Evasion/TDS default < Rs.10 lakh: Fine ONLY (no imprisonment — fully decriminalized)
 Previously: "Rigorous imprisonment 6 months to 7 years" — now changed to simple imprisonment.
-Second and subsequent offences: Simple imprisonment 6 months to 3 years + fine.
+Second and subsequent offences: Simple imprisonment 6 months to 3 years + fine (reduced from up to 7 years).
 Note: Imprisonment is only for WILFUL evasion — missing a deadline alone never leads to jail.
-
-── HOW TO SAVE TAX (FY 2026-27) ──
-Under old regime: 80C Rs.1.5L, 80CCD(1B) NPS Rs.50K, 80D health insurance, HRA, home loan interest.
-Under new regime (Section 115BAC): only standard deduction Rs.75K and employer NPS (80CCD(2)).
-New regime is highly tax-efficient (zero tax up to Rs.12,75,000 salary) — old regime rarely better.
 
 ── FOREIGN ASSETS DISCLOSURE SCHEME 2026 (Finance Act 2026 — Chapter IV) ──
 New scheme for disclosure of foreign assets by small taxpayers.
-Declarant pays tax + specified amount to get immunity from penalty and prosecution.
-Declared assets/income not included in total income for IT Act 1961 or Black Money Act.
-Declaration is final — no rectification or set-off claims thereafter.
+- Eligibility: aggregate undisclosed foreign asset + income ≤ Rs.1 crore.
+- For undisclosed foreign assets/income: pay tax at 30% + 100% penalty (total 60% of value/income).
+- Alternative: for assets acquired from non-resident income (or already taxed income) but not declared in foreign asset schedule: flat fee of Rs.1 lakh (asset value ≤ Rs.5 crore).
+- Immunity from penalty and prosecution under Black Money Act after payment.
+- Declaration final – no rectification or set-off claims thereafter.
 =================================================================
 END OF KNOWLEDGE BASE
 =================================================================
 """
-
 
 # =============================================================================
 # LEAN SYSTEM PROMPT

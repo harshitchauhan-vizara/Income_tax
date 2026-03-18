@@ -1,6 +1,6 @@
 # Income Tax Act, 2025 — Supplementary Knowledge: Scenarios, Edge Cases & Deep Coverage
 > **Intended use:** Supplementary knowledge for TaxBot. Covers worked examples, edge cases, lesser-known provisions, confusing questions, and scenarios that do not fit neatly into standard Q&A format.
-> **Last verified:** March 2026 | Always verify at https://www.incometax.gov.in
+> **Last verified:** April 2026 | Always verify at https://www.incometax.gov.in
 
 ---
 
@@ -148,6 +148,47 @@
 
 ---
 
+### Scenario 8: Buyback of Shares — Promoter Taxation (Finance Act 2026)
+
+**Profile:** Rajesh is a promoter of a private company (not a domestic company). The company buys back 10,000 shares at ₹500 each. Rajesh had acquired these shares at ₹100 each (cost). He sells them in the buyback on June 1, 2026 (after Finance Act 2026 effective date). Holding period: 3 years → LTCG.
+
+**Step 1 — Capital gains calculation:**
+- Sale consideration: 10,000 × ₹500 = ₹50,00,000
+- Cost of acquisition: 10,000 × ₹100 = ₹10,00,000
+- LTCG = ₹40,00,000
+- Tax on LTCG (12.5%) = ₹5,00,000
+- Plus additional tax for promoter (17.5% of LTCG) = ₹7,00,000
+- **Total tax payable by Rajesh** = ₹12,00,000 (+ cess 4% = ₹12,48,000)
+
+**Note:** Under old law (before Finance Act 2026), the entire buy consideration would have been taxed as dividend in the hands of the company (DDT). Now, it's taxed as capital gains in the hands of shareholders, with an extra levy on promoters.
+
+---
+
+### Scenario 9: TCS on Foreign Remittance (New Rates)
+
+**Profile:** Priya sends ₹10 lakh to her daughter for education expenses (own funds) in the US in August 2026.
+
+**TCS calculation:**
+- Threshold: ₹7 lakh per year.
+- Amount exceeding threshold: ₹10,00,000 − ₹7,00,000 = ₹3,00,000.
+- TCS rate for education (own funds): **2%** (new rate).
+- TCS to be collected: 2% of ₹3,00,000 = ₹6,000.
+
+**Earlier rate (5%) would have been ₹15,000. Priya saves ₹9,000 in TCS.**
+
+---
+
+### Scenario 10: Penalty for Delay in Audit Report
+
+**Profile:** A partnership firm with turnover of ₹2 crore is required to get its accounts audited. The audit report is due by October 31, 2027. The firm files the report on December 15, 2027 (delay of 1.5 months).
+
+**Penalty under Section 428(c):**
+- Delay up to one month (Nov 1–30): ₹75,000
+- Delay beyond one month (Dec 1–15): additional ₹1,50,000
+- Total fee = ₹2,25,000
+
+---
+
 ## PART B: CONFUSING / EDGE-CASE QUESTIONS ANSWERED
 
 ---
@@ -163,7 +204,7 @@ Action: Log in to the portal → check 143(1) intimation → compare with your r
 ---
 
 ### Q: I filed ITR but forgot to report my FD interest of ₹12,000. What do I do?
-**A:** File a **revised return** before December 31 of the same assessment year (or the completion of assessment). Add the ₹12,000 as "Income from Other Sources." No penalty for filing a revised return to add missed income — it shows good faith. If you miss the revised return window, file an **Updated Return (ITR-U)** within 2 years (additional tax applies).
+**A:** File a **revised return** before **12 months from the end of the tax year** (i.e., by March 31, 2028 for FY 2026-27) or before completion of assessment, whichever is earlier. Add the ₹12,000 as "Income from Other Sources." A fee applies if filed after 9 months (₹1,000/₹5,000). If you miss the revised return window, file an **Updated Return (ITR-U)** within 48 months (additional tax applies).
 
 ---
 
@@ -261,6 +302,16 @@ If you have other income sources (like rental income, capital gains), you must f
 
 ---
 
+### Q: What is the new Foreign Assets Disclosure Scheme, 2026, and how do I avail it?
+**A:** This is a one-time window for small taxpayers to declare undisclosed foreign assets/income. You must have aggregate undisclosed foreign asset + income ≤ ₹1 crore. File an electronic declaration (form to be notified) by the notified date. Pay tax (30% of value/income) + 100% penalty (total 60%). Alternatively, if the asset was acquired from non‑resident income (or from already taxed income) but not declared in the foreign asset schedule, a flat fee of ₹1 lakh applies (asset value ≤ ₹5 crore). After payment, you get immunity from penalty and prosecution under the Black Money Act. The declaration is final and cannot be revised.
+
+---
+
+### Q: My company is planning a buyback. How will I be taxed as a shareholder?
+**A:** For buybacks on or after April 1, 2026, you will be taxed on the capital gains (sale price minus cost). If you are a **promoter**, additional tax applies (2%/9.5% for domestic company, 10%/17.5% for others). The company will not pay any tax on the buyback. You must report the capital gains in your ITR. TDS on buyback? No specific TDS provision; the company may not deduct TDS, but you are liable to pay tax.
+
+---
+
 ## PART C: WHAT THE BOT SHOULD KNOW ABOUT HOW QUESTIONS ARE ASKED
 
 ---
@@ -268,7 +319,7 @@ If you have other income sources (like rental income, capital gains), you must f
 ### Users often ask questions in informal ways — here is how to interpret common phrasings:
 
 **"80C limit" or "how much can I save under 80C"**
-→ User wants to know the maximum deduction under Section 80C = ₹1,50,000 per year, and eligible instruments.
+→ User wants the maximum deduction under Section 80C = ₹1,50,000 per year, and eligible instruments.
 
 **"TDS kya hota hai" / "What is TDS in simple words"**
 → Explain TDS as: tax deducted from your payment before you receive it — like your employer cutting tax from salary.
@@ -292,19 +343,22 @@ If you have other income sources (like rental income, capital gains), you must f
 → This is a high-anxiety situation. Respond calmly. First ask (or infer) what section the notice is under. Then provide the specific guidance from Section 19 (Grievances, Notices, Appeals).
 
 **"Will I go to jail if I don't file ITR?"**
-→ Prosecution requires wilful evasion, not just a missed deadline. A late filing fee (₹1,000–₹5,000) and interest apply for delays. Imprisonment is reserved for deliberate, wilful non-compliance with large tax evasion. Still, always recommend filing promptly.
+→ Under the new decriminalised provisions, for amounts below ₹10 lakh, only fine applies. For larger amounts, imprisonment may apply only for wilful evasion, not mere delay. Always recommend filing promptly.
 
 **"I haven't filed ITR for 3 years"**
-→ Currently, you can file ITR-U (Updated Return) for the last 2 tax years. For anything older, you cannot file voluntarily — but may receive a notice if income was taxable. Recommend consulting a CA.
+→ Currently, you can file ITR-U (Updated Return) for the last 2 tax years (48 months from end of relevant AY). For anything older, you cannot file voluntarily — but may receive a notice if income was taxable. Recommend consulting a CA.
 
 **"Form 26AS mismatch" or "AIS shows more income than I have"**
 → This is a very common concern. Explain: AIS captures data from all sources (banks, mutual funds, property registrars). If an entry is wrong, submit Feedback on the AIS portal before filing ITR. If it is correct but you forgot the income, include it in ITR to avoid mismatch notice.
 
 **"How to save maximum tax"**
-→ Provide a structured list: max out 80C (₹1.5L), add 80CCD(1B) NPS (₹50K), health insurance 80D (₹25K+), home loan interest, HRA (if applicable). Clarify this applies only under the old regime. For new regime, options are limited (standard deduction + employer NPS).
+→ Provide a structured list: max out 80C (₹1.5L), add 80CCD(1B) NPS (₹50K), health insurance 80D (₹25K+), home loan interest, HRA (if applicable). Clarify this applies only under the old regime. For new regime, options are limited (standard deduction + employer NPS). Also mention new TCS rates and buyback changes.
 
-**"Which is better — PPF or ELSS?"**
-→ Factual comparison: PPF — 15-year lock-in, guaranteed returns, EEE tax status, risk-free. ELSS — 3-year lock-in, market-linked returns, equity risk, 80C eligible. Frame: "Your choice depends on your risk appetite and investment horizon. Both qualify for 80C deduction."
+**"What is buyback tax?"**
+→ Explain that from April 1, 2026, buyback consideration is treated as capital gains in the hands of shareholders, with additional tax for promoters. The company no longer pays tax on buyback.
+
+**"What are the new TCS rates?"**
+→ List the key changes: alcoholic liquor 2%, tendu leaves 2%, scrap 2%, minerals 2%, overseas tour package 2% (no threshold), LRS for education/medical 2% (threshold ₹7L).
 
 ---
 
@@ -330,7 +384,10 @@ If you have other income sources (like rental income, capital gains), you must f
 | Refund | वापसी |
 | Capital Gains | पूंजीगत लाभ |
 | Assessment Year | निर्धारण वर्ष |
-| Chartered Accountant | चार्टर्ड अकाउंटेंट / सीए |
+| Buyback | बायबैक / शेयर वापस खरीद |
+| Prosecution | अभियोजन |
+| Decriminalised | अपराधमुक्त |
+| Foreign Asset Disclosure | विदेशी संपत्ति प्रकटीकरण |
 
 ---
 
@@ -349,7 +406,10 @@ If you have other income sources (like rental income, capital gains), you must f
 | Notice | அறிவிப்பு |
 | Refund | திரும்ப அளிப்பு |
 | Capital Gains | மூலதன ஆதாயம் |
-| Chartered Accountant | சாட்டர்டு அக்கவுண்டன்ட் |
+| Buyback | பங்கு மீட்பு |
+| Prosecution | வழக்குத் தொடர்தல் |
+| Decriminalised | குற்றமற்றதாக்கப்பட்டது |
+| Foreign Asset Disclosure | வெளிநாட்டு சொத்து வெளிப்படுத்தல் |
 
 ---
 
@@ -359,13 +419,19 @@ If you have other income sources (like rental income, capital gains), you must f
 
 2. **When explaining capital gains on property post-July 23, 2024:** Always note "Indexation has been removed for transfers after July 23, 2024 — the gain is taxed at 12.5% on the actual (not inflation-adjusted) gain."
 
-3. **When someone asks about a tax notice:** Always say "Verify the DIN (Document Identification Number) on the notice at https://www.incometax.gov.in before responding to confirm it is genuine."
+3. **When someone asks about a tax notice:** Always say "Verify the DIN (Document Identification Number) on the notice at https://www.incometax.gov.in before responding to confirm it is genuine. A minor error in DIN does not invalidate the assessment if referenced."
 
 4. **When someone asks about crypto tax:** Always mention "VDA losses cannot be set off against other income and cannot be carried forward — this is a strict rule."
 
 5. **When someone mentions they haven't filed for years:** Mention the ITR-U (Updated Return) option for the last 2 tax years, and recommend consulting a CA for older years.
 
 6. **For any personalised tax calculation request:** Direct to the official tax calculator at https://www.incometax.gov.in and suggest consulting a CA.
+
+7. **When discussing buyback:** Clearly state that from April 1, 2026, buyback proceeds are taxed as capital gains in the hands of shareholders, and promoters face an additional tax.
+
+8. **When discussing TCS:** Mention the revised rates (2% for many items) effective April 1, 2026, and the removal of threshold for overseas tour packages.
+
+9. **When asked about prosecution:** Clarify that amounts below ₹10 lakh are now fine-only (decriminalised), and imprisonment is only for wilful evasion with amounts above thresholds. Use the updated penalty matrix.
 
 ---
 
@@ -375,7 +441,7 @@ If you have other income sources (like rental income, capital gains), you must f
 
 2. **Never confirm or deny a specific tax demand amount** without context — each case depends on income, deductions, and assessment.
 
-3. **Never say "You will not go to jail" or "You have nothing to worry about"** about a notice without knowing full details — stay factual.
+3. **Never say "You will not go to jail" or "You have nothing to worry about"** about a notice without knowing full details — stay factual. Instead, explain the thresholds and conditions.
 
 4. **Never say "You should choose the old regime"** — always frame it as conditional ("if your deductions are large enough, the old regime *may* benefit you").
 
@@ -383,6 +449,10 @@ If you have other income sources (like rental income, capital gains), you must f
 
 6. **Never confuse assessment year and tax year** — under the 2025 Act, "tax year" replaces both previous year and assessment year. When a user says "AY 2026-27," they mean Tax Year 2026-27 under the new Act.
 
+7. **Never quote outdated TCS rates** — always use the Finance Act 2026 rates (2% for most, 20% for LRS non-education/medical, etc.).
+
+8. **Never treat buyback as dividend after April 1, 2026** — always refer to it as capital gains with possible additional promoter tax.
+
 ---
 
-*Sources: Income Tax Act, 2025; CBDT notifications and circulars; Union Budget 2024-25; Income Tax Department portal (incometax.gov.in); Ministry of Finance — compiled March 2026. For personalised tax advice, always consult a qualified Chartered Accountant. Official helpline: 1800-103-0025.*
+*Sources: Income Tax Act, 2025; Finance Act, 2026; CBDT notifications and circulars; Union Budget 2024-25; Income Tax Department portal (incometax.gov.in); Ministry of Finance — compiled April 2026. For personalised tax advice, always consult a qualified Chartered Accountant. Official helpline: 1800-103-0025.*

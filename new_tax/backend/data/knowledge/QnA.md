@@ -1,13 +1,13 @@
 # Income Tax Act, 2025 — Comprehensive Q&A Knowledge Base
-> **Intended use:** Primary knowledge base for TaxBot. Covers all major provisions of the Income Tax Act, 2025 for answering citizen queries accurately. Organised by topic for maximum retrieval relevance.
-> **Effective from:** April 1, 2026 | **Last verified:** March 2026
+> **Intended use:** Primary knowledge base for TaxBot. Covers all major provisions of the Income Tax Act, 2025 as amended by the Finance Act, 2026 for answering citizen queries accurately. Organised by topic for maximum retrieval relevance.
+> **Effective from:** April 1, 2026 | **Last verified:** April 2026
 > **Official portal:** https://www.incometax.gov.in | **Helpline:** 1800-103-0025
 
 ---
 
 ## TABLE OF CONTENTS
 1. [Overview of the Income Tax Act, 2025](#1-overview)
-2. [Key Changes from the 1961 Act](#2-key-changes)
+2. [Key Changes from the 1961 Act & Finance Act 2026](#2-key-changes)
 3. [Structure of the New Act](#3-structure)
 4. [Residential Status and Scope of Income](#4-residential-status)
 5. [Tax Rates, Slabs, Surcharge, and Cess](#5-tax-rates)
@@ -36,19 +36,19 @@
 ## 1. Overview of the Income Tax Act, 2025
 
 ### Q: What is the Income Tax Act, 2025?
-**A:** The Income Tax Act, 2025 is India's new direct tax legislation that replaces the Income Tax Act, 1961. It comes into effect on **April 1, 2026** and aims to simplify India's direct tax framework — making it clearer, more concise, and easier for taxpayers to understand and comply with.
+**A:** The Income Tax Act, 2025 is India's new direct tax legislation that replaces the Income Tax Act, 1961. It comes into effect on **April 1, 2026** and aims to simplify India's direct tax framework — making it clearer, more concise, and easier for taxpayers to understand and comply with. The **Finance Act, 2026** (based on the Finance Bill 2026 introduced on February 1, 2026) makes further amendments effective from April 1, 2026 and later dates.
 
 ### Q: Why was a new Income Tax Act introduced?
-**A:** The 1961 Act grew unwieldy over six decades — 800+ sections, thousands of amendments, provisos, and cross-references. The 2025 Act reorganises and simplifies the law without fundamentally changing tax policy, making compliance more accessible for ordinary taxpayers and professionals alike.
+**A:** The 1961 Act grew unwieldy over six decades — 800+ sections, thousands of amendments, provisos, and cross-references. The 2025 Act reorganises and simplifies the law without fundamentally changing tax policy, making compliance more accessible for ordinary taxpayers and professionals alike. The Finance Act 2026 fine‑tunes several provisions, introduces new exemptions, and decriminalises many offences.
 
 ### Q: When does the Income Tax Act, 2025 come into force?
-**A:** April 1, 2026 (Tax Year 2026-27 onwards).
+**A:** April 1, 2026 (Tax Year 2026-27 onwards). The Finance Act 2026 amendments generally apply from the same date unless a later date is specified.
 
 ### Q: Does the new Act change tax rates or deduction limits?
-**A:** No. The 2025 Act largely retains existing tax rates, slabs, deductions, and regimes carried forward from the 1961 Act and subsequent Finance Acts. The focus is on structural simplification and digital compliance — not on changing tax burden.
+**A:** No. The 2025 Act largely retains existing tax rates, slabs, deductions, and regimes carried forward from the 1961 Act and subsequent Finance Acts. The Finance Act 2026 does not alter the basic slab rates or deduction limits. Changes are mostly structural, clarificatory, or relate to TCS rates, penalties, and prosecution.
 
 ### Q: How many sections does the Income Tax Act, 2025 have?
-**A:** 536 sections, compared to the 1961 Act which had grown to 800+ sections. The reduction is achieved through consolidation, removal of redundant provisos, and cleaner drafting.
+**A:** 536 sections, compared to the 1961 Act which had grown to 800+ sections. The reduction is achieved through consolidation, removal of redundant provisos, and cleaner drafting. The Finance Act 2026 adds a few new sections (e.g., 147A, 292BA, 354A) and substitutes/omits others.
 
 ### Q: What is the official Income Tax portal?
 **A:** **https://www.incometax.gov.in** — for e-filing, refund status, tax payment, Form 26AS, AIS, and all tax services.
@@ -58,7 +58,7 @@
 
 ---
 
-## 2. Key Changes from the Income Tax Act, 1961
+## 2. Key Changes from the Income Tax Act, 1961 & Finance Act 2026
 
 ### Q: What are the major structural changes in the 2025 Act?
 **A:**
@@ -70,6 +70,22 @@
 - **New "tax year" concept:** Replaces the dual "previous year / assessment year" terminology.
 - **Digital-first:** Strengthened faceless assessment, e-filing, and digital notice systems.
 
+### Q: What are the key changes introduced by the Finance Act, 2026?
+**A:** The Finance Act, 2026 (based on the Finance Bill 2026) introduces several important amendments:
+
+- **Buyback of shares:** Consideration received on buyback is **excluded from the definition of "dividend"** (Section 2(40)(f) omitted). Buyback proceeds are now taxed as **capital gains** in the hands of shareholders. Promoters face an additional tax: 2% (STCG) / 9.5% (LTCG) for domestic companies; 10% / 17.5% for others.
+- **Sovereign Gold Bonds:** Redemption at maturity is fully exempt for original subscribers.
+- **TCS rates rationalised:** Alcoholic liquor, tendu leaves, scrap, minerals (coal/lignite/iron ore) – now 2%. Overseas tour package – 2% (no threshold). LRS for education (own funds) and medical treatment – 2% (from 5%), threshold ₹7 lakh unchanged.
+- **Revised return timeline extended:** Can be filed within **12 months** from the end of the relevant tax year (previously 9 months). A fee applies if filed after 9 months.
+- **New due date for non‑audit business/profession:** **August 31** of the assessment year.
+- **Decriminalisation of many offences:** For tax evasion / TDS default below ₹10 lakh – **fine only** (no imprisonment). Imprisonment terms now **simple imprisonment** (not rigorous) and linked to thresholds: ₹10‑50 lakh → up to 6 months; above ₹50 lakh → up to 2 years. Second offence: up to 3 years.
+- **New penalty for failure to furnish audit report:** ₹75,000 (delay up to 1 month) or ₹1,50,000 thereafter.
+- **Penalty for failure to furnish statement of financial transaction:** ₹200 per day (max ₹1,00,000).
+- **Penalty for non‑compliance with information gathering (Section 254):** increased from ₹1,000 to ₹25,000.
+- **New exemptions:** Disability pension for armed forces personnel invalided out; interest on motor accident compensation (fully exempt for individuals); income from compulsory land acquisition under RFCTLARR Act (except Section 46).
+- **Foreign Assets Disclosure Scheme, 2026:** Small taxpayers (aggregate undisclosed foreign asset + income ≤ ₹1 crore) can declare, pay tax (30% + 100% penalty) and get immunity. For assets acquired from non‑resident income not declared, a flat fee of ₹1 lakh (asset value ≤ ₹5 crore).
+- **Securities Transaction Tax (STT):** Increased – options sale 0.15%, options exercised 0.15%, futures 0.05%.
+
 ### Q: Has the tax year concept changed?
 **A:** Yes. The 2025 Act introduces **"tax year"** — a single 12-month period (April 1 to March 31) in which income is earned AND assessed. This replaces the older dual system of "previous year" (income earned) and "assessment year" (income assessed), reducing confusion significantly.
 
@@ -77,7 +93,7 @@
 **A:** Under the 2025 Act, there is no separate "previous year" — the single **"tax year"** covers the period of earning. When people refer to FY 2026-27, that is Tax Year 2026-27 under the new Act.
 
 ### Q: Are there any substantive tax policy changes in the 2025 Act?
-**A:** Minimal. The Act primarily consolidates existing law. A few clarificatory provisions address interpretational gaps from litigation. Existing tax rates, slabs, deductions, and exemptions are all carried forward.
+**A:** Minimal. The Act primarily consolidates existing law. A few clarificatory provisions address interpretational gaps from litigation. Existing tax rates, slabs, deductions, and exemptions are all carried forward. The Finance Act 2026 brings the changes listed above.
 
 ### Q: What happens to CBDT circulars and case laws from the 1961 Act era?
 **A:** They continue to apply wherever the 2025 Act has substantively similar provisions. The government has confirmed that transitional provisions ensure continuity of judicial interpretation.
@@ -156,7 +172,7 @@ If either condition is NOT met, they are "Resident but Not Ordinarily Resident (
 ## 5. Tax Rates, Slabs, Surcharge, and Cess
 
 ### Q: What are the income tax slabs under the new tax regime for individuals (FY 2026-27)?
-**A:**
+**A:** (Unchanged by Finance Act 2026)
 
 | Income Slab | Tax Rate |
 |---|---|
@@ -183,7 +199,7 @@ For **Senior Citizens (60–79 years):** Basic exemption ₹3,00,000.
 For **Super Senior Citizens (80+ years):** Basic exemption ₹5,00,000.
 
 ### Q: What is the surcharge on income tax?
-**A:**
+**A:** (Unchanged)
 
 | Income Range | Surcharge Rate |
 |---|---|
@@ -198,7 +214,7 @@ For **Super Senior Citizens (80+ years):** Basic exemption ₹5,00,000.
 **A:** **4%** on the total tax payable (including surcharge) — for all taxpayers, all regimes.
 
 ### Q: What are the corporate tax rates?
-**A:**
+**A:** (Unchanged)
 - **Domestic companies (concessional regime, 115BAA equivalent):** 22% + 10% surcharge + 4% cess = effective ~25.17%.
 - **New manufacturing companies (115BAB equivalent, incorporated after Oct 1, 2019, commenced by Mar 31, 2024):** 15% + 10% surcharge + 4% cess = effective ~17.01%.
 - **Other domestic companies (default):** 30% + surcharge (7% if income ₹1–10 crore; 12% if >₹10 crore) + 4% cess.
@@ -408,6 +424,17 @@ Preventive health check-up: Up to ₹5,000 within the above limits.
 ### Q: Are dividends from Indian companies taxable?
 **A:** Yes. Since AY 2021-22 (and continued under 2025 Act), dividends received from Indian companies are **taxable in the hands of the recipient** at their applicable slab rate. TDS at 10% is deducted if dividend exceeds ₹5,000 in a year.
 
+**Finance Act 2026 change:** Buyback of shares is **no longer treated as dividend**. It is now taxed as **capital gains** in the hands of shareholders. See Section 10 for details.
+
+### Q: Are there any new exemptions introduced by Finance Act 2026?
+**A:** Yes. The following incomes are now fully exempt:
+- **Disability pension** received by a member of the armed forces who has been invalided out of service on account of bodily disability attributable to or aggravated by such service (Schedule III, entry 38A).
+- **Interest on compensation** awarded by a Motor Accidents Claims Tribunal under the Motor Vehicles Act, 1988, received by an individual or his legal heir (Schedule III, entry 38B).
+- **Income from any award or agreement** made under the Right to Fair Compensation and Transparency in Land Acquisition, Rehabilitation and Resettlement Act, 2013 (except Section 46) on account of compulsory acquisition of land (Schedule III, entry 38C).
+- **Income of a foreign company** arising from providing capital goods, equipment or tooling to a contract manufacturer located in a customs bonded area for electronic manufacturing, up to tax year 2030-31 (Schedule IV, entry 13A).
+- **Foreign income** of an individual non-resident for five consecutive tax years immediately preceding the first visit to India for rendering services under a notified scheme, for five years from the first visit (Schedule IV, entry 13B).
+- **Income of a foreign company** from procuring data centre services from a specified data centre in India, up to tax year 2046-47 (Schedule IV, entry 13C).
+
 ---
 
 ## 10. Capital Gains
@@ -461,6 +488,25 @@ This protects gains that accrued before the LTCG tax was reintroduced in Budget 
 - Unabsorbed capital losses can be **carried forward for 8 years**.
 - Capital losses can be carried forward only if ITR is filed on time.
 
+### Q: How are buyback of shares taxed under the Finance Act 2026?
+**A:** Effective from April 1, 2026, consideration received on buyback of shares by a company is **excluded from the definition of "dividend"** (Section 2(40)(f) omitted). It is now taxed as **capital gains** in the hands of the shareholder. For **promoters**, an additional tax applies:
+
+| Type of Gain | Promoter (domestic company) | Promoter (other than domestic company) |
+|--------------|------------------------------|----------------------------------------|
+| STCG (Section 196) | 2% | 10% |
+| LTCG (Section 197/198) | 9.5% | 17.5% |
+
+This additional tax is over and above the normal capital gains tax. For non-promoter shareholders, only normal capital gains tax applies.
+
+### Q: Are Sovereign Gold Bonds (SGB) taxable on redemption?
+**A:** Under Section 70(1)(x) (as amended by Finance Act 2026), capital gains arising on redemption of Sovereign Gold Bonds issued by the RBI are **fully exempt** if the bonds were subscribed to by an individual at the time of original issue and held until maturity. This applies to all SGB schemes.
+
+### Q: What are the revised Securities Transaction Tax (STT) rates?
+**A:** Finance Act 2026 has increased STT rates (effective from April 1, 2026):
+- Sale of an option in securities: **0.15%** of option premium (from 0.1%)
+- Sale of an option where option is exercised: **0.15%** of intrinsic value (from 0.125%)
+- Sale of a futures in securities: **0.05%** of the traded price (from 0.02%)
+
 ---
 
 ## 11. TDS — Tax Deducted at Source
@@ -469,6 +515,7 @@ This protects gains that accrued before the LTCG tax was reintroduced in Budget 
 **A:** Tax Deducted at Source (TDS) is tax deducted by the **payer** at the time of making a specified payment, on behalf of the payee, and deposited with the government. The payee gets credit for TDS deducted when they file their ITR.
 
 ### Q: What are key TDS rates under the 2025 Act?
+**A:** (Unchanged, except where noted)
 
 | Payment Type | TDS Rate | Threshold |
 |---|---|---|
@@ -485,14 +532,20 @@ This protects gains that accrued before the LTCG tax was reintroduced in Budget 
 | Lottery/crossword/game shows | 30% | ₹10,000 |
 | EPF withdrawal (before 5 years) | 10% (20% if no PAN) | ₹50,000 |
 
+**Finance Act 2026 change:** For **interest on compensation** awarded by a Motor Accidents Claims Tribunal:
+- If paid to an **individual**: **No TDS** (irrespective of amount).
+- If paid to any other person: TDS at applicable rate if aggregate interest exceeds **₹50,000** in the tax year.
+
 ### Q: What is Form 15G and 15H?
 **A:**
 - **Form 15G:** Self-declaration by individuals below 60 years with no tax liability, requesting **nil TDS** on interest income. Both conditions required: (a) income below basic exemption limit, AND (b) total interest income below basic exemption limit.
 - **Form 15H:** Same declaration for **senior citizens (60+ years)** — only condition is that calculated tax on estimated income is nil.
 Must be submitted at the **start of each financial year** to every bank/payer separately.
 
+**Finance Act 2026 addition:** From April 1, 2027, Form 15G/15H can also be furnished **electronically to a depository** (if the securities are held in demat form and listed). The depository will forward the declaration to the person responsible for paying income (Section 393(6A)).
+
 ### Q: What is Form 13 for lower TDS?
-**A:** Form 13 is an application to the Assessing Officer for a **certificate authorising the payer to deduct TDS at a lower rate or nil rate**. Used by businesses, NRIs, or individuals with genuine reasons (e.g., losses offsetting gains). The certificate must be obtained before the payment is received.
+**A:** Form 13 is an application to the Assessing Officer for a **certificate authorising the payer to deduct TDS at a lower rate or nil rate**. Used by businesses, NRIs, or individuals with genuine reasons (e.g., losses offsetting gains). The certificate must be obtained before the payment is received. Finance Act 2026 allows this application to be filed **electronically** before the prescribed income-tax authority, who may issue the certificate after electronic verification.
 
 ### Q: How do I claim TDS credit?
 **A:** TDS credit is automatically reflected in your Form 26AS and AIS. When you file your ITR, TDS amounts are auto-populated. Any TDS deducted in excess of your actual tax liability will result in a **refund** after ITR processing.
@@ -513,20 +566,25 @@ This is a significant penalty for non-linking — ensure Aadhaar-PAN linking is 
 ### Q: What is TCS?
 **A:** Tax Collected at Source (TCS) is tax collected by the **seller** from the buyer at the time of sale of specified goods/services and deposited with the government. The buyer can claim TCS credit in their ITR.
 
-### Q: What are the key TCS provisions?
+### Q: What are the key TCS provisions (as amended by Finance Act 2026)?
+**A:** Finance Act 2026 rationalised several TCS rates effective from April 1, 2026:
 
-| Transaction | TCS Rate | Threshold |
+| Transaction | TCS Rate (New) | Threshold / Remarks |
 |---|---|---|
-| Foreign remittance under LRS | 20% | Above ₹7 lakh per year |
+| Foreign remittance under LRS (for purposes other than education/medical) | 20% | Above ₹7 lakh per year |
 | LRS for education (through loan) | 0.5% | Above ₹7 lakh |
-| LRS for education (own funds) | 5% | Above ₹7 lakh |
-| LRS for medical treatment | 5% | Above ₹7 lakh |
-| Overseas tour package | 20% | No threshold |
+| LRS for education (own funds) | **2%** (was 5%) | Above ₹7 lakh |
+| LRS for medical treatment | **2%** (was 5%) | Above ₹7 lakh |
+| Overseas tour package | **2%** (was 5%) | **No threshold** (was earlier ₹7 lakh) |
 | Sale of motor vehicles | 1% | Above ₹10 lakh |
-| Sale of goods by seller | 0.1% | Annual sales >₹10 crore; per transaction >₹50 lakh |
-| Sale of scrap | 1% | No threshold |
-| Tendu leaves | 5% | No threshold |
+| Sale of goods by seller (turnover > ₹10 crore) | 0.1% | Per transaction > ₹50 lakh |
+| **Alcoholic liquor for human consumption** | **2%** (was 1%) | No threshold |
+| **Tendu leaves** | **2%** (was 5%) | No threshold |
+| **Scrap** | **2%** (was 1%) | No threshold |
+| **Minerals, being coal or lignite or iron ore** | **2%** (was 1%) | No threshold |
 | Timber (forest lease) | 2.5% | No threshold |
+
+*Note: The higher rate of 20% for LRS (other than education/medical) and the 0.5% rate for education loans remain unchanged. The threshold of ₹7 lakh for LRS remains for all purposes.*
 
 ### Q: Can I get TCS refunded?
 **A:** Yes. TCS is a credit against your tax liability. When you file your ITR, TCS paid is adjusted against your total tax due. If TCS exceeds your liability, the excess is refunded.
@@ -539,6 +597,7 @@ This is a significant penalty for non-linking — ensure Aadhaar-PAN linking is 
 **A:** Advance tax is tax paid **during the tax year** in instalments, before the year ends. It is required if your estimated tax liability for the year exceeds **₹10,000** after considering TDS.
 
 ### Q: What are the advance tax instalment due dates?
+**A:** (Unchanged)
 
 | Instalment | Due Date | Cumulative % of Tax |
 |---|---|---|
@@ -582,6 +641,7 @@ This is a significant penalty for non-linking — ensure Aadhaar-PAN linking is 
 - You want to carry forward a capital loss or business loss
 
 ### Q: Which ITR form should I use?
+**A:** (Unchanged)
 
 | ITR Form | Who Should Use It |
 |---|---|
@@ -593,15 +653,17 @@ This is a significant penalty for non-linking — ensure Aadhaar-PAN linking is 
 | ITR-6 | Companies (other than Section 11 exempt) |
 | ITR-7 | Trusts, political parties, research institutions (Section 139(4A/4B/4C/4D)) |
 
-### Q: What are the ITR filing due dates?
+### Q: What are the ITR filing due dates for Tax Year 2026-27 (AY 2027-28)?
+**A:** Finance Act 2026 introduces a new due date for non-audit business/profession cases:
 
 | Taxpayer Category | Due Date |
 |---|---|
-| Individuals (non-audit) | July 31 |
-| Business/profession requiring tax audit | October 31 |
-| Transfer pricing cases | November 30 |
-| Belated return | December 31 (with penalty) |
-| Updated return (ITR-U) | 2 years from end of relevant assessment year |
+| Individuals (salaried, no business income) | July 31, 2027 |
+| **Business/profession income (accounts not required to be audited, no transfer pricing)** | **August 31, 2027** (NEW) |
+| Business/profession requiring tax audit (non-TP) | October 31, 2027 |
+| Transfer pricing cases | November 30, 2027 |
+| Belated return | December 31, 2027 |
+| Updated return (ITR-U) | Within 48 months from end of relevant assessment year |
 
 ### Q: What is a belated return?
 **A:** A return filed **after the due date** (July 31 for individuals) but before December 31 of the same year. A late filing fee under Section 234F applies:
@@ -609,13 +671,17 @@ This is a significant penalty for non-linking — ensure Aadhaar-PAN linking is 
 - ₹1,000 if total income is ₹5 lakh or below
 
 ### Q: What is an updated return (ITR-U)?
-**A:** An updated return can be filed within **2 years** from the end of the relevant assessment year to correct omissions or errors in the original return. An additional tax of 25%–50% of the incremental tax and interest is payable. Cannot be filed to reduce tax liability or claim a refund.
+**A:** An updated return can be filed within **48 months (4 years)** from the end of the relevant assessment year to correct omissions or errors in the original return. An additional tax of 25%–70% of the incremental tax and interest is payable (slabs: 25% if filed within 12 months, 50% within 24 months, 60% within 36 months, 70% within 48 months). Cannot be filed to reduce tax liability or claim a refund.
+
+**Finance Act 2026 addition:** If an updated return is filed in pursuance of a notice under Section 148 (income escaping assessment), an **additional 10%** of the aggregate tax and interest is payable (over and above the normal additional tax).
 
 ### Q: What is a revised return?
 **A:** A revised return can be filed to correct mistakes in the original return, any time before:
 - Completion of assessment, OR
-- December 31 of the relevant assessment year
-— whichever is earlier. No additional tax for filing a revised return.
+- **12 months from the end of the relevant tax year** (extended from 9 months by Finance Act 2026)
+— whichever is earlier. If the revised return is filed **after 9 months** from the end of the tax year, a fee applies (Section 428(b)):
+  - ₹1,000 if total income ≤ ₹5 lakh
+  - ₹5,000 if total income > ₹5 lakh
 
 ### Q: How do I file my ITR online?
 **A:**
@@ -683,6 +749,8 @@ The 2025 Act reinforces and expands this framework.
 ### Q: What is a Document Identification Number (DIN)?
 **A:** Every communication issued by the Income Tax Department (notices, orders, summons) must carry a computer-generated **Document Identification Number (DIN)**. Communications without a valid DIN are treated as legally invalid and can be challenged.
 
+**Finance Act 2026 clarification (Section 522(2) of 2025 Act):** No assessment shall be invalid merely because of a mistake, defect or omission in quoting the DIN, **if the assessment order is referenced by such number in any manner**. This protects against technical challenges.
+
 ### Q: What is the Faceless Penalty Scheme?
 **A:** Penalty proceedings are also conducted facelessely — no personal interface required. Cases are randomly assigned. Taxpayers respond through the portal.
 
@@ -741,13 +809,23 @@ Tax audit must be conducted by a Chartered Accountant and the report (Form 3CA/3
 
 ## 17. Penalties and Interest
 
-### Q: What are the main penalties under the Income Tax Act, 2025?
+### Q: What are the main penalties under the Income Tax Act, 2025 (as amended by Finance Act 2026)?
+**A:** Finance Act 2026 introduced several new penalty provisions and revised existing ones:
 
-| Offence | Penalty |
+| Offence | Penalty / Fee |
 |---|---|
-| Late filing of ITR (Section 234F fee) | ₹1,000 (income ≤ ₹5L) or ₹5,000 (income > ₹5L) |
-| Under-reporting of income | 50% of tax on under-reported income |
-| Misreporting of income | 200% of tax on misreported income |
+| Late filing of ITR (Section 428(a)) | ₹1,000 (income ≤ ₹5L) or ₹5,000 (income > ₹5L) |
+| Revised return filed after 9 months (Section 428(b)) | ₹1,000 (income ≤ ₹5L) or ₹5,000 (income > ₹5L) |
+| Failure to get accounts audited (Section 428(c)) | ₹75,000 for delay up to 1 month; ₹1,50,000 thereafter |
+| Failure to furnish report from accountant (Section 428(d)) | ₹50,000 for delay up to 1 month; ₹1,00,000 thereafter |
+| Failure to deliver TDS/TCS statement (Section 427(1)) | ₹200 per day of default (max = amount of tax deductible) |
+| Failure to furnish statement of financial transaction / reportable account (Section 427(3)) | ₹200 per day (max ₹1,00,000) |
+| Failure to furnish statement on crypto-asset transaction (Section 446(1)) | ₹200 per day |
+| Furnishing inaccurate information on crypto-asset & failing to correct (Section 446(2)) | ₹50,000 |
+| Failure to furnish statement/reportable account after notice (Section 454) | ₹1,000 per day (max ₹1,00,000) |
+| Failure to comply with information gathering under Section 254 (Section 466) | **₹25,000** (increased from ₹1,000) |
+| Under-reporting of income (Section 439) | 50% of tax on under-reported income |
+| Misreporting of income (Section 439) | 200% of tax on misreported income |
 | Concealment of income | 100%–300% of tax evaded |
 | Failure to maintain books | ₹25,000 or 0.5% of turnover (whichever is less) |
 | Failure to get tax audit done | 0.5% of turnover or ₹1,50,000 (whichever is less) |
@@ -768,19 +846,34 @@ Tax audit must be conducted by a Chartered Accountant and the report (Form 3CA/3
 
 ## 18. Prosecution Provisions
 
-### Q: What tax offences can lead to imprisonment?
-**A:** The Income Tax Act, 2025 retains and strengthens prosecution provisions:
+### Q: What tax offences can lead to imprisonment under the revised provisions (Finance Act 2026)?
+**A:** Finance Act 2026 has **decriminalised many offences** and replaced rigorous imprisonment with simple imprisonment. The punishment now depends on the amount involved:
 
-| Offence | Imprisonment |
-|---|---|
-| Wilful evasion of tax | 3 months to 7 years (with fine) |
-| Failure to file ITR (wilful) | 3 months to 2 years (with fine) |
-| False statement in return or verification | Up to 7 years (with fine) |
-| Failure to deduct or pay TDS | 3 months to 7 years (with fine) |
-| Abetting or inducing false return | 6 months to 7 years (with fine) |
-| Non-maintenance of books (wilful) | Up to 1 year (with fine) |
+| Offence | Punishment (if amount > ₹50 lakh) | Punishment (if ₹10‑50 lakh) | Punishment (if < ₹10 lakh) |
+|--------|-----------------------------------|------------------------------|-----------------------------|
+| Wilful evasion of tax / under-reporting (Section 478) | Simple imprisonment up to 2 years, OR fine, OR both | Simple imprisonment up to 6 months, OR fine, OR both | Fine only |
+| Failure to pay TDS/TCS to government (Sections 476, 477) | Simple imprisonment up to 2 years, OR fine, OR both | Simple imprisonment up to 6 months, OR fine, OR both | Fine only |
+| Wilful failure to furnish return of income (Section 479) | Simple imprisonment up to 2 years, OR fine, OR both | Simple imprisonment up to 6 months, OR fine, OR both | Fine only |
+| False statement in verification (Section 482) | Simple imprisonment up to 2 years, OR fine, OR both | Simple imprisonment up to 6 months, OR fine, OR both | Fine only |
+| Abetment of false return (Section 484) | Simple imprisonment up to 2 years, OR fine, OR both | Simple imprisonment up to 6 months, OR fine, OR both | Fine only |
+| Failure to furnish return in search cases (Section 480) | Simple imprisonment up to 2 years, OR fine, OR both | Simple imprisonment up to 6 months, OR fine, OR both | Fine only |
+| Failure to comply with special audit direction (Section 481) | Simple imprisonment up to 6 months, OR fine, OR both (only for this offence; no threshold) | | |
+| Falsification of books (Section 483) | Simple imprisonment up to 2 years and fine (no threshold) | | |
+| **Second and subsequent offences** (Section 485) | Simple imprisonment **6 months to 3 years** and fine (reduced from up to 7 years) | | |
+| Disclosure of particulars by public servant (Section 494) | Simple imprisonment up to 1 month, OR fine, OR both (reduced from 6 months) | | |
 
-*For offences involving tax evasion of ₹25 lakh or more, minimum imprisonment is 6 months and is non-compoundable.*
+**Important:** Imprisonment is only for **wilful** evasion or failure. Mere delay or omission without intent does not attract prosecution. For amounts below ₹10 lakh, only monetary penalties apply (fully decriminalised).
+
+### Q: Is there immunity from prosecution?
+**A:** Yes. Under Section 440 (as amended), an assessee can apply for **waiver of penalty and immunity from prosecution** if:
+- Tax and interest as per assessment order are paid within the notice period.
+- For misreporting cases, additional tax of **100%** of the tax on under-reported income is paid (or **120%** for income referred to in Sections 102‑106).
+- No appeal is filed.
+- Application is made within one month of receiving the order.
+The Assessing Officer grants immunity after the appeal period expires, provided no proceedings under Chapter XXII have been initiated.
+
+### Q: What about prosecution for failure to file return of foreign assets under the Black Money Act?
+**A:** Finance Act 2026 inserts a proviso to Sections 49 and 50 of the Black Money (Undisclosed Foreign Income and Assets) and Imposition of Tax Act, 2015, providing that prosecution shall **not apply** for assets (other than immovable property) where the aggregate value does not exceed **₹20 lakh**. This aligns with the threshold in Sections 42 and 43 of that Act.
 
 ---
 
@@ -793,6 +886,8 @@ Tax audit must be conducted by a Chartered Accountant and the report (Form 3CA/3
 3. **Do not ignore it** — notices have a response deadline. Missing it attracts penalties.
 4. Log in to the e-filing portal → "e-Proceedings" → respond to the notice with supporting documents.
 5. For complex notices or scrutiny assessments, engage a CA or tax consultant.
+
+**Finance Act 2026 clarification:** Even if there is a minor error in quoting the DIN, the assessment order is valid if it is referenced by that number in any manner (Section 522(2)).
 
 ### Q: What are common types of income tax notices?
 **A:**
@@ -878,6 +973,8 @@ File objection within 30 days of receiving the draft assessment order. DRP provi
 - **TDS: 1%** on VDA transactions above ₹10,000 (₹50,000 for specified persons)
 - Loss from one VDA transaction cannot offset gain from another VDA transaction
 
+**Penalty for failure to furnish information on crypto-asset transactions:** ₹200 per day (Section 446(1)); for inaccurate information and failure to correct: ₹50,000 (Section 446(2)).
+
 ### Q: How are ESOPs (Employee Stock Options) taxed?
 **A:** ESOPs are taxed at two stages:
 1. **At exercise (when shares are allotted):** The difference between Fair Market Value (FMV) on exercise date and the exercise price is treated as a **perquisite (salary income)** and taxed at slab rates. Employer deducts TDS.
@@ -908,6 +1005,10 @@ File objection within 30 days of receiving the draft assessment order. DRP provi
 - **EPF interest:** Exempt for contributions up to ₹2.5 lakh per year; taxable on interest for excess contribution.
 - **EPF withdrawal:** Tax-free after 5 continuous years of service; taxable (TDS at 10%) if withdrawn before 5 years and amount > ₹50,000.
 - **PPF:** EEE status — contribution (80C deduction), interest accrual, and maturity — all fully tax-free.
+
+**Finance Act 2026 changes to Recognised Provident Funds (Schedule XI):**
+- Employer's annual contributions: The portion of annual accretion consisting of interest credited at a rate exceeding the rate notified by the Central Government shall be deemed to be income received by the employee and included in his total income (para 6 of Part A).
+- Other amendments to align with the Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (e.g., exemption from schemes governed by that Act, removal of obsolete salary thresholds, etc.).
 
 ### Q: How is rental income taxed?
 **A:** Under "Income from House Property":
@@ -965,25 +1066,23 @@ For **self-occupied property:** NAV = Nil; only interest deduction of up to ₹2
 | PAN (UTI-ITSL) | 1800-10-23738 |
 
 ### Key Dates for Tax Year 2026-27
-```
-Act Effective Date         : April 1, 2026
-Advance Tax Q1 (15%)       : June 15, 2026
-Advance Tax Q2 (45%)       : September 15, 2026
-Advance Tax Q3 (75%)       : December 15, 2026
-Advance Tax Q4 (100%)      : March 15, 2027
-ITR Filing (Individuals)   : July 31, 2027
-ITR Filing (Audit cases)   : October 31, 2027
-ITR Filing (TP cases)      : November 30, 2027
-Belated / Revised ITR      : December 31, 2027
-Form 16 Issue Deadline     : May 31, 2027
-```
 
----
+Act Effective Date : April 1, 2026
+Advance Tax Q1 (15%) : June 15, 2026
+Advance Tax Q2 (45%) : September 15, 2026
+Advance Tax Q3 (75%) : December 15, 2026
+Advance Tax Q4 (100%) : March 15, 2027
+ITR Filing (Individuals) : July 31, 2027
+ITR Filing (Non-audit business/profession) : August 31, 2027 (NEW)
+ITR Filing (Audit cases) : October 31, 2027
+ITR Filing (TP cases) : November 30, 2027
+Belated / Revised ITR : December 31, 2027
+Form 16 Issue Deadline : May 31, 2027
 
 ## 24. Frequently Asked Questions
 
-### Q: I am a salaried employee. What changes for me under the 2025 Act?
-**A:** For most salaried employees, nothing materially changes. The same slabs, standard deduction (₹75,000 new / ₹50,000 old), regime choice, and ITR-1 filing apply. The new Act simplifies the legal language — your practical compliance steps remain the same.
+### Q: I am a salaried employee. What changes for me under the 2025 Act and Finance Act 2026?
+**A:** For most salaried employees, nothing materially changes. The same slabs, standard deduction (₹75,000 new / ₹50,000 old), regime choice, and ITR-1 filing apply. The new Act simplifies the legal language — your practical compliance steps remain the same. The Finance Act 2026 changes (TCS rates, buyback taxation, etc.) are unlikely to affect you unless you are a promoter or have foreign remittances.
 
 ### Q: I earn ₹7 lakh per year. Do I have to pay tax?
 **A:** Under the **new tax regime**: No. A rebate under Section 87A makes income up to ₹7,00,000 effectively tax-free (tax computed = ₹25,000; rebate = ₹25,000; net tax = zero).
@@ -1046,6 +1145,37 @@ Maintain for at least 6 years from end of the relevant assessment year.
 ### Q: What is a rectification request?
 **A:** If there is a **mistake apparent from record** in an ITR order (Section 143(1) intimation or assessment order), you can file a rectification request online. Common uses: correction of TDS mismatch, incorrect demand due to data entry error. File via "e-Proceedings" → "Rectification" on the portal.
 
+### Q: What is the new Foreign Assets of Small Taxpayers Disclosure Scheme, 2026?
+**A:** This is a one-time compliance window for small taxpayers to declare undisclosed foreign assets/income. Key features:
+- **Eligibility:** Aggregate value of undisclosed foreign asset + undisclosed foreign income ≤ ₹1 crore.
+- **What to declare:** Undisclosed foreign assets or income not previously reported.
+- **Amount payable:** Tax at 30% of value/income + 100% penalty (i.e., total 60% of the value/income).
+- **Alternative for certain assets:** If the asset was acquired from income earned as a non-resident (or from income already offered to tax) but not declared in the foreign asset schedule, a flat fee of ₹1 lakh applies (provided asset value ≤ ₹5 crore).
+- **Immunity:** After payment, the declared asset/income is not included in total income, and immunity from penalty and prosecution under the Black Money Act is granted.
+- **Procedure:** File electronic declaration by the notified date (to be announced). Payment must be made within 2 months, extendable by another 2 months with 1% interest.
+- **Exclusions:** Not applicable if the asset represents proceeds of crime under PMLA, or if assessment under Black Money Act has already been completed.
+
+### Q: I heard that buyback of shares is now taxed differently. What should I know?
+**A:** Yes. For buybacks occurring on or after April 1, 2026, the consideration received is **not treated as dividend** but as **capital gains**. You must compute capital gains as (sale consideration – cost of acquisition). If you are a **promoter**, an additional tax applies (2%/9.5% for domestic company, 10%/17.5% for others). This additional tax is in addition to the normal capital gains tax. The company is no longer required to pay tax on buyback (the earlier DDT on buyback is removed).
+
+### Q: What are the new TCS rates for foreign remittances?
+**A:** For remittances under LRS:
+- Education (own funds) and medical treatment: **2%** (was 5%) – threshold ₹7 lakh.
+- Education (through loan): remains **0.5%** – threshold ₹7 lakh.
+- Other purposes: **20%** – threshold ₹7 lakh.
+- Overseas tour package: **2%** (was 5%) – **no threshold** (earlier threshold of ₹7 lakh removed).
+
+### Q: I run a small business with turnover of ₹1.5 crore. Do I need to get my accounts audited?
+**A:** If your turnover exceeds ₹1 crore, tax audit is mandatory under Section 44AB (unless you opt for presumptive taxation under Section 44AD, which is available for turnover up to ₹3 crore). If you choose presumptive, you declare income at 6%/8% and need not maintain books. If you declare lower income, audit is mandatory.
+
+### Q: What is the penalty for not filing audit report on time?
+**A:** Under Section 428(c), failure to get accounts audited and furnish the report attracts a fee of:
+- ₹75,000 for delay up to one month
+- ₹1,50,000 thereafter
+
+### Q: Can I go to jail for not filing ITR?
+**A:** Under the revised prosecution provisions, for amounts below ₹10 lakh, only **fine** applies (no imprisonment). For amounts between ₹10‑50 lakh, imprisonment up to 6 months (simple) OR fine OR both. For amounts above ₹50 lakh, imprisonment up to 2 years OR fine OR both. However, prosecution requires **wilful** failure – mere delay without intent does not lead to imprisonment. Always file your return to avoid any risk.
+
 ---
 
-*Sources: Income Tax Act, 2025; Income Tax Act, 1961 (as amended); CBDT notifications and circulars; Union Budget 2024-25; Ministry of Finance press releases; Income Tax Department portal (incometax.gov.in) — compiled March 2026. Always verify current rates and deadlines at https://www.incometax.gov.in. For personalised advice, consult a qualified Chartered Accountant.*
+*Sources: Income Tax Act, 2025; Finance Act, 2026 (based on Finance Bill 2026); Income Tax Act, 1961 (as amended); CBDT notifications and circulars; Union Budget 2024-25; Ministry of Finance press releases; Income Tax Department portal (incometax.gov.in) — compiled April 2026. Always verify current rates and deadlines at https://www.incometax.gov.in. For personalised advice, consult a qualified Chartered Accountant.*
