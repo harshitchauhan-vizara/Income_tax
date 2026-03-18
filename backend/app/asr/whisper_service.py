@@ -214,7 +214,7 @@ class WhisperService:
         try:
             from faster_whisper import WhisperModel  # pylint: disable=import-outside-toplevel
             device = getattr(self.settings, "whisper_device", "cpu")
-            logger.info("Loading Whisper partial model=small device=%s", device)
+            logger.info("Loading Whisper partial model=tiny device=%s", device)
             self._partial_model = WhisperModel("tiny", device=device, compute_type="int8")
             logger.info("Whisper partial model loaded OK")
         except Exception as exc:  # pylint: disable=broad-except
