@@ -777,9 +777,18 @@ class LLMService:
         language_hint: str = "en",
     ) -> AsyncGenerator[str, None]:
 
-        detected = detect_language(query)
-        if detected != "en":
-            language_hint = detected
+        # ----------------------------------------------------------------
+        # LANGUAGE RESOLUTION
+        # Trust the language_hint passed in from the pipeline — it already
+        # ran detect_language() and resolved Hinglish correctly.
+        # Only re-detect here if the caller sent the default "en" sentinel,
+        # so that direct calls to this method (without a prior pipeline pass)
+        # still auto-detect correctly.
+        # ----------------------------------------------------------------
+        if language_hint == "en":
+            detected = detect_language(query)
+            if detected != "en":
+                language_hint = detected
         lang_label = _LANGUAGE_NAMES.get(language_hint, _LANGUAGE_NAMES["en"])
 
         is_tax = _is_income_tax_query(query)
