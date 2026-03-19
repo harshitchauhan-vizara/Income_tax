@@ -66,6 +66,43 @@ def sanitize_stream_token(token: str) -> str:
     cleaned = re.sub(r"<\|[^>]*\|?>", "", cleaned)
     return cleaned.strip()
 
+def _correct_stt_errors(text: str) -> str:
+    """
+    Fix common Whisper STT misrecognitions for Indian tax domain terms.
+    Runs on the raw transcript before it is sent to LLM or displayed.
+    """
+    corrections = [
+        (r"\bphone\s+15\s*g\b",        "Form 15G"),
+        (r"\bphone\s+15\s*h\b",        "Form 15H"),
+        (r"\bphone\s+16\b",            "Form 16"),
+        (r"\bphone\s+26\s*as\b",       "Form 26AS"),
+        (r"\bfarm\s+15\s*g\b",         "Form 15G"),
+        (r"\bfarm\s+15\s*h\b",         "Form 15H"),
+        (r"\bfarm\s+16\b",             "Form 16"),
+        (r"\bfrom\s+15\s*g\b",         "Form 15G"),
+        (r"\bfrom\s+15\s*h\b",         "Form 15H"),
+        (r"\bflow\s+of\s+idea\b",      "full form of ITR"),
+        (r"\beye\s*tea\s*are\b",       "ITR"),
+        (r"\bi\.t\.r\b",               "ITR"),
+        (r"\bpen\s+card\b",            "PAN card"),
+        (r"\bpan\s+cord\b",            "PAN card"),
+        (r"\bpain\s+card\b",           "PAN card"),
+        (r"\baadhar\b",                "Aadhaar"),
+        (r"\badhaar\b",                "Aadhaar"),
+        (r"\badhar\b",                 "Aadhaar"),
+        (r"\bincome\s+take\b",         "income tax"),
+        (r"\btake\s+return\b",         "tax return"),
+        (r"\btake\s+slab\b",           "tax slab"),
+        (r"\bincome\s+tex\b",          "income tax"),
+        (r"\btea\s+d\s+s\b",           "TDS"),
+        (r"\btea\s+c\s+s\b",           "TCS"),
+        (r"\bsection\s+80\s*sea\b",    "Section 80C"),
+        (r"\bsection\s+87\s*a\b",      "Section 87A"),
+    ]
+    result = text
+    for pattern, replacement in corrections:
+        result = re.sub(pattern, replacement, result, flags=re.IGNORECASE)
+    return result
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -136,13 +173,6 @@ async def websocket_endpoint(websocket: WebSocket):
     await manager.connect(websocket)
     session_id = manager.get_session_id(websocket)
     await manager.send_json(websocket, {"type": "session_updated", "session_id": session_id})
-    await manager.send_json(
-        websocket,
-        {
-            "type": "tts_provider",
-            "provider": "sarvam" if sarvam_tts.enabled else "unavailable",
-        },
-    )
     logger.info("WebSocket connected session=%s", session_id)
 
     try:
@@ -222,6 +252,7 @@ async def websocket_endpoint(websocket: WebSocket):
                 await manager.send_json(websocket, {"type": "transcribing"})
 
                 transcript, detected_lang, confidence = await whisper_service.transcribe(raw_audio, preferred_language)
+                transcript = _correct_stt_errors(transcript)
 
                 # Only reject truly silent / noise audio where Whisper returned nothing.
                 # Indian-accent English on large-v3 CPU int8 commonly scores 0.30-0.55,
