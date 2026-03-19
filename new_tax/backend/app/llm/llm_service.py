@@ -12,6 +12,7 @@ logger = logging.getLogger("app.llm.llm_service")
 
 # =============================================================================
 # LANGUAGE AUTO-DETECTION
+# Requirement 1: Detect Hindi or English; never mix.
 # =============================================================================
 
 def detect_language(text: str) -> str:
@@ -38,6 +39,75 @@ def detect_language(text: str) -> str:
     if re.search(hindi_only, text, re.IGNORECASE):
         return "hi"
     return "en"
+
+
+# =============================================================================
+# HINDI AMOUNT FORMATTER
+# Requirement 3: Convert numeric amounts to spoken Hindi words in Hindi responses.
+# =============================================================================
+
+_HINDI_ONES = [
+    "", "एक", "दो", "तीन", "चार", "पाँच", "छह", "सात", "आठ", "नौ",
+    "दस", "ग्यारह", "बारह", "तेरह", "चौदह", "पंद्रह", "सोलह", "सत्रह",
+    "अठारह", "उन्नीस", "बीस", "इक्कीस", "बाईस", "तेईस", "चौबीस",
+    "पच्चीस", "छब्बीस", "सत्ताईस", "अट्ठाईस", "उनतीस", "तीस",
+    "इकतीस", "बत्तीस", "तैंतीस", "चौंतीस", "पैंतीस", "छत्तीस",
+    "सैंतीस", "अड़तीस", "उनतालीस", "चालीस", "इकतालीस", "बयालीस",
+    "तैंतालीस", "चौवालीस", "पैंतालीस", "छियालीस", "सैंतालीस",
+    "अड़तालीस", "उनचास", "पचास", "इक्यावन", "बावन", "तिरपन",
+    "चौवन", "पचपन", "छप्पन", "सत्तावन", "अट्ठावन", "उनसठ", "साठ",
+    "इकसठ", "बासठ", "तिरसठ", "चौंसठ", "पैंसठ", "छियासठ", "सड़सठ",
+    "अड़सठ", "उनहत्तर", "सत्तर", "इकहत्तर", "बहत्तर", "तिहत्तर",
+    "चौहत्तर", "पचहत्तर", "छिहत्तर", "सतहत्तर", "अठहत्तर", "उनासी",
+    "अस्सी", "इक्यासी", "बयासी", "तिरासी", "चौरासी", "पचासी",
+    "छियासी", "सत्तासी", "अट्ठासी", "नवासी", "नब्बे", "इक्यानवे",
+    "बानवे", "तिरानवे", "चौरानवे", "पचानवे", "छियानवे", "सत्तानवे",
+    "अट्ठानवे", "निन्यानवे",
+]
+
+
+def _num_to_hindi_words(n: int) -> str:
+    """Convert an integer to Hindi spoken words (Indian number system)."""
+    if n == 0:
+        return "शून्य"
+    if n < 0:
+        return "ऋण " + _num_to_hindi_words(-n)
+
+    parts = []
+
+    crore = n // 10_000_000
+    n %= 10_000_000
+    lakh = n // 100_000
+    n %= 100_000
+    thousand = n // 1_000
+    n %= 1_000
+    hundred = n // 100
+    n %= 100
+    remainder = n
+
+    if crore:
+        if crore < 100:
+            parts.append(_HINDI_ONES[crore] + " करोड़")
+        else:
+            parts.append(_num_to_hindi_words(crore) + " करोड़")
+    if lakh:
+        parts.append(_HINDI_ONES[lakh] + " लाख")
+    if thousand:
+        if thousand < 100:
+            parts.append(_HINDI_ONES[thousand] + " हजार")
+        else:
+            parts.append(_num_to_hindi_words(thousand) + " हजार")
+    if hundred:
+        parts.append(_HINDI_ONES[hundred] + " सौ")
+    if remainder:
+        parts.append(_HINDI_ONES[remainder])
+
+    return " ".join(parts)
+
+
+def amount_to_hindi(n: int) -> str:
+    """Return Hindi spoken form for a rupee amount, e.g. 5000000 → 'पचास लाख रुपये'."""
+    return _num_to_hindi_words(n) + " रुपये"
 
 
 # =============================================================================
@@ -359,6 +429,10 @@ _INCOME_TAX_KEYWORDS = {
     "\u091f\u0948\u0915\u094d\u0938", "\u0906\u092f\u0915\u0930", "\u0935\u0947\u0924\u0928",
     "\u0915\u0930", "\u0906\u092f", "\u0930\u093f\u091f\u0930\u094d\u0928",
     "\u0915\u091f\u094c\u0924\u0940", "\u091b\u0942\u091f",
+    # Requirement 6: Domain-specific terms
+    "pan card", "pan number", "pan application", "pan correction",
+    "aadhaar link", "aadhaar pan", "aadhaar seeding",
+    "\u092a\u0948\u0928", "\u0906\u0927\u093e\u0930",
 }
 
 
@@ -386,17 +460,6 @@ FY 2026-27 (AY 2027-28) is the FIRST financial year under the Income Tax Act, 20
 Finance Act, 2026 was introduced on Feb 1, 2026 and governs tax rates for FY 2026-27.
 Key benefit: tax-free income under new regime up to Rs.12,00,000 (via 87A rebate of Rs.60,000).
 For salaried: zero tax up to Rs.12,75,000 salary (Rs.12,00,000 taxable after Rs.75,000 std dedn).
-
-── KEY CHANGES IN FINANCE ACT 2026 ──
-- Buyback of shares: excluded from "dividend", taxed as capital gains in shareholders' hands. Promoters pay additional tax (2%/9.5% for domestic cos, 10%/17.5% for others).
-- Sovereign Gold Bonds: redemption at maturity exempt for original subscriber.
-- TCS rates rationalised: alcoholic liquor 2%, tendu leaves 2%, scrap 2%, minerals (coal/lignite/iron ore) 2%, overseas tour package 2% (no threshold), LRS for education/medical 2% (threshold Rs.7L).
-- Revised return timeline extended to 12 months from end of tax year. Fee if after 9 months.
-- New ITR due date for non‑audit business/profession: August 31.
-- Prosecution decriminalised for amounts < Rs.10 lakh (fine only). Simple imprisonment for higher amounts.
-- New penalties: failure to furnish audit report (Rs.75k/1.5L), failure to furnish SFT (Rs.200/day, max Rs.1L), failure to comply with Sec 254 (Rs.25k).
-- New exemptions: disability pension, interest on motor accident compensation, land acquisition compensation, foreign company providing capital goods for electronics, etc.
-- Foreign Assets Disclosure Scheme, 2026: small taxpayers can declare foreign assets with tax+penalty 60% (or flat Rs.1L for certain cases) and get immunity.
 
 ── NEW TAX REGIME — Section 115BAC (DEFAULT, no action needed) ──
 Slabs for FY 2026-27 / AY 2027-28 (Finance Act 2026 — UNCHANGED from prior year):
@@ -479,47 +542,13 @@ LTCG on gold/debt MFs: 12.5%
 BUYBACK OF SHARES (FY 2026-27 — Finance Act 2026 change): Under Income Tax Act 2025,
 buyback consideration is EXCLUDED from the definition of "dividend" (sub-clause (f) of
 Section 2(40) omitted by Finance Act 2026). Buyback proceeds are taxed as CAPITAL GAINS,
-not as dividend income, in the hands of shareholders for FY 2026-27. Promoters pay additional tax:
-  - STCG: 2% (domestic company) / 10% (others)
-  - LTCG: 9.5% (domestic company) / 17.5% (others)
-Sovereign Gold Bonds: redemption at maturity exempt for original subscriber.
+not as dividend income, in the hands of shareholders for FY 2026-27.
 STT on F&O: options sales 0.15%; futures 0.05%.
 
 ── INTEREST INCOME ──
 FD interest: taxable at slab rate. TDS 10% if > Rs.40,000 (Rs.50K senior).
 Savings bank interest: 80TTA deduction Rs.10,000 (below 60). Form 15G/15H to avoid TDS.
 Rental income: GAV - municipal tax = NAV; NAV - 30% std deduction - home loan interest = taxable.
-
-── TDS ──
-Salary: As per slab | FD: 10% above Rs.40K (Rs.50K senior) | Dividend: 10% above Rs.5K
-Rent: 2% above Rs.50K/month | Professional: 10% above Rs.30K | Property: 1% above Rs.50L
-Lottery: 30% above Rs.10K | EPF (before 5yr): 10% above Rs.50K
-No PAN → higher of 20% or prescribed rate. Form 15G/15H → nil TDS if no tax liability.
-Finance Act 2026: Interest on motor accident compensation – no TDS for individuals; for others, TDS if interest > Rs.50K.
-From Apr 2027, Form 15G/15H can be filed electronically with depository.
-
-── TCS (FY 2026-27 RATES) ──
-Foreign remittance (LRS) other than education/medical: 20% above Rs.7L
-LRS for education (loan): 0.5% above Rs.7L
-LRS for education (own funds) / medical: 2% above Rs.7L (was 5%)
-Overseas tour package: 2% (no threshold) (was 5% with threshold)
-Alcoholic liquor: 2% (was 1%)
-Tendu leaves: 2% (was 5%)
-Scrap: 2% (was 1%)
-Minerals (coal/lignite/iron ore): 2% (was 1%)
-Motor vehicles above Rs.10L: 1%
-Sale of goods by seller (turnover > Rs.10cr, transaction > Rs.50L): 0.1%
-
-── ADVANCE TAX (FY 2026-27) ──
-Pay in instalments if tax > Rs.10K after TDS.
-June 15, 2026 (15%) | September 15, 2026 (45%) | December 15, 2026 (75%) | March 15, 2027 (100%).
-Interest for default: 234A, 234B, 234C — 1%/month simple.
-Senior citizens (no business income): EXEMPT from advance tax.
-
-── SURCHARGE (FY 2026-27 — UNCHANGED) ──
-Rs.50L-Rs.1Cr: 10% | Rs.1-2Cr: 15% | Rs.2-5Cr: 25% | >Rs.5Cr: 37% (old) / 25% (new, capped)
-LTCG/STCG equity surcharge: capped at 15%.
-Cess: 4% on (tax + surcharge).
 
 ── ITR FILING (FY 2026-27 / AY 2027-28) — Finance Act 2026 ──
 Due dates (Section 263, Income Tax Act 2025):
@@ -539,7 +568,7 @@ UPDATED RETURN (ITR-U) — Finance Act 2026:
   Window: 48 months (4 years) from end of the financial year succeeding the relevant tax year
   For FY 2026-27 (AY 2027-28): ITR-U can be filed up to March 31, 2032
   Additional tax: 25%-70% of incremental tax depending on year of filing
-  If filed in pursuance of notice under Section 148: within period specified in that notice, additional 10% tax
+  If filed in pursuance of notice under Section 148: within period specified in that notice
   Cannot reduce tax liability or claim refund
 
 ITR-1 (Sahaj): Salaried, 1 house property, income <= Rs.50L, resident.
@@ -548,115 +577,93 @@ ITR-3: Business/profession (non-presumptive).
 ITR-4 (Sugam): Presumptive taxation.
 Late filing fee: Rs.1K if income <= Rs.5L; Rs.5K if > Rs.5L.
 
+── TDS ──
+Salary: As per slab | FD: 10% above Rs.40K (Rs.50K senior) | Dividend: 10% above Rs.5K
+Rent: 2% above Rs.50K/month | Professional: 10% above Rs.30K | Property: 1% above Rs.50L
+Lottery: 30% above Rs.10K | EPF (before 5yr): 10% above Rs.50K
+No PAN → higher of 20% or prescribed rate. Form 15G/15H → nil TDS if no tax liability.
+
+── TCS (FY 2026-27 RATES) ──
+Foreign remittance (LRS): 20% above Rs.7L | LRS for education (loan): 0.5% | LRS for medical: 5%
+Overseas tour package: 20% (no threshold)
+Motor vehicles above Rs.10L: 1%
+
+── ADVANCE TAX (FY 2026-27) ──
+Pay in instalments if tax > Rs.10K after TDS.
+June 15, 2026 (15%) | September 15, 2026 (45%) | December 15, 2026 (75%) | March 15, 2027 (100%).
+Interest for default: 234A, 234B, 234C — 1%/month simple.
+Senior citizens (no business income): EXEMPT from advance tax.
+
+── SURCHARGE (FY 2026-27 — UNCHANGED) ──
+Rs.50L-Rs.1Cr: 10% | Rs.1-2Cr: 15% | Rs.2-5Cr: 25% | >Rs.5Cr: 37% (old) / 25% (new, capped)
+LTCG/STCG equity surcharge: capped at 15%.
+Cess: 4% on (tax + surcharge).
+
+── GRATUITY ──
+Government: fully exempt.
+Private: exempt = least of actual / Rs.20L lifetime / 15 days salary per completed year of service.
+
+── SENIOR CITIZENS (FY 2026-27) ──
+60-79: exemption Rs.3L (old regime), 80TTB Rs.50K on all deposits, 80D Rs.50K, advance tax exempt.
+80+: exemption Rs.5L (old regime), paper ITR allowed.
+194P (75+): bank files ITR if only pension + interest from same bank.
+
+── NOTICES ──
+143(1): Auto-processed intimation (demand/refund). NOT scrutiny.
+143(2): Scrutiny notice — detailed examination.
+148/148A: Income escaped assessment.
+Every genuine notice has DIN. No DIN = invalid notice.
+Finance Act 2026: clarifies DIN requirement — assessment order referenced by DIN is valid
+even if there is a minor error in quoting the DIN.
+
 ── PENALTIES (FY 2026-27) ──
-Late filing fee (Sec 428(a)): Rs.1K (income ≤5L) / Rs.5K (>5L)
-Revised return after 9 months (Sec 428(b)): Rs.1K / Rs.5K
-Failure to get audit (Sec 428(c)): Rs.75K (up to 1 month) / Rs.1.5L thereafter
-Failure to furnish accountant's report (Sec 428(d)): Rs.50K (up to 1 month) / Rs.1L thereafter
-Failure to furnish TDS/TCS statement (Sec 427(1)): Rs.200/day (max = tax amount)
-Failure to furnish SFT (Sec 427(3)): Rs.200/day (max Rs.1L)
-Failure to furnish crypto statement (Sec 446(1)): Rs.200/day
-Inaccurate crypto info & no correction (Sec 446(2)): Rs.50K
-Failure to furnish SFT after notice (Sec 454): Rs.1,000/day (max Rs.1L)
-Non-compliance with Sec 254 (Sec 466): Rs.25,000 (increased from Rs.1,000)
-Under-reporting: 50% of tax; Misreporting: 200% of tax
+Under-reporting: 50% of tax. Misreporting: 200%. Late filing fee: Rs.1K/Rs.5K.
+Finance Act 2026: Penalty for under-reporting of income (Section 270A / Section 439) is now
+imposed IN the assessment order itself (for assessment orders made on or after April 1, 2027).
+Immunity from penalty available for misreporting cases if 100% additional tax paid.
 
 ── PROSECUTION — DECRIMINALIZED (Finance Act 2026) ──
 Finance Act 2026 substantially decriminalises many tax offences. Updated punishments:
-Wilful tax evasion / failure to file (Section 276C, 276CC, 276B etc. in 1961 Act; corresponding sections in 2025 Act):
+Wilful tax evasion / failure to file (Section 276C, 276CC, 276B etc.):
   Evasion/TDS default > Rs.50 lakh: Simple imprisonment up to 2 years, OR fine, OR both
   Evasion/TDS default Rs.10-50 lakh: Simple imprisonment up to 6 months, OR fine, OR both
   Evasion/TDS default < Rs.10 lakh: Fine ONLY (no imprisonment — fully decriminalized)
 Previously: "Rigorous imprisonment 6 months to 7 years" — now changed to simple imprisonment.
-Second and subsequent offences: Simple imprisonment 6 months to 3 years + fine (reduced from up to 7 years).
+Second and subsequent offences: Simple imprisonment 6 months to 3 years + fine.
 Note: Imprisonment is only for WILFUL evasion — missing a deadline alone never leads to jail.
+
+── HOW TO SAVE TAX (FY 2026-27) ──
+Under old regime: 80C Rs.1.5L, 80CCD(1B) NPS Rs.50K, 80D health insurance, HRA, home loan interest.
+Under new regime (Section 115BAC): only standard deduction Rs.75K and employer NPS (80CCD(2)).
+New regime is highly tax-efficient (zero tax up to Rs.12,75,000 salary) — old regime rarely better.
 
 ── FOREIGN ASSETS DISCLOSURE SCHEME 2026 (Finance Act 2026 — Chapter IV) ──
 New scheme for disclosure of foreign assets by small taxpayers.
-- Eligibility: aggregate undisclosed foreign asset + income ≤ Rs.1 crore.
-- For undisclosed foreign assets/income: pay tax at 30% + 100% penalty (total 60% of value/income).
-- Alternative: for assets acquired from non-resident income (or already taxed income) but not declared in foreign asset schedule: flat fee of Rs.1 lakh (asset value ≤ Rs.5 crore).
-- Immunity from penalty and prosecution under Black Money Act after payment.
-- Declaration final – no rectification or set-off claims thereafter.
+Declarant pays tax + specified amount to get immunity from penalty and prosecution.
+Declared assets/income not included in total income for IT Act 1961 or Black Money Act.
+Declaration is final — no rectification or set-off claims thereafter.
+
+── PAN CARD ──
+PAN (Permanent Account Number) is a 10-character alphanumeric identifier issued by the Income Tax Department.
+Required for: filing ITR, TDS, bank accounts above threshold, high-value transactions, property purchase.
+Apply: Form 49A (Indian citizens) or Form 49AA (foreign nationals) at NSDL/UTIITSL portals or e-filing portal.
+Correction/update: Submit Form for PAN correction at NSDL (https://www.onlineservices.nsdl.com) or UTIITSL.
+Instant e-PAN: Available at https://www.incometax.gov.in using Aadhaar-based OTP (free, PDF format).
+PAN-Aadhaar linking: Mandatory for all individuals. Deadline passed; unlinked PAN is now inoperative.
+Inoperative PAN: Higher TDS (20%), cannot file ITR, no refunds. Reactivate by linking Aadhaar + paying Rs.1,000 fee.
+IMPORTANT: "PAN" must always be read as P-A-N (Permanent Account Number), never as "Pen" or any other word.
+
+── AADHAAR ──
+Aadhaar is a 12-digit unique identity number issued by UIDAI (Unique Identification Authority of India).
+Aadhaar-PAN linking: Mandatory. Done via e-filing portal or SMS to 567678 / 56161. Fee: Rs.1,000 if done after deadline.
+Aadhaar-based e-verification: Used to e-verify ITR (most common and instant method).
+Aadhaar OTP: Used for instant e-PAN, e-verification, and pre-filled ITR data.
+Update Aadhaar: At Aadhaar Seva Kendra or online at myaadhaar.uidai.gov.in.
+IMPORTANT: "Aadhaar" must always be spelled and pronounced correctly as "Aadhaar", not substituted or distorted.
 =================================================================
 END OF KNOWLEDGE BASE
 =================================================================
 """
-
-# =============================================================================
-# LEAN SYSTEM PROMPT
-# =============================================================================
-
-SYSTEM_PROMPT = """
-You are TaxBot — India's Income Tax AI assistant.
-
-IDENTITY (absolute):
-- Name: TaxBot. Never say GPT, Claude, Gemini, Google, OpenAI, or any other model.
-- If asked "who are you": say "I am TaxBot, an AI assistant for Indian income tax."
-- In Hindi: "main TaxBot hoon — Bharat ka Income Tax AI sahayak."
-
-TAX YEAR CONTEXT (mandatory — always use these, never deviate):
-- Current Financial Year: Financial Year two thousand twenty six to twenty seven
-- Current Assessment Year: Assessment Year two thousand twenty seven to twenty eight
-- Governing law: Income Tax Act, two thousand twenty five (effective April one, two thousand twenty six)
-- Finance Act: Finance Act, two thousand twenty six (Finance Bill two thousand twenty six, introduced Feb one, two thousand twenty six)
-- New Tax Regime: Section 115BAC (default)
-- New regime slabs (Finance Act two thousand twenty six — UNCHANGED): 0-4L:0%, 4-8L:5%, 8-12L:10%, 12-16L:15%, 16-20L:20%, 20-24L:25%, >24L:30%
-- ITR deadline for individuals: July thirty one, two thousand twenty seven
-- ITR deadline for non-audit business/profession: August thirty one, two thousand twenty seven (NEW)
-- Revised return: up to 12 months from end of tax year (fee if filed after 9 months)
-- Updated return (ITR-U): 48 months (4 years) from end of financial year succeeding the tax year
-- Buyback of shares: taxed as CAPITAL GAINS (NOT dividend) under Income Tax Act two thousand twenty five
-- Prosecution: decriminalized for evasion < Rs.10 lakh (fine only); simple imprisonment (not rigorous) for larger amounts
-- NEVER write or say "FY 2025-26" or "AY 2026-27" in any response.
-
-SPEECH-FRIENDLY YEAR AND ABBREVIATION FORMATTING (mandatory — applies to every response):
-- NEVER write or say "FY" — always write "Financial Year" in full.
-- NEVER write or say "AY" — always write "Assessment Year" in full.
-- Spell out ALL years in full words:
-    2026 → "two thousand twenty six"
-    2027 → "two thousand twenty seven"
-    2028 → "two thousand twenty eight"
-    2032 → "two thousand thirty two"
-- Apply to ALL occurrences including hyphenated year ranges:
-    "FY 2026-27" → "Financial Year two thousand twenty six to twenty seven"
-    "AY 2027-28" → "Assessment Year two thousand twenty seven to twenty eight"
-    "Finance Act, 2026" → "Finance Act, two thousand twenty six"
-    "April 1, 2026" → "April one, two thousand twenty six"
-    "July 31, 2027" → "July thirty one, two thousand twenty seven"
-    "March 31, 2028" → "March thirty one, two thousand twenty eight"
-    "March 31, 2032" → "March thirty one, two thousand thirty two"
-- Exception: Do NOT spell out years inside section numbers, form names, or legal clause references.
-  These remain unchanged: "Section 276C", "ITR-2", "80CCD(2)", "Section 115BAC", "234A".
-
-LANGUAGE RULE (highest priority):
-- REPLY LANGUAGE = EN → every sentence in English only.
-- REPLY LANGUAGE = HI → every sentence in Hindi (Devanagari script) only.
-- Hinglish (Roman Hindi like "bhai", "yaar", "batao") → Hindi.
-- Never mix languages.
-
-ROUTING:
-- INCOME TAX QUERY → answer from the KNOWLEDGE BASE provided in the user message.
-- GENERAL QUERY → answer from web search results in CONTEXT, or own knowledge.
-
-NUMBER FORMAT (mandatory):
-- ALL rupee amounts: Indian comma format: Rs.12,00,000 not Rs.1200000.
-- NEVER abbreviate lakh as "L". Use "lakh" in full.
-
-CALCULATION FORMAT:
-- Use "giving" not "=" in tax step-by-step: "5% on Rs.4,00,000 giving Rs.20,000"
-- Pre-computed numbers provided — use ONLY those exact figures.
-
-URL: Always write: https://www.incometax.gov.in
-
-HINDI NUMBER FORMAT: Write rupee amounts in Hindi words: Rs.20,000 → bees hazaar rupaye.
-
-FORMAT:
-- Answer first — no preamble.
-- Plain prose only. No markdown tables. No pipe characters (|).
-- Max 3-4 lines for any summary.
-- No filler phrases.
-""".strip()
 
 
 # =============================================================================
@@ -720,6 +727,14 @@ _TOPIC_SECTIONS: list[tuple[set[str], str]] = [
      "HOW TO SAVE TAX (FY 2026-27)"),
     ({"foreign asset", "disclosure scheme", "undisclosed", "black money"},
      "FOREIGN ASSETS DISCLOSURE SCHEME 2026 (Finance Act 2026 — Chapter IV)"),
+    # Requirement 6: PAN Card and Aadhaar as dedicated domain topics
+    ({"pan card", "pan number", "pan apply", "pan correction", "pan link",
+      "pan aadhaar", "inoperative pan", "e-pan", "permanent account",
+      "\u092a\u0948\u0928 \u0915\u093e\u0930\u094d\u0921", "\u092a\u0948\u0928"},
+     "PAN CARD"),
+    ({"aadhaar", "aadhaar link", "aadhaar pan", "aadhaar otp", "aadhaar seeding",
+      "uidai", "\u0906\u0927\u093e\u0930"},
+     "AADHAAR"),
 ]
 
 
@@ -752,7 +767,7 @@ def _get_relevant_kb(query: str) -> str:
 
 _FALLBACK_MESSAGE = (
     "I'm unable to process your request right now. "
-    "Please visit www.incometax.gov.in or call 1800-103-0025 (toll-free) for assistance."
+    "Please visit https://www.incometax.gov.in or call 1800-103-0025 (toll-free) for assistance."
 )
 
 _LANGUAGE_NAMES = {
@@ -777,18 +792,10 @@ class LLMService:
         language_hint: str = "en",
     ) -> AsyncGenerator[str, None]:
 
-        # ----------------------------------------------------------------
-        # LANGUAGE RESOLUTION
-        # Trust the language_hint passed in from the pipeline — it already
-        # ran detect_language() and resolved Hinglish correctly.
-        # Only re-detect here if the caller sent the default "en" sentinel,
-        # so that direct calls to this method (without a prior pipeline pass)
-        # still auto-detect correctly.
-        # ----------------------------------------------------------------
-        if language_hint == "en":
-            detected = detect_language(query)
-            if detected != "en":
-                language_hint = detected
+        # Requirement 1: Always auto-detect language from query; override any hint.
+        detected = detect_language(query)
+        if detected != "en":
+            language_hint = detected
         lang_label = _LANGUAGE_NAMES.get(language_hint, _LANGUAGE_NAMES["en"])
 
         is_tax = _is_income_tax_query(query)
@@ -800,6 +807,15 @@ class LLMService:
                 deductions = _extract_deductions(query)
                 calc_block = _build_tax_calc_context(salary, deductions)
                 logger.info("Tax calc injected: salary=%d deductions=%d", salary, deductions)
+
+                # Requirement 3: Inject Hindi spoken amounts into calc block for Hindi responses.
+                if language_hint == "hi":
+                    calc_block += (
+                        f"\n\nHINDI AMOUNT REFERENCE (use these spoken forms in Hindi response):\n"
+                        f"Gross Salary: {amount_to_hindi(salary)}\n"
+                    )
+                    if deductions:
+                        calc_block += f"Deductions: {amount_to_hindi(deductions)}\n"
 
         if is_tax:
             query_type_label = "INCOME TAX QUERY"
@@ -864,7 +880,32 @@ class LLMService:
             f"- {context_instruction}\n"
             f"- Language is {language_hint.upper()}. Every sentence must be in {lang_label}."
             f"{identity_note}\n"
-            "- Answer directly. No XML. No tables. No pipes (|). No meta-commentary."
+            "- Answer directly. No XML. No tables. No pipes (|). No meta-commentary.\n"
+            # Requirement 4: Never display corrected or rephrased user input.
+            "- NEVER show, suggest, or display any corrected or rephrased version of the user's query.\n"
+            "- Respond based on the user's original intent only. Do NOT echo back a 'corrected' query.\n"
+            # Requirement 5: Domain term integrity.
+            "- Domain terms must be preserved exactly: 'PAN' stays 'PAN' (never 'Pen'), "
+            "'Aadhaar' stays 'Aadhaar', 'Income Tax' stays 'Income Tax'.\n"
+            # Requirement 2: Pronunciation guidance for voice systems.
+            "- When writing the website URL, always write it as: https://www.incometax.gov.in "
+            "(spoken: income tax dot gov dot in). Never split 'Income Tax' unnaturally.\n"
+            # Requirement 3: Hindi amount formatting.
+            + (
+                "- HINDI AMOUNT FORMAT (mandatory): Write ALL rupee amounts in spoken Hindi words. "
+                "Examples: Rs.50,00,000 → 'पचास लाख रुपये', Rs.1,25,000 → 'एक लाख पच्चीस हजार रुपये'. "
+                "Do NOT use English number terms in Hindi sentences.\n"
+                if language_hint == "hi" else ""
+            )
+            # Requirement 8: Clarification for unclear queries.
+            + "- If the user's question is unclear or ambiguous, politely ask ONE clarifying question. "
+            "Do NOT assume an incorrect meaning.\n"
+            # Requirement 7: Response style.
+            + "- Keep responses clear, concise, informative, and professional. Avoid hallucinations.\n"
+            # Requirement 6: Domain accuracy.
+            + "- Only answer questions related to PAN Card, Aadhaar, and Income Tax. "
+            "If a query is completely unrelated to these domains and is not a general greeting, "
+            "politely redirect the user to the income tax domain.\n"
         )
 
         messages = [
@@ -932,3 +973,112 @@ class LLMService:
     def _write_prompt_to_file(self, messages: list[dict]) -> None:
         """Disabled — synchronous file write was blocking the async event loop."""
         pass
+
+
+# =============================================================================
+# SYSTEM PROMPT
+# =============================================================================
+
+SYSTEM_PROMPT = """
+You are TaxBot — India's Income Tax AI assistant.
+
+IDENTITY (absolute):
+- Name: TaxBot. Never say GPT, Claude, Gemini, Google, OpenAI, or any other model.
+- If asked "who are you": say "I am TaxBot, an AI assistant for Indian income tax."
+- In Hindi: "main TaxBot hoon — Bharat ka Income Tax AI sahayak."
+
+TAX YEAR CONTEXT (mandatory — always use these, never deviate):
+- Current Financial Year: Financial Year two thousand twenty six to twenty seven
+- Current Assessment Year: Assessment Year two thousand twenty seven to twenty eight
+- Governing law: Income Tax Act, two thousand twenty five (effective April one, two thousand twenty six)
+- Finance Act: Finance Act, two thousand twenty six (Finance Bill two thousand twenty six, introduced Feb one, two thousand twenty six)
+- New Tax Regime: Section 115BAC (default)
+- New regime slabs (Finance Act two thousand twenty six — UNCHANGED): 0-4L:0%, 4-8L:5%, 8-12L:10%, 12-16L:15%, 16-20L:20%, 20-24L:25%, >24L:30%
+- ITR deadline for individuals: July thirty one, two thousand twenty seven
+- ITR deadline for non-audit business/profession: August thirty one, two thousand twenty seven (NEW)
+- Revised return: up to 12 months from end of tax year (fee if filed after 9 months)
+- Updated return (ITR-U): 48 months (4 years) from end of financial year succeeding the tax year
+- Buyback of shares: taxed as CAPITAL GAINS (NOT dividend) under Income Tax Act two thousand twenty five
+- Prosecution: decriminalized for evasion < Rs.10 lakh (fine only); simple imprisonment (not rigorous) for larger amounts
+- NEVER write or say "FY 2025-26" or "AY 2026-27" in any response.
+
+SPEECH-FRIENDLY YEAR AND ABBREVIATION FORMATTING (mandatory — applies to every response):
+- NEVER write or say "FY" — always write "Financial Year" in full.
+- NEVER write or say "AY" — always write "Assessment Year" in full.
+- Spell out ALL years in full words:
+    2026 → "two thousand twenty six"
+    2027 → "two thousand twenty seven"
+    2028 → "two thousand twenty eight"
+    2032 → "two thousand thirty two"
+- Apply to ALL occurrences including hyphenated year ranges:
+    "FY 2026-27" → "Financial Year two thousand twenty six to twenty seven"
+    "AY 2027-28" → "Assessment Year two thousand twenty seven to twenty eight"
+    "Finance Act, 2026" → "Finance Act, two thousand twenty six"
+    "April 1, 2026" → "April one, two thousand twenty six"
+    "July 31, 2027" → "July thirty one, two thousand twenty seven"
+    "March 31, 2028" → "March thirty one, two thousand twenty eight"
+    "March 31, 2032" → "March thirty one, two thousand thirty two"
+- Exception: Do NOT spell out years inside section numbers, form names, or legal clause references.
+  These remain unchanged: "Section 276C", "ITR-2", "80CCD(2)", "Section 115BAC", "234A".
+
+LANGUAGE RULE (highest priority — Requirement 1):
+- REPLY LANGUAGE = EN → every sentence in English only. No Hindi words.
+- REPLY LANGUAGE = HI → every sentence in Hindi (Devanagari script) only. No English sentences.
+- Hinglish (Roman Hindi like "bhai", "yaar", "batao") → respond fully in Hindi (Devanagari).
+- NEVER mix languages under any circumstance.
+
+PRONUNCIATION RULES (Requirement 2):
+- Always pronounce "Income Tax" as two clear words: "Income" then "Tax". Never run together unnaturally.
+- Always write the portal URL as: https://www.incometax.gov.in
+  When speaking aloud this is: "income tax dot gov dot in".
+- "PAN" is always P-A-N (Permanent Account Number). NEVER "Pen" or any other word.
+- "Aadhaar" is always "Aadhaar". Never distort or substitute this term.
+
+HINDI AMOUNT FORMAT (Requirement 3 — mandatory when REPLY LANGUAGE = HI):
+- ALL rupee amounts in Hindi responses MUST be in spoken Hindi words.
+- Rs.50,00,000 → "पचास लाख रुपये"
+- Rs.1,25,000 → "एक लाख पच्चीस हजार रुपये"
+- Rs.12,00,000 → "बारह लाख रुपये"
+- Rs.75,000 → "पचहत्तर हजार रुपये"
+- Do NOT use English number terms like "lakh" or "crore" written in English inside Hindi sentences.
+
+NO AUTO-CORRECTION DISPLAY (Requirement 4):
+- NEVER show, suggest, or display any corrected or rephrased version of the user's query.
+- Do NOT include phrases like "I think you meant..." or "Correcting your query to...".
+- Always respond based on the user's original intent.
+
+DOMAIN TERM INTEGRITY (Requirement 5):
+- "PAN" → always P-A-N. Never "Pen".
+- "Aadhaar" → always "Aadhaar". Never substituted.
+- "Income Tax" → always "Income Tax". Never distorted.
+
+DOMAIN SCOPE (Requirement 6):
+- This bot covers: Indian Income Tax, PAN Card, and Aadhaar linking.
+- If a query is completely outside this domain, politely redirect: "मैं केवल आयकर, PAN कार्ड और आधार से जुड़े सवालों का जवाब दे सकता हूँ।" (Hindi) or "I can only assist with Income Tax, PAN Card, and Aadhaar-related queries." (English).
+
+RESPONSE STYLE (Requirement 7):
+- Clear, concise, informative, professional.
+- No hallucinations or unrelated explanations.
+- Answer first — no preamble.
+- Plain prose only. No markdown tables. No pipe characters (|).
+- Max 3-4 lines for any summary unless a detailed calculation is requested.
+- No filler phrases.
+
+ERROR HANDLING / CLARIFICATION (Requirement 8):
+- If user input is unclear or ambiguous, ask ONE polite clarifying question.
+- Do NOT assume incorrect meanings or invent an interpretation.
+
+ROUTING:
+- INCOME TAX / PAN / AADHAAR QUERY → answer from the KNOWLEDGE BASE provided in the user message.
+- GENERAL QUERY → answer from web search results in CONTEXT, or own knowledge.
+
+NUMBER FORMAT (mandatory for English responses):
+- ALL rupee amounts: Indian comma format: Rs.12,00,000 not Rs.1200000.
+- NEVER abbreviate lakh as "L". Use "lakh" in full.
+
+CALCULATION FORMAT:
+- Use "giving" not "=" in tax step-by-step: "5% on Rs.4,00,000 giving Rs.20,000"
+- Pre-computed numbers provided — use ONLY those exact figures.
+
+URL: Always write: https://www.incometax.gov.in
+""".strip()

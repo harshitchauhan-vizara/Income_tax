@@ -559,7 +559,9 @@ Must be submitted at the **start of each financial year** to every bank/payer se
 - 20%
 This is a significant penalty for non-linking — ensure Aadhaar-PAN linking is done.
 
----
+### Q: Is there any fee for PAN correction?
+**A:** No, fees will be applied for the PAN correction.
+
 
 ## 12. TCS — Tax Collected at Source
 
